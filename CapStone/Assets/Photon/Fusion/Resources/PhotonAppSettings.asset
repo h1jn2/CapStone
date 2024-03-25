@@ -16,14 +16,14 @@ MonoBehaviour:
     AppIdFusion: 23d845b2-3ce0-4f9a-87cf-f43dfbb784a6
     AppIdChat: 
     AppIdVoice: 
-    AppVersion: 0.0.1
+    AppVersion: 0.0.01
     UseNameServer: 1
     FixedRegion: kr
     Server: 
     Port: 0
     ProxyServer: 
     Protocol: 0
-    EnableProtocolFallback: 1
+    EnableProtocolFallback: 0
     AuthMode: 0
     EnableLobbyStatistics: 0
     NetworkLogging: 1
