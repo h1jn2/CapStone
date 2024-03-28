@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -9,6 +10,18 @@ using Photon.Realtime;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
+    #region Public Fields
+
+    public static GameManager Instance;
+    #endregion
+    
+    #region MonoBehaviour
+
+    void Start()
+    {
+        Instance = this;
+    }
+    #endregion
     #region Photon Callbacks
 
     public override void OnLeftRoom()
