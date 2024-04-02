@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     #region Public Fields
 
     public static GameManager Instance;
+    public GameObject playerPrefab;
     #endregion
     
     #region MonoBehaviour
@@ -20,6 +21,15 @@ public class GameManager : MonoBehaviourPunCallbacks
     void Start()
     {
         Instance = this;
+
+        if (PlayerManager.LocalPlayerInstance == null)
+        {
+            PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity, 0);
+        }
+        else
+        {
+            Debug.Log("플레이어 프리팹 로드중");
+        }
     }
     #endregion
     #region Photon Callbacks

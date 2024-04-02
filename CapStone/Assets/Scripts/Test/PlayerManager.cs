@@ -37,6 +37,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     public float Health = 1f;
     public GameObject palyerPrefab;
+    public static GameObject LocalPlayerInstance;
 
     #endregion
     
@@ -52,6 +53,12 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             beams.SetActive(false);
         }
+
+        if (photonView.IsMine)
+        {
+            PlayerManager.LocalPlayerInstance = this.gameObject;
+        }
+        DontDestroyOnLoad(this.gameObject);
     }
 
     void Start()
