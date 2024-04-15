@@ -8474,8 +8474,7 @@ MonoBehaviour:
     gender: 0
     type: 0
     userid: asd
-  obj_local: {fileID: 0}
-  _connect: 0
+  obj_local: {fileID: 5515811091786439511, guid: c3e4a75474b7faf44856e0141822baac, type: 3}
 --- !u!1 &1611861793
 GameObject:
   m_ObjectHideFlags: 0

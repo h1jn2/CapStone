@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public GameObject cabinet;
+
     [SerializeField]
     private float mouseSpeed = 8f;
     [SerializeField]
@@ -30,13 +32,12 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isMoving = false;
     private bool isRunning = false;
-    /*private bool isPickUp = false;*/
-    private bool isDead = false;
     private bool canSprint = true;
-
-    private bool isBodyRotating = false;
+    private bool isHiding = false;
 
     private Animator animator;
+
+    private bool isInsideCabinet = false;
 
     private void Awake()
     {
@@ -51,32 +52,26 @@ public class PlayerMovement : MonoBehaviour
         Control();
         Stamina();
         UpdateAnimations();
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (IsPlayerNearCabinet())
+            {
+                ToggleHide();
+            }
+            else if (isInsideCabinet)
+            {
+                ToggleHide();
+            }
+        }
     }
 
-    /*private void LateUpdate()
+    private void LateUpdate()
     {
         mouseX += Input.GetAxis("Mouse X") * mouseSpeed;
         mouseY += Input.GetAxis("Mouse Y") * mouseSpeed;
 
-        head.transform.localEulerAngles = new Vector3(mouseX, -mouseY, 0);
-
-        if (!isBodyRotating && mouseX > 60 || mouseX < -60)
-        {
-            isBodyRotating = true;
-            StartCoroutine(RotateBody());
-        }
-
-        if (isBodyRotating)
-        {
-            transform.rotation = Quaternion.Euler(0, -mouseX, 0);
-        }
+        this.transform.localEulerAngles = new Vector3(-mouseY, mouseX, 0);
     }
-
-    private IEnumerator RotateBody()
-    {
-        yield return new WaitForSeconds(0.5f);
-        isBodyRotating = false;
-    }*/
 
     private void Control()
     {
@@ -90,10 +85,23 @@ public class PlayerMovement : MonoBehaviour
 
         if (controller.isGrounded)
         {
-            move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-            move = controller.transform.TransformDirection(move);
-            isMoving = move.magnitude > 0;
-            isRunning = canSprint && Input.GetKey(KeyCode.LeftShift);
+            float moveX = Input.GetAxisRaw("Horizontal");
+            float moveZ = Input.GetAxisRaw("Vertical");
+
+            Vector3 moveDirection = new Vector3(moveX, 0f, moveZ).normalized;
+
+            if (moveDirection != Vector3.zero)
+            {
+                move = transform.TransformDirection(moveDirection);
+                isMoving = true;
+                isRunning = canSprint && Input.GetKey(KeyCode.LeftShift);
+            }
+            else
+            {
+                move = Vector3.zero;
+                isMoving = false;
+                isRunning = false;
+            }
         }
         else
         {
@@ -123,5 +131,27 @@ public class PlayerMovement : MonoBehaviour
         {
             canSprint = true;
         }
+    }
+
+    private bool IsPlayerNearCabinet()
+    {
+        float distance = Vector3.Distance(transform.position, cabinet.transform.position);
+        return distance < 3f;
+    }
+
+    private void ToggleHide()
+    {
+        if (isHiding)
+        {
+            transform.position = cabinet.transform.position + new Vector3(0f, 1f, 0f);
+            isInsideCabinet = false;
+        }
+        else
+        {
+            transform.position = cabinet.transform.position;
+            isInsideCabinet = true;
+        }
+
+        isHiding = !isHiding;
     }
 }
