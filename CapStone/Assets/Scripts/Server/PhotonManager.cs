@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.SceneManagement;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PhotonManager : MonoBehaviourPunCallbacks
 {
@@ -11,18 +13,29 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public UserData LocalDate;
     //public Transform spawn_point;
     public GameObject obj_local;
-    public static PhotonManager instance = new PhotonManager();
+    public static PhotonManager instance;
 
-    
 
-    private void Start()
+    private void Awake()
     {
+        PhotonNetwork.AutomaticallySyncScene = true;
         if (instance== null)
         {
             instance = this;
-            
+            DontDestroyOnLoad(this);    
         }
-        DontDestroyOnLoad(this);
+        else
+        {
+            if (instance != this)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+    }
+
+    private void Start()
+    {
+        
         DefaultPool pool = PhotonNetwork.PrefabPool as DefaultPool;
         pool.ResourceCache.Clear();
         if (pool != null && list_Prefabs != null)
@@ -69,12 +82,22 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         }
     }
 
+    private void LoadArea()
+    {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            Debug.Log("마스터 클라이언트가 아닙니다.");
+            return;
+        }
+        PhotonNetwork.LoadLevel("Test");
+    }
+
     #region ServerCallBacks
 
     public override void OnConnectedToMaster()
     {
         Debug.Log("포톤 마스터 서버 접속완료");
-        //PhotonNetwork.JoinLobby();
+        
     }
 
     public override void OnJoinedLobby()
@@ -83,12 +106,37 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedRoom()
     {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.CurrentRoom.SetCustomProperties(new Hashtable(){{"RoomState", "Waiting"}});
+            LoadArea();
+        }
         if (!PhotonNetwork.IsMasterClient)
         {
             return;
         }
-        PhotonNetwork.LoadLevel("Test");
         CreatePlayer(LocalDate);
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            LoadArea();
+        }
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            LoadArea();
+        }
+    }
+
+    public override void OnLeftRoom()
+    {
+        SceneManager.LoadScene("MainScene");
     }
 
     public override void OnDisconnected(DisconnectCause cause)

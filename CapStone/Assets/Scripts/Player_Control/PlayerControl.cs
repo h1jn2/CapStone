@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
     public GameObject cabinet;
@@ -49,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Update()
     {
+        
         Control();
         Stamina();
         UpdateAnimations();
