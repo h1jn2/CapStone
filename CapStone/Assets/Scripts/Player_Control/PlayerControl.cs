@@ -4,7 +4,7 @@ using Photon.Pun;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviourPun
 {
     public GameObject cabinet;
 
@@ -38,33 +38,37 @@ public class PlayerMovement : MonoBehaviour
     private bool isHiding = false;
 
     private Animator animator;
+    public PhotonView pv;
 
     private bool isInsideCabinet = false;
 
     private void Awake()
     {
-        controller = GetComponent<CharacterController>();
+        controller = this.GetComponent<CharacterController>();
         move = Vector3.zero;
         gravity = 10f;
-        animator = GetComponent<Animator>();
+        animator = this.gameObject.GetComponent<Animator>();
+        pv = this.gameObject.GetComponent<PhotonView>();
     }
 
     public void Update()
     {
-        
-        Control();
-        Stamina();
-        UpdateAnimations();
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (pv.IsMine)
         {
-            if (IsPlayerNearCabinet())
+            Control();
+            Stamina();
+            UpdateAnimations();
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                ToggleHide();
-            }
-            else if (isInsideCabinet)
-            {
-                ToggleHide();
-            }
+                if (IsPlayerNearCabinet())
+                {
+                    ToggleHide();
+                }
+                else if (isInsideCabinet)
+                {
+                    ToggleHide();
+                }
+            }    
         }
     }
 

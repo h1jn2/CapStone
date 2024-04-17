@@ -9,13 +9,16 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     public float health = 100f;
 
     public static GameObject LocalPlayerInstance;
-    
-    // Start is called before the first frame update
-    
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        if (GetComponent<PhotonView>().IsMine)
+        {
+            this.gameObject.name += "(LocalPlayer)";
+        }
+        else
+        {
+            this.gameObject.name += "(OtherPlayer)";
+        }
     }
 }

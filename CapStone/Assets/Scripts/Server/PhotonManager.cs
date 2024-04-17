@@ -5,19 +5,22 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PhotonManager : MonoBehaviourPunCallbacks
 {
     public List<GameObject> list_Prefabs;
     public UserData LocalDate;
-    //public Transform spawn_point;
+    public Transform spawn_point;
     public GameObject obj_local;
     public static PhotonManager instance;
+    public bool isLoading;
 
 
     private void Awake()
     {
+        isLoading = false;
         PhotonNetwork.AutomaticallySyncScene = true;
         if (instance== null)
         {
@@ -62,7 +65,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.MaxPlayers = 4;
-        PhotonNetwork.CreateRoom("test", roomOptions, null);
+        PhotonNetwork.CreateRoom("Capstone", roomOptions, TypedLobby.Default);
     }
     private void JoinRoom()
     {
@@ -70,15 +73,17 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         roomOption.MaxPlayers = 4;
         PhotonNetwork.JoinOrCreateRoom("Capstone", roomOption, TypedLobby.Default);
     }
-    private void CreatePlayer(UserData m_data)
+
+
+    private void m_CreatePlayer(UserData m_data)
     {
         if (m_data.gender == 0)
         {
-            obj_local = PhotonNetwork.Instantiate(list_Prefabs[0].name, Vector3.zero, Quaternion.identity);
+            obj_local = PhotonNetwork.Instantiate(list_Prefabs[0].name, spawn_point.position, Quaternion.identity);
         }
         else if (m_data.gender == 1)
         {
-            obj_local = PhotonNetwork.Instantiate(list_Prefabs[0].name, Vector3.zero, Quaternion.identity);
+            obj_local = PhotonNetwork.Instantiate(list_Prefabs[0].name, spawn_point.position, Quaternion.identity);
         }
     }
 
@@ -89,6 +94,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             Debug.Log("마스터 클라이언트가 아닙니다.");
             return;
         }
+        Debug.Log(PhotonNetwork.LevelLoadingProgress);
         PhotonNetwork.LoadLevel("Test");
     }
 
@@ -110,28 +116,22 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.CurrentRoom.SetCustomProperties(new Hashtable(){{"RoomState", "Waiting"}});
             LoadArea();
+            OnStartCreatePlayer();
         }
         if (!PhotonNetwork.IsMasterClient)
         {
-            return;
+            m_CreatePlayer(LocalDate);
         }
-        CreatePlayer(LocalDate);
+        
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            LoadArea();
-        }
+        Debug.Log("새인원 진입");
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            LoadArea();
-        }
     }
 
     public override void OnLeftRoom()
@@ -157,6 +157,46 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public void btn_click_createRoom()
     {
         CreateRoom();
+    }
+
+    public void btn_click_joinroom()
+    {
+        JoinRoom();
+    }
+
+    #endregion
+
+    #region 코루틴
+
+    private Coroutine _coroutineCreatePlayer;
+    private void OnStartCreatePlayer()
+    {
+        if(_coroutineCreatePlayer != null)
+            StopCoroutine(_coroutineCreatePlayer);
+
+        _coroutineCreatePlayer = StartCoroutine(IEnum_CreatePlayer());
+    }
+    
+    IEnumerator IEnum_CreatePlayer()
+    {
+        int cnt=0;
+        Debug.Log("코루틴 시작");
+        while (PhotonNetwork.LevelLoadingProgress < 1f)
+        {
+            if (cnt > 10000)
+            {
+                Debug.LogError("스폰불가");
+                yield break;
+            }
+            Debug.Log(PhotonNetwork.LevelLoadingProgress);
+            cnt++;
+            yield return null;
+        }
+        
+        m_CreatePlayer(LocalDate);
+        Debug.Log("생성");
+        _coroutineCreatePlayer = null;
+        yield break;
     }
 
     #endregion
