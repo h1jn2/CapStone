@@ -5,7 +5,6 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms.Impl;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PhotonManager : MonoBehaviourPunCallbacks
@@ -18,6 +17,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public bool isLoading;
 
 
+    //게임을 실행중 포톤매니저는 무조건 하나만 있어야되기때문에 싱클톤으로 실행
     private void Awake()
     {
         isLoading = false;
@@ -51,6 +51,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         InitPhoton();
     }
 
+    //서버설정초기화
     private void InitPhoton()
     {
         if (!PhotonNetwork.IsConnected)
@@ -61,12 +62,15 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         }
     }
 
+    //방생성
     private void CreateRoom()
     {
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.MaxPlayers = 4;
         PhotonNetwork.CreateRoom("Capstone", roomOptions, TypedLobby.Default);
     }
+    
+    //방입장
     private void JoinRoom()
     {
         RoomOptions roomOption = new RoomOptions();
@@ -74,7 +78,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinOrCreateRoom("Capstone", roomOption, TypedLobby.Default);
     }
 
-
+    //스테이지에 플레이어 생성
     private void m_CreatePlayer(UserData m_data)
     {
         if (m_data.gender == 0)
@@ -87,6 +91,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         }
     }
 
+    //마스터 클라이언트가 방을 생성시 스테이지씬 로딩
     private void LoadArea()
     {
         if (!PhotonNetwork.IsMasterClient)
@@ -97,6 +102,12 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         Debug.Log(PhotonNetwork.LevelLoadingProgress);
         PhotonNetwork.LoadLevel("Test");
     }
+
+    private void Spawn_item()
+    {
+        
+    }
+    
 
     #region ServerCallBacks
 
@@ -132,6 +143,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
+        Debug.Log("플레이어 퇴장");
     }
 
     public override void OnLeftRoom()
@@ -149,7 +161,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     #region  buttonMethod
 
-    public void btn_click_start()
+    public void btn_click_Mainstart()
     {
         PhotonNetwork.JoinLobby();
     }
@@ -164,8 +176,13 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         JoinRoom();
     }
 
-    #endregion
+    public void btn_click_StageStart()
+    {
+        
+    }
 
+    #endregion
+    
     #region 코루틴
 
     private Coroutine _coroutineCreatePlayer;

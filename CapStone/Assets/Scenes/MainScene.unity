@@ -3329,7 +3329,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1587655999}
         m_TargetAssemblyTypeName: PhotonManager, Assembly-CSharp
-        m_MethodName: btn_click_start
+        m_MethodName: btn_click_Mainstart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8476,6 +8476,7 @@ MonoBehaviour:
     userid: asd
   spawn_point: {fileID: 9163219128724489307, guid: bc215c77d52655d499190d1c57ef7d00, type: 3}
   obj_local: {fileID: 3166779889350530769, guid: 9ca4e6d38d8f94e4683ef3f67162be09, type: 3}
+  isLoading: 0
 --- !u!1 &1611861793
 GameObject:
   m_ObjectHideFlags: 0
