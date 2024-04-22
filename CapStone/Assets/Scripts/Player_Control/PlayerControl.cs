@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
@@ -6,6 +7,8 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviourPun
 {
     public GameObject cabinet;
+    private GameObject Door;
+    private DoorManager DoorManager;
 
     [SerializeField]
     private float mouseSpeed = 8f;
@@ -39,6 +42,7 @@ public class PlayerControl : MonoBehaviourPun
     private bool isRunning = false;
     private bool canSprint = true;
     private bool isHiding = false;
+    private bool isOpen = false;
 
     private Animator animator;
     private PhotonView punview;
@@ -88,7 +92,7 @@ public class PlayerControl : MonoBehaviourPun
         head.transform.localRotation = Quaternion.Euler(-mouseX, 0, mouseY);
         this.transform.localRotation = Quaternion.Euler(0, mouseX, 0);
     }
-
+    
     private void Control()
     {
         float currentSpeed = canSprint && Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : moveSpeed;
@@ -172,4 +176,36 @@ public class PlayerControl : MonoBehaviourPun
 
         isHiding = !isHiding;
     }
+
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (photonView.IsMine)
+        {
+            if (other.CompareTag("Door"))
+            {
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    other.GetComponent<DoorManager>().ChangeState();
+                }
+            }
+            
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (photonView.IsMine)
+        {
+            if (other.CompareTag("Door"))
+            {
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    other.GetComponent<DoorManager>().ChangeState();
+                }
+            }
+            
+        }
+    }
+
+    
 }
