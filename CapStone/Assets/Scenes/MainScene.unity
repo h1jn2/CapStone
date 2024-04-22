@@ -8469,13 +8469,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   list_Prefabs:
-  - {fileID: 3166779889350530769, guid: 9ca4e6d38d8f94e4683ef3f67162be09, type: 3}
+  - {fileID: 639043487640811862, guid: a3588f068407c8f4ebec00e4c0267288, type: 3}
   LocalDate:
     gender: 0
     type: 0
     userid: asd
   spawn_point: {fileID: 9163219128724489307, guid: bc215c77d52655d499190d1c57ef7d00, type: 3}
-  obj_local: {fileID: 3166779889350530769, guid: 9ca4e6d38d8f94e4683ef3f67162be09, type: 3}
+  obj_local: {fileID: 639043487640811862, guid: a3588f068407c8f4ebec00e4c0267288, type: 3}
   isLoading: 0
 --- !u!1 &1611861793
 GameObject:

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-public class PlayerMovement : MonoBehaviourPun
+public class PlayerControl : MonoBehaviourPun
 {
     public GameObject cabinet;
 
     [SerializeField]
     private float mouseSpeed = 8f;
+    [SerializeField]
+    private float rotationSpeed = 1f;
     [SerializeField]
     private float moveSpeed = 5f;
     [SerializeField]
@@ -24,6 +25,8 @@ public class PlayerMovement : MonoBehaviourPun
     private float reStamina = 10f;
     [SerializeField]
     private GameObject head;
+    [SerializeField]
+    private GameObject PlayerCamera;
 
     private float mouseX;
     private float mouseY;
@@ -38,22 +41,22 @@ public class PlayerMovement : MonoBehaviourPun
     private bool isHiding = false;
 
     private Animator animator;
-    public PhotonView pv;
+    private PhotonView punview;
 
     private bool isInsideCabinet = false;
 
     private void Awake()
     {
-        controller = this.GetComponent<CharacterController>();
+        controller = GetComponent<CharacterController>();
         move = Vector3.zero;
         gravity = 10f;
-        animator = this.gameObject.GetComponent<Animator>();
-        pv = this.gameObject.GetComponent<PhotonView>();
+        animator = GetComponent<Animator>();
+        punview = GetComponent<PhotonView>();
     }
 
     public void Update()
     {
-        if (pv.IsMine)
+        if (punview.IsMine)
         {
             Control();
             Stamina();
@@ -70,14 +73,20 @@ public class PlayerMovement : MonoBehaviourPun
                 }
             }    
         }
+        
     }
 
     private void LateUpdate()
     {
+        PlayerCamera.transform.position = head.transform.position;
+
         mouseX += Input.GetAxis("Mouse X") * mouseSpeed;
         mouseY += Input.GetAxis("Mouse Y") * mouseSpeed;
 
-        this.transform.localEulerAngles = new Vector3(-mouseY, mouseX, 0);
+        mouseY = Mathf.Clamp(mouseY, -60f, 60f);
+
+        head.transform.localRotation = Quaternion.Euler(-mouseX, 0, mouseY);
+        this.transform.localRotation = Quaternion.Euler(0, mouseX, 0);
     }
 
     private void Control()
@@ -94,12 +103,14 @@ public class PlayerMovement : MonoBehaviourPun
         {
             float moveX = Input.GetAxisRaw("Horizontal");
             float moveZ = Input.GetAxisRaw("Vertical");
-
-            Vector3 moveDirection = new Vector3(moveX, 0f, moveZ).normalized;
+            Vector3 moveDirection = (moveX * PlayerCamera.transform.right + moveZ * PlayerCamera.transform.forward).normalized;
 
             if (moveDirection != Vector3.zero)
             {
-                move = transform.TransformDirection(moveDirection);
+                Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+                move = moveDirection * currentSpeed;
                 isMoving = true;
                 isRunning = canSprint && Input.GetKey(KeyCode.LeftShift);
             }
@@ -115,7 +126,7 @@ public class PlayerMovement : MonoBehaviourPun
             move.y -= gravity * Time.deltaTime;
         }
 
-        controller.Move(move * currentSpeed * Time.deltaTime);
+        controller.Move(move * Time.deltaTime);
     }
 
     private void UpdateAnimations()

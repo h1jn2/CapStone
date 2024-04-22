@@ -100,7 +100,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             return;
         }
         Debug.Log(PhotonNetwork.LevelLoadingProgress);
-        PhotonNetwork.LoadLevel("Test");
+        PhotonNetwork.LoadLevel("School");
     }
 
     private void Spawn_item()
