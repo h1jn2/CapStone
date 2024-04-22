@@ -9,6 +9,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     public float health = 100f;
 
     public static GameObject LocalPlayerInstance;
+    public GameObject playerCamera;
 
     private void Start()
     {
@@ -19,6 +20,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         else
         {
             this.gameObject.name += "(OtherPlayer)";
+            playerCamera.SetActive(false);
         }
     }
 }
