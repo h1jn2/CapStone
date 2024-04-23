@@ -7,8 +7,6 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviourPun
 {
     public GameObject cabinet;
-    private GameObject Door;
-    private DoorManager DoorManager;
 
     [SerializeField]
     private float mouseSpeed = 8f;
@@ -82,15 +80,18 @@ public class PlayerControl : MonoBehaviourPun
 
     private void LateUpdate()
     {
-        PlayerCamera.transform.position = head.transform.position;
+        if (punview.IsMine)
+        {
+            PlayerCamera.transform.position = head.transform.position;
 
-        mouseX += Input.GetAxis("Mouse X") * mouseSpeed;
-        mouseY += Input.GetAxis("Mouse Y") * mouseSpeed;
+            mouseX += Input.GetAxis("Mouse X") * mouseSpeed;
+            mouseY += Input.GetAxis("Mouse Y") * mouseSpeed;
 
-        mouseY = Mathf.Clamp(mouseY, -60f, 60f);
+            mouseY = Mathf.Clamp(mouseY, -60f, 60f);
 
-        head.transform.localRotation = Quaternion.Euler(-mouseX, 0, mouseY);
-        this.transform.localRotation = Quaternion.Euler(0, mouseX, 0);
+            head.transform.localRotation = Quaternion.Euler(-mouseX, 0, mouseY);
+            this.transform.localRotation = Quaternion.Euler(0, mouseX, 0);    
+        }
     }
     
     private void Control()
