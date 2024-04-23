@@ -5,15 +5,17 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class DoorManager : MonoBehaviour
+public class DoorManager : MonoBehaviourPunCallbacks
 {
     public bool isOpen= false;
     
     private Animator animator;
+    private PhotonView pv;
 
     private void Awake()
     {
         animator = this.GetComponent<Animator>();
+        pv = this.GetComponent<PhotonView>();
     }
     
 
@@ -27,16 +29,25 @@ public class DoorManager : MonoBehaviour
     {
         Debug.Log("실행");
         isOpen = !isOpen;
+        pv.RPC("OnChangeStatus", RpcTarget.AllBuffered, isOpen);
     }
     void AnimationUpdate()
     {
         animator.SetBool("isOpen", isOpen);
     }
 
-    /*
-    private void OnTriggerEnter(Collider other)
+    [PunRPC]
+    void OnChangeStatus(bool result)
     {
-        Debug.Log("문접근");
+        isOpen = result;
+        if (isOpen)
+        {
+            Debug.Log("문열림");
+        }
+        else
+        {
+            Debug.Log("문닫힘");
+        }
     }
-    */
+    
 }
