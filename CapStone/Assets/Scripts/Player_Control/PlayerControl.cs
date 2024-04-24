@@ -40,7 +40,6 @@ public class PlayerControl : MonoBehaviourPun
     private bool isRunning = false;
     private bool canSprint = true;
     private bool isHiding = false;
-    private bool isOpen = false;
 
     private Animator animator;
     private PhotonView punview;
@@ -73,7 +72,25 @@ public class PlayerControl : MonoBehaviourPun
                 {
                     ToggleHide();
                 }
-            }    
+            }
+            
+            // ssg - 문 충돌이 간헐적으로 감지되지 않는 현상을 해결하기 위한 코드
+            if (Input.GetKeyUp(KeyCode.E))
+            {
+                // 현 위치에서 ray 쏨
+                if(Physics.Raycast(transform.position, transform.up, out RaycastHit hit, 10))
+                {
+                    if (hit.collider == null)
+                        return;
+                    if (hit.collider.CompareTag("Door"))
+                    {
+                        if (photonView.IsMine)
+                        {
+                            hit.collider.GetComponent<DoorManager>().ChangeState();
+                        }    
+                    }
+                }
+            }
         }
         
     }
@@ -178,35 +195,23 @@ public class PlayerControl : MonoBehaviourPun
         isHiding = !isHiding;
     }
 
+    private void ChangeDoorState(Collider other)
+    {
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            if (other.CompareTag("Door"))
+            {
+                if (photonView.IsMine)
+                {
+                    other.GetComponent<DoorManager>().ChangeState();
+                }
+            }
+        }
+    }
 
     private void OnTriggerStay(Collider other)
     {
-        if (photonView.IsMine)
-        {
-            if (other.CompareTag("Door"))
-            {
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    other.GetComponent<DoorManager>().ChangeState();
-                }
-            }
-            
-        }
+        //ChangeDoorState(other);
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (photonView.IsMine)
-        {
-            if (other.CompareTag("Door"))
-            {
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    other.GetComponent<DoorManager>().ChangeState();
-                }
-            }
-            
-        }
-    }
-
-    
+  
 }

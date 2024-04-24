@@ -15,6 +15,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public GameObject obj_local;
     public static PhotonManager instance;
     public bool isLoading;
+    public static AsyncOperation SceneLoingsync;
 
 
     //게임을 실행중 포톤매니저는 무조건 하나만 있어야되기때문에 싱클톤으로 실행
@@ -100,7 +101,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             return;
         }
         Debug.Log(PhotonNetwork.LevelLoadingProgress);
-        PhotonNetwork.LoadLevel("School");
+        //PhotonNetwork.LoadLevel("School");
+        SceneLoingsync = SceneManager.LoadSceneAsync("School");
     }
 
     private void Spawn_item()
@@ -193,19 +195,21 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
         _coroutineCreatePlayer = StartCoroutine(IEnum_CreatePlayer());
     }
+
     
     IEnumerator IEnum_CreatePlayer()
     {
+            
         int cnt=0;
         Debug.Log("코루틴 시작");
-        while (PhotonNetwork.LevelLoadingProgress < 1f)
+        while (SceneLoingsync.progress < 1f)
         {
             if (cnt > 10000)
             {
                 Debug.LogError("스폰불가");
                 yield break;
             }
-            Debug.Log(PhotonNetwork.LevelLoadingProgress);
+            Debug.Log(SceneLoingsync.progress);
             cnt++;
             yield return null;
         }

@@ -18,18 +18,12 @@ public class DoorManager : MonoBehaviourPunCallbacks
         pv = this.GetComponent<PhotonView>();
     }
     
-
-    // Update is called once per frame
-    void Update()
-    {
-        AnimationUpdate();
-    }
-
     public void ChangeState()
     {
         Debug.Log("실행");
         isOpen = !isOpen;
         pv.RPC("OnChangeStatus", RpcTarget.AllBuffered, isOpen);
+        AnimationUpdate();
     }
     void AnimationUpdate()
     {
@@ -47,7 +41,7 @@ public class DoorManager : MonoBehaviourPunCallbacks
         else
         {
             Debug.Log("문닫힘");
-        }
+        }   
     }
     
 }
