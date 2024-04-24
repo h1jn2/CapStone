@@ -56,7 +56,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 60.000004
     OrthographicSize: 5
-    NearClipPlane: 0.15
+    NearClipPlane: 0.152
     FarClipPlane: 300
     Dutch: 0
     ModeOverride: 0
@@ -306,7 +306,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 1.6
-  m_Radius: 0.24
+  m_Radius: 0.35
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -324,7 +324,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78ac4ce2c6f0e824eafd9ed8233bbc3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cabinet: {fileID: 0}
   mouseSpeed: 3
   rotationSpeed: 3
   moveSpeed: 5
