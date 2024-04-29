@@ -4,24 +4,24 @@ using System.Collections;
 
 public class MoveCloud : MonoBehaviour
 {
-    public float speed = 15f; // ÀÌ¹ÌÁöÀÇ ÀÌµ¿ ¼Óµµ
+    public float speed = 15f; // ì´ë¯¸ì§€ì˜ ì´ë™ ì†ë„
 
-    private RectTransform rectTransform; // ÀÌ¹ÌÁöÀÇ RectTransform ÄÄÆ÷³ÍÆ®
+    private RectTransform rectTransform; // ì´ë¯¸ì§€ì˜ RectTransform ì»´í¬ë„ŒíŠ¸
 
     void Start()
     {
-        rectTransform = GetComponent<RectTransform>(); // ÀÌ¹ÌÁöÀÇ RectTransform ÄÄÆ÷³ÍÆ® °¡Á®¿À±â
+        rectTransform = GetComponent<RectTransform>(); // ì´ë¯¸ì§€ì˜ RectTransform ì»´í¬ë„ŒíŠ¸ ê°€ì ¸ì˜¤ê¸°
     }
 
     void Update()
     {
-        // ÀÌ¹ÌÁö¸¦ ¿À¸¥ÂÊÀ¸·Î ÀÌµ¿
+        // ì´ë¯¸ì§€ë¥¼ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ì´ë™
         rectTransform.Translate(Vector3.right * speed * Time.deltaTime);
 
-        // ÀÌ¹ÌÁö°¡ Äµ¹ö½º¸¦ ¹ş¾î³ª¸é
+        // ì´ë¯¸ì§€ê°€ ìº”ë²„ìŠ¤ë¥¼ ë²—ì–´ë‚˜ë©´
         if (rectTransform.anchoredPosition.x > Screen.width / 2 + rectTransform.rect.width / 2)
         {
-            // ÀÌ¹ÌÁö¸¦ Äµ¹ö½º ¿ŞÂÊ ³¡À¸·Î ÀÌµ¿
+            // ì´ë¯¸ì§€ë¥¼ ìº”ë²„ìŠ¤ ì™¼ìª½ ëìœ¼ë¡œ ì´ë™
             rectTransform.anchoredPosition = new Vector2(-Screen.width / 2 - rectTransform.rect.width / 2, rectTransform.anchoredPosition.y);
         }
     }

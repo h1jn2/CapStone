@@ -6,10 +6,16 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.SceneManagement;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using Random = UnityEngine.Random;
+
 
 public class PhotonManager : MonoBehaviourPunCallbacks
 {
     public List<GameObject> list_Prefabs;
+    public List<GameObject> list_ItemSpawnPoints;
+    public List<GameObject> list_MosterSpawnPoints;
+    public List<GameObject> list_PlayerSpawnPoints;
+    
     public UserData LocalDate;
     public Transform spawn_point;
     public GameObject obj_local;
@@ -92,6 +98,19 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         }
     }
 
+    private void CreateItem()
+    {
+        int[] spawn = new int [5];
+        
+        if(true)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                spawn[i] = Random.Range(0, 10);
+                Debug.Log(spawn[i]);
+            }
+        }
+    }
     //마스터 클라이언트가 방을 생성시 스테이지씬 로딩
     private void LoadArea()
     {

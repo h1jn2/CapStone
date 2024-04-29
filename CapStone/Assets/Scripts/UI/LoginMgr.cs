@@ -7,14 +7,14 @@ public class LoginMgr : MonoBehaviour
 {
     public TMP_InputField idInputField;
     public TMP_InputField pwInputField;
-    public GameObject warningPanel; // °æ°íÃ¢ GameObject
+    public GameObject warningPanel; // ê²½ê³ ì°½ GameObject
 
     void Update()
     {
-        // Tab Å°°¡ ´­·È´ÂÁö È®ÀÎ
+        // Tab í‚¤ê°€ ëˆŒë ¸ëŠ”ì§€ í™•ì¸
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            // ÇöÀç ¼±ÅÃµÈ ÀÎÇ² ÇÊµå¿¡ µû¶ó ´ÙÀ½ ÀÎÇ² ÇÊµå·Î Æ÷Ä¿½º ÀÌµ¿
+            // í˜„ì¬ ì„ íƒëœ ì¸í’‹ í•„ë“œì— ë”°ë¼ ë‹¤ìŒ ì¸í’‹ í•„ë“œë¡œ í¬ì»¤ìŠ¤ ì´ë™
             if (idInputField.isFocused) 
             {
                 pwInputField.Select();
@@ -31,24 +31,24 @@ public class LoginMgr : MonoBehaviour
         string inputId = idInputField.text;
         string inputPw = pwInputField.text;
 
-        // ÀÔ·ÂµÈ ¾ÆÀÌµğ¿Í ºñ¹Ğ¹øÈ£°¡ "1234"¿Í ÀÏÄ¡ÇÏ´ÂÁö È®ÀÎ
+        // ì…ë ¥ëœ ì•„ì´ë””ì™€ ë¹„ë°€ë²ˆí˜¸ê°€ "1234"ì™€ ì¼ì¹˜í•˜ëŠ”ì§€ í™•ì¸
         if (inputId == "1234" && inputPw == "1234")
         {
-            Debug.Log("·Î±×ÀÎ ¼º°ø!");
-            // ¿©±â¿¡ ·Î±×ÀÎ ¼º°ø ÈÄÀÇ ÀÛ¾÷ Ãß°¡
+            Debug.Log("ë¡œê·¸ì¸ ì„±ê³µ!");
+            // ì—¬ê¸°ì— ë¡œê·¸ì¸ ì„±ê³µ í›„ì˜ ì‘ì—… ì¶”ê°€
 
             UIMgr.single.OpenTitle();
         }
         else
         {
-            Debug.Log("·Î±×ÀÎ ½ÇÆĞ: ¾ÆÀÌµğ ¶Ç´Â ºñ¹Ğ¹øÈ£°¡ ¿Ã¹Ù¸£Áö ¾Ê½À´Ï´Ù.");
+            Debug.Log("ë¡œê·¸ì¸ ì‹¤íŒ¨: ì•„ì´ë”” ë˜ëŠ” ë¹„ë°€ë²ˆí˜¸ê°€ ì˜¬ë°”ë¥´ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 
-            // °æ°íÃ¢ Ç¥½Ã
+            // ê²½ê³ ì°½ í‘œì‹œ
             warningPanel.SetActive(true);
-            // 3ÃÊ ÈÄ¿¡ °æ°íÃ¢ »ç¶óÁöµµ·Ï ÄÚ·çÆ¾ ½ÃÀÛ
+            // 3ì´ˆ í›„ì— ê²½ê³ ì°½ ì‚¬ë¼ì§€ë„ë¡ ì½”ë£¨í‹´ ì‹œì‘
             StartCoroutine(HideWarningAfterDelay());
 
-            // ·Î±×ÀÎ ½ÇÆĞ ½Ã ÀÎÇ² ÇÊµå ÃÊ±âÈ­
+            // ë¡œê·¸ì¸ ì‹¤íŒ¨ ì‹œ ì¸í’‹ í•„ë“œ ì´ˆê¸°í™”
             idInputField.text = "";
             pwInputField.text = "";
         }
@@ -56,9 +56,9 @@ public class LoginMgr : MonoBehaviour
 
     IEnumerator HideWarningAfterDelay()
     {
-        yield return new WaitForSeconds(1.5f); // 3ÃÊ ´ë±â
+        yield return new WaitForSeconds(1.5f); // 3ì´ˆ ëŒ€ê¸°
 
-        // °æ°íÃ¢ ¼û±â±â
+        // ê²½ê³ ì°½ ìˆ¨ê¸°ê¸°
         warningPanel.SetActive(false);
     }
 }

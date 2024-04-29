@@ -5,27 +5,27 @@ using TMPro;
 
 public class ButtonManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    // ¹öÆ° ÅØ½ºÆ® (TMPro)
+    // ë²„íŠ¼ í…ìŠ¤íŠ¸ (TMPro)
     public TMP_Text buttonText;
 
-    // ÇØ´ç ¹öÆ°¿¡ ´ëÇÑ ÀÌ¹ÌÁö ¹è¿­
+    // í•´ë‹¹ ë²„íŠ¼ì— ëŒ€í•œ ì´ë¯¸ì§€ ë°°ì—´
     public Image[] buttonImages;
 
-    // º¯°æÇÒ »ö»óÀÇ RGB °ª
+    // ë³€ê²½í•  ìƒ‰ìƒì˜ RGB ê°’
     public float hoverColorR = 0.8f;
     public float hoverColorG = 0.8f;
     public float hoverColorB = 0.8f;
 
-    // ±âÁ¸ÀÇ »ö»ó
+    // ê¸°ì¡´ì˜ ìƒ‰ìƒ
     private Color originalTextColor;
     private Color[] originalImageColors;
 
     void Start()
     {
-        // ¹öÆ°ÀÇ ±âÁ¸ »ö»ó ÀúÀå
+        // ë²„íŠ¼ì˜ ê¸°ì¡´ ìƒ‰ìƒ ì €ì¥
         originalTextColor = buttonText.color;
 
-        // ÇØ´ç ¹öÆ°¿¡ ´ëÇÑ ÀÌ¹ÌÁö ¹è¿­ÀÇ °¢ ¿ä¼ÒÀÇ ±âÁ¸ »ö»ó ÀúÀå
+        // í•´ë‹¹ ë²„íŠ¼ì— ëŒ€í•œ ì´ë¯¸ì§€ ë°°ì—´ì˜ ê° ìš”ì†Œì˜ ê¸°ì¡´ ìƒ‰ìƒ ì €ì¥
         originalImageColors = new Color[buttonImages.Length];
         for (int i = 0; i < buttonImages.Length; i++)
         {
@@ -33,29 +33,29 @@ public class ButtonManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }
     }
 
-    // ¸¶¿ì½º°¡ ¹öÆ°¿¡ ÁøÀÔÇßÀ» ¶§ È£ÃâµÇ´Â ÇÔ¼ö
+    // ë§ˆìš°ìŠ¤ê°€ ë²„íŠ¼ì— ì§„ì…í–ˆì„ ë•Œ í˜¸ì¶œë˜ëŠ” í•¨ìˆ˜
     public void OnPointerEnter(PointerEventData eventData)
     {
-        // º¯°æÇÒ RGB °ªÀ» »ç¿ëÇÏ¿© »õ·Î¿î ÅØ½ºÆ® »ö»ó »ı¼º
+        // ë³€ê²½í•  RGB ê°’ì„ ì‚¬ìš©í•˜ì—¬ ìƒˆë¡œìš´ í…ìŠ¤íŠ¸ ìƒ‰ìƒ ìƒì„±
         Color newTextColor = new Color(hoverColorR, hoverColorG, hoverColorB);
 
-        // ¹öÆ° ÅØ½ºÆ® »ö»ó º¯°æ
+        // ë²„íŠ¼ í…ìŠ¤íŠ¸ ìƒ‰ìƒ ë³€ê²½
         buttonText.color = newTextColor;
 
-        // ÇØ´ç ¹öÆ°¿¡ ´ëÇÑ ÀÌ¹ÌÁö ¹è¿­ÀÇ ¸ğµç ÀÌ¹ÌÁö È°¼ºÈ­
+        // í•´ë‹¹ ë²„íŠ¼ì— ëŒ€í•œ ì´ë¯¸ì§€ ë°°ì—´ì˜ ëª¨ë“  ì´ë¯¸ì§€ í™œì„±í™”
         foreach (Image buttonImage in buttonImages)
         {
             buttonImage.gameObject.SetActive(true);
         }
     }
 
-    // ¸¶¿ì½º°¡ ¹öÆ°¿¡¼­ ³ª°¬À» ¶§ È£ÃâµÇ´Â ÇÔ¼ö
+    // ë§ˆìš°ìŠ¤ê°€ ë²„íŠ¼ì—ì„œ ë‚˜ê°”ì„ ë•Œ í˜¸ì¶œë˜ëŠ” í•¨ìˆ˜
     public void OnPointerExit(PointerEventData eventData)
     {
-        // ¹öÆ° ÅØ½ºÆ® »ö»óÀ» ¿ø·¡ »ö»óÀ¸·Î º¯°æ
+        // ë²„íŠ¼ í…ìŠ¤íŠ¸ ìƒ‰ìƒì„ ì›ë˜ ìƒ‰ìƒìœ¼ë¡œ ë³€ê²½
         buttonText.color = originalTextColor;
 
-        // ÇØ´ç ¹öÆ°¿¡ ´ëÇÑ ÀÌ¹ÌÁö ¹è¿­ÀÇ ¸ğµç ÀÌ¹ÌÁö ºñÈ°¼ºÈ­
+        // í•´ë‹¹ ë²„íŠ¼ì— ëŒ€í•œ ì´ë¯¸ì§€ ë°°ì—´ì˜ ëª¨ë“  ì´ë¯¸ì§€ ë¹„í™œì„±í™”
         foreach (Image buttonImage in buttonImages)
         {
             buttonImage.gameObject.SetActive(false);
