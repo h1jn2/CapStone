@@ -39,18 +39,17 @@ public class Monster : MonoBehaviour
 
     private void Start()
     {
-        _curState = State.Patrol;
         nvAgent = gameObject.GetComponent<NavMeshAgent>();
         player = GameObject.FindWithTag("Player");
-        playerControl = player.GetComponent<PlayerControl>();
-        Debug.Log("init");
+
         
         nvAgent.destination = transform.position;
-        wayPoints = new[] { new Vector3(-40, this.transform.position.y, -40), new Vector3(40f, this.transform.position.y, 40f), new Vector3(0, this.transform.position.y, 0) };
+        wayPoints = new[] { new Vector3(-30f, this.transform.position.y, 130f), new Vector3(-30f, this.transform.position.y, 110f) };
 
         patrolCoroutine = StartPatrol();
         chaseCoroutine = StartChase();
 
+        _curState = State.Patrol;
 
     }
 
@@ -91,6 +90,17 @@ public class Monster : MonoBehaviour
                 break;
         }
 
+        // 현 위치에서 ray 쏨
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 1))
+        {
+            if (hit.collider == null)
+                return;
+            if (hit.collider.CompareTag("Door"))
+            {
+                if (!hit.collider.GetComponent<DoorManager>().isOpen)
+                    hit.collider.GetComponent<DoorManager>().ChangeState();
+            }
+        }
 
     }
 
