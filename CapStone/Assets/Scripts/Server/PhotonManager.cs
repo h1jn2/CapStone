@@ -9,12 +9,13 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Random = UnityEngine.Random;
 
 
+
 public class PhotonManager : MonoBehaviourPunCallbacks
 {
     public List<GameObject> list_Prefabs;
     public List<Transform> list_ItemSpawnPoints;
-    public List<GameObject> list_MosterSpawnPoints;
-    public List<GameObject> list_PlayerSpawnPoints;
+    public List<Transform> list_MosterSpawnPoints;
+    public List<Transform> list_PlayerSpawnPoints;
     
     public UserData LocalDate;
     public Transform spawn_point;
@@ -113,7 +114,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     private void Spawn_item()
     {
         int[] spawn = new int [5];
-        
         if(true)
         {
             for (int i = 0; i < 5; i++)
@@ -130,13 +130,25 @@ public class PhotonManager : MonoBehaviourPunCallbacks
                 }
                 Debug.Log(spawn[i]);
             }
+            
+            for (int i = 0; i < 5; i++)
+            {
+                int result = spawn[i];
+                Debug.LogError(result);
+                PhotonNetwork.Instantiate(list_Prefabs[2].name, list_ItemSpawnPoints[result].position, Quaternion.identity);
+            }
         }
+    }
 
-        for (int i = 0; i < 5; i++)
+    private void Spawn_monster()
+    {
+        int spawn;
+
+        if (true)
         {
-            int result = spawn[i];
-            Debug.LogError(result);
-            PhotonNetwork.Instantiate(list_Prefabs[2].name, list_ItemSpawnPoints[result].position, Quaternion.identity);
+            spawn = Random.Range(0, 4);
+            Debug.LogError("몬스터 스폰위치: " + spawn);
+            PhotonNetwork.Instantiate(list_Prefabs[3].name, list_MosterSpawnPoints[spawn].position, Quaternion.identity);
         }
     }
     
@@ -212,6 +224,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         
         Spawn_item();
+        Spawn_monster();
     }
 
     #endregion
