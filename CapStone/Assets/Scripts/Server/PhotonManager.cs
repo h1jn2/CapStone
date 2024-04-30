@@ -12,7 +12,7 @@ using Random = UnityEngine.Random;
 public class PhotonManager : MonoBehaviourPunCallbacks
 {
     public List<GameObject> list_Prefabs;
-    public List<GameObject> list_ItemSpawnPoints;
+    public List<Transform> list_ItemSpawnPoints;
     public List<GameObject> list_MosterSpawnPoints;
     public List<GameObject> list_PlayerSpawnPoints;
     
@@ -97,20 +97,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             obj_local = PhotonNetwork.Instantiate(list_Prefabs[0].name, spawn_point.position, Quaternion.identity);
         }
     }
-
-    private void CreateItem()
-    {
-        int[] spawn = new int [5];
-        
-        if(true)
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                spawn[i] = Random.Range(0, 10);
-                Debug.Log(spawn[i]);
-            }
-        }
-    }
     //마스터 클라이언트가 방을 생성시 스테이지씬 로딩
     private void LoadArea()
     {
@@ -126,7 +112,32 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     private void Spawn_item()
     {
+        int[] spawn = new int [5];
         
+        if(true)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                spawn[i] = Random.Range(0, 10);
+                for (int j = 0; j < i; j++)
+                {
+                    if (spawn[i] == spawn[j])
+                    {
+                        spawn[i] = Random.Range(0, 10);
+                        Debug.LogWarning(spawn[i]);
+                        j = 0;
+                    }
+                }
+                Debug.Log(spawn[i]);
+            }
+        }
+
+        for (int i = 0; i < 5; i++)
+        {
+            int result = spawn[i];
+            Debug.LogError(result);
+            PhotonNetwork.Instantiate(list_Prefabs[2].name, list_ItemSpawnPoints[result].position, Quaternion.identity);
+        }
     }
     
 
@@ -200,6 +211,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public void btn_click_StageStart()
     {
         
+        Spawn_item();
     }
 
     #endregion
