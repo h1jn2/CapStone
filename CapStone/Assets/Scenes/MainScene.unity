@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641228, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -11224,6 +11224,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: PhotonManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6411499479041663116, guid: f8979292732874f4092830608485f11e, type: 3}
+      propertyPath: obj_local
+      value: 
+      objectReference: {fileID: 919132149155446097, guid: ef1de958bced04768aa9f20c5cae3a23, type: 3}
+    - target: {fileID: 6411499479041663116, guid: f8979292732874f4092830608485f11e, type: 3}
+      propertyPath: list_Prefabs.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6411499479041663116, guid: f8979292732874f4092830608485f11e, type: 3}
+      propertyPath: list_Prefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 919132149155446097, guid: ef1de958bced04768aa9f20c5cae3a23, type: 3}
+    - target: {fileID: 6411499479041663116, guid: f8979292732874f4092830608485f11e, type: 3}
+      propertyPath: list_Prefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 919132149155446097, guid: 4f506544c8381471a8fe15dc826bd955, type: 3}
+    - target: {fileID: 6411499479041663116, guid: f8979292732874f4092830608485f11e, type: 3}
+      propertyPath: list_Prefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 3451134771973121902, guid: 65cbcb321da446047a6d76f0de5dfefa, type: 3}
     - target: {fileID: 9107631230733152430, guid: f8979292732874f4092830608485f11e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.7139634
