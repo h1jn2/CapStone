@@ -11224,6 +11224,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: PhotonManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6411499479041663116, guid: f8979292732874f4092830608485f11e, type: 3}
+      propertyPath: obj_local
+      value: 
+      objectReference: {fileID: 3428271144169993050, guid: 00559e39a37113d42b2ca967eacd7510, type: 3}
+    - target: {fileID: 6411499479041663116, guid: f8979292732874f4092830608485f11e, type: 3}
+      propertyPath: list_Prefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 3428271144169993050, guid: 00559e39a37113d42b2ca967eacd7510, type: 3}
+    - target: {fileID: 6411499479041663116, guid: f8979292732874f4092830608485f11e, type: 3}
+      propertyPath: list_Prefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 2523606729866775000, guid: 37cf611c47aa2cc4992ef221503dba0a, type: 3}
     - target: {fileID: 9107631230733152430, guid: f8979292732874f4092830608485f11e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.7139634
