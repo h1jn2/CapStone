@@ -42,11 +42,11 @@ public class Monster : MonoBehaviour
         _curState = State.Patrol;
         nvAgent = gameObject.GetComponent<NavMeshAgent>();
         player = GameObject.FindWithTag("Player");
-        playerControl = player.GetComponent<PlayerControl>();
+        //playerControl = player.GetComponent<PlayerControl>();
         Debug.Log("init");
         
         nvAgent.destination = transform.position;
-        wayPoints = new[] { new Vector3(-40, this.transform.position.y, -40), new Vector3(40f, this.transform.position.y, 40f), new Vector3(0, this.transform.position.y, 0) };
+        wayPoints = new[] { new Vector3(-30, this.transform.position.y, 110), new Vector3(-30, this.transform.position.y, 130) };
 
         patrolCoroutine = StartPatrol();
         chaseCoroutine = StartChase();
