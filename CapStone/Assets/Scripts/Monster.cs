@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -89,6 +90,17 @@ public class Monster : MonoBehaviour
             case State.Idle:
                 StopAllCoroutines();
                 break;
+        }
+
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 1))
+        {
+            if (hit.collider == null)
+                return;
+            if (hit.collider.CompareTag("Door"))
+            {
+                if (!hit.collider.GetComponent<DoorManager>().isOpen)
+                    hit.collider.GetComponent<DoorManager>().ChangeState();
+            }
         }
 
 
