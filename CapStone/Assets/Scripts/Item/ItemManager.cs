@@ -1,17 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class ItemManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private PhotonView pv;
     void Start()
     {
-        
+        pv = this.gameObject.GetComponent<PhotonView>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void DestroyItem()
     {
         
     }
