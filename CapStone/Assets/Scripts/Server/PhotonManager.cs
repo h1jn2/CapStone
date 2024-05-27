@@ -44,9 +44,12 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         }
     }
 
-    private void Start()
+    private IEnumerator Start()
     {
-        
+        while (LoginManager.isLogin == false)
+        {
+            yield return null;
+        }
         DefaultPool pool = PhotonNetwork.PrefabPool as DefaultPool;
         pool.ResourceCache.Clear();
         if (pool != null && list_Prefabs != null)

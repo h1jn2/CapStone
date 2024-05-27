@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,11 +6,25 @@ using System.Xml;
 
 public class LoginManager : MonoBehaviour
 {
+    public static LoginManager instance = null;
+    
     private const string DB_TABLE_USER_LOGIN = "user";
-    void Start()
+    public static bool isLogin;
+    
+    void Awake()
     {
-        view();
-        Debug.Log(CheckPwd("test1", "test"));
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+
+        isLogin = false;
+        Debug.LogError("실행성공");
     }
 
     private void view()
@@ -53,6 +68,11 @@ public class LoginManager : MonoBehaviour
                     check = true;
                 }
             }    
+        }
+
+        if (check)
+        {
+            isLogin = true;
         }
         return check;
     }

@@ -9,8 +9,6 @@ public class LoginMgr : MonoBehaviour
     public TMP_InputField idInputField;
     public TMP_InputField pwInputField;
     public GameObject warningPanel; // 경고창 GameObject
-    [SerializeField]
-    private LoginManager loginMgr;
     
 
     void Update()
@@ -19,7 +17,7 @@ public class LoginMgr : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             // 현재 선택된 인풋 필드에 따라 다음 인풋 필드로 포커스 이동
-            if (idInputField.isFocused) 
+            if (idInputField.isFocused)  
             {
                 pwInputField.Select();
             }
@@ -36,9 +34,9 @@ public class LoginMgr : MonoBehaviour
         string inputPw = pwInputField.text;
 
         // 입력된 아이디와 비밀번호가 일치하는지 확인
-        if (loginMgr.CheckID(inputId))
+        if (LoginManager.instance.CheckID(inputId))
         {
-            if (loginMgr.CheckPwd(inputId, inputPw))
+            if (LoginManager.instance.CheckPwd(inputId, inputPw))
             {
                 Debug.Log("로그인 성공!");
                 // 여기에 로그인 성공 후의 작업 추가
