@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -8,6 +9,9 @@ public class LoginMgr : MonoBehaviour
     public TMP_InputField idInputField;
     public TMP_InputField pwInputField;
     public GameObject warningPanel; // 경고창 GameObject
+    [SerializeField]
+    private LoginManager loginMgr;
+    
 
     void Update()
     {
@@ -31,13 +35,28 @@ public class LoginMgr : MonoBehaviour
         string inputId = idInputField.text;
         string inputPw = pwInputField.text;
 
-        // 입력된 아이디와 비밀번호가 "1234"와 일치하는지 확인
-        if (inputId == "1234" && inputPw == "1234")
+        // 입력된 아이디와 비밀번호가 일치하는지 확인
+        if (loginMgr.CheckID(inputId))
         {
-            Debug.Log("로그인 성공!");
-            // 여기에 로그인 성공 후의 작업 추가
+            if (loginMgr.CheckPwd(inputId, inputPw))
+            {
+                Debug.Log("로그인 성공!");
+                // 여기에 로그인 성공 후의 작업 추가
 
-            UIMgr.single.OpenTitle();
+                UIMgr.single.OpenTitle();    
+            }
+            else
+            {
+                Debug.Log("로그인 실패: 비밀번호가 올바르지 않습니다.");
+
+                // 경고창 표시
+                warningPanel.SetActive(true);
+                // 3초 후에 경고창 사라지도록 코루틴 시작
+                StartCoroutine(HideWarningAfterDelay());
+
+                // 로그인 실패 시 인풋 필드 초기화
+                pwInputField.text = "";
+            }
         }
         else
         {
