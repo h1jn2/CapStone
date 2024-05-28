@@ -9559,6 +9559,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1835368435}
   m_CullTransparentMesh: 1
+--- !u!1 &1843033607
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1843033608}
+  - component: {fileID: 1843033609}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1843033608
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1843033607}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 518.3897, y: -321.3737, z: -1163.7632}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1843033609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1843033607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8834a26bc6eeb247a1d53c87ef50a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentStatus: 0
 --- !u!1 &1864291287
 GameObject:
   m_ObjectHideFlags: 0
@@ -11363,34 +11408,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PhotonManager
       objectReference: {fileID: 0}
-    - target: {fileID: 6411499479041663116, guid: f8979292732874f4092830608485f11e, type: 3}
-      propertyPath: obj_local
-      value: 
-      objectReference: {fileID: 3428271144169993050, guid: 00559e39a37113d42b2ca967eacd7510, type: 3}
-    - target: {fileID: 6411499479041663116, guid: f8979292732874f4092830608485f11e, type: 3}
-      propertyPath: list_Prefabs.Array.data[0]
-      value: 
-      objectReference: {fileID: 3428271144169993050, guid: 00559e39a37113d42b2ca967eacd7510, type: 3}
-    - target: {fileID: 6411499479041663116, guid: f8979292732874f4092830608485f11e, type: 3}
-      propertyPath: list_Prefabs.Array.data[1]
-      value: 
-      objectReference: {fileID: 2523606729866775000, guid: 37cf611c47aa2cc4992ef221503dba0a, type: 3}
-    - target: {fileID: 6411499479041663116, guid: f8979292732874f4092830608485f11e, type: 3}
-      propertyPath: list_MosterSpawnPoints.Array.data[0]
-      value: 
-      objectReference: {fileID: 1187069271732854291, guid: c481ce2d173add4408eaeb323e346aaf, type: 3}
-    - target: {fileID: 6411499479041663116, guid: f8979292732874f4092830608485f11e, type: 3}
-      propertyPath: list_MosterSpawnPoints.Array.data[1]
-      value: 
-      objectReference: {fileID: 8050344541650595969, guid: b72fa97b43d7fe7499ea3b687800f720, type: 3}
-    - target: {fileID: 6411499479041663116, guid: f8979292732874f4092830608485f11e, type: 3}
-      propertyPath: list_MosterSpawnPoints.Array.data[2]
-      value: 
-      objectReference: {fileID: 2198346846820627548, guid: 715f1608f9ad0864d95c1cf713422f44, type: 3}
-    - target: {fileID: 6411499479041663116, guid: f8979292732874f4092830608485f11e, type: 3}
-      propertyPath: list_MosterSpawnPoints.Array.data[3]
-      value: 
-      objectReference: {fileID: 3162710091005610728, guid: 95cdc66162cf9d74aa2b67741e27f351, type: 3}
     - target: {fileID: 9107631230733152430, guid: f8979292732874f4092830608485f11e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.7139634
@@ -11449,3 +11466,4 @@ SceneRoots:
   - {fileID: 442581029}
   - {fileID: 1155267774}
   - {fileID: 2049849207}
+  - {fileID: 1843033608}

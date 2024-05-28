@@ -117,42 +117,38 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     private void Spawn_item()
     {
         int[] spawn = new int [5];
-        if(true)
+        
+        for (int i = 0; i < 5; i++)
         {
-            for (int i = 0; i < 5; i++)
+            spawn[i] = Random.Range(0, 10);
+            for (int j = 0; j < i; j++)
             {
-                spawn[i] = Random.Range(0, 10);
-                for (int j = 0; j < i; j++)
+                if (spawn[i] == spawn[j])
                 {
-                    if (spawn[i] == spawn[j])
-                    {
-                        spawn[i] = Random.Range(0, 10);
-                        Debug.LogWarning(spawn[i]);
-                        j = 0;
-                    }
+                    spawn[i] = Random.Range(0, 10);
+                    Debug.LogWarning(spawn[i]);
+                    j = 0;
                 }
-                Debug.Log(spawn[i]);
             }
+            Debug.Log(spawn[i]);
+        }
             
-            for (int i = 0; i < 5; i++)
-            {
-                int result = spawn[i];
-                Debug.LogError(result);
-                PhotonNetwork.Instantiate(list_Prefabs[2].name, list_ItemSpawnPoints[result].position, Quaternion.identity);
-            }
+        for (int i = 0; i < 5; i++)
+        {
+            int result = spawn[i];
+            Debug.LogError(result);
+            PhotonNetwork.Instantiate(list_Prefabs[2].name, list_ItemSpawnPoints[result].position, Quaternion.identity);
         }
     }
 
     private void Spawn_monster()
     {
         int spawn;
+        
+        spawn = Random.Range(0, 4);
+        Debug.LogError("몬스터 스폰위치: " + spawn);
+        PhotonNetwork.Instantiate(list_Prefabs[3].name, list_MosterSpawnPoints[spawn].position, Quaternion.identity);
 
-        if (true)
-        {
-            spawn = Random.Range(0, 4);
-            Debug.LogError("몬스터 스폰위치: " + spawn);
-            PhotonNetwork.Instantiate(list_Prefabs[3].name, list_MosterSpawnPoints[spawn].position, Quaternion.identity);
-        }
     }
     
 
@@ -180,7 +176,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         {
             m_CreatePlayer(LocalDate);
         }
-        
+
+        GameManager.instance._currentStatus = GameManager.Status._ready;
+
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
@@ -195,6 +193,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public override void OnLeftRoom()
     {
+        GameManager.instance._currentStatus = GameManager.Status._login;
         SceneManager.LoadScene("MainScene");
     }
 
@@ -212,23 +211,37 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.JoinLobby();
     }
-
     public void btn_click_createRoom()
     {
         CreateRoom();
     }
-
     public void btn_click_joinroom()
     {
         JoinRoom();
     }
-
     public void btn_click_StageStart()
     {
-        
-        Spawn_item();
-        Spawn_monster();
+        if (PhotonNetwork.IsMasterClient && (GameManager.instance._currentStatus == GameManager.Status._ready))
+        {
+            GameManager.instance._currentStatus = GameManager.Status._playing;
+            PlayerNetwork.ppv.RPC("ChangeStatus_RPC", RpcTarget.AllBuffered, GameManager.Status._playing);  
+            Spawn_item();
+            Spawn_monster();
+            
+        }
     }
+
+    #endregion
+    
+    #region PunRpc
+
+    [PunRPC]
+    public void ChangeStatus_RPC(GameManager.Status sendStatus)
+    {
+        GameManager.instance._currentStatus = sendStatus;
+        Debug.Log(sendStatus);
+    }
+    
 
     #endregion
     
@@ -243,6 +256,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         _coroutineCreatePlayer = StartCoroutine(IEnum_CreatePlayer());
     }
 
+    
     
     IEnumerator IEnum_CreatePlayer()
     {

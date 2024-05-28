@@ -40,8 +40,8 @@ public class LoginMgr : MonoBehaviour
             {
                 Debug.Log("로그인 성공!");
                 // 여기에 로그인 성공 후의 작업 추가
-
                 UIMgr.single.OpenTitle();    
+                GameManager.instance._currentStatus = GameManager.Status._login;
             }
             else
             {
