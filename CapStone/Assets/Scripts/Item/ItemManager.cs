@@ -13,8 +13,9 @@ public class ItemManager : MonoBehaviour
 
     public void DestroyItem()
     {
+        Debug.Log("아이템파밍");
         SetScale(Vector3.one, Vector3.zero, 1f);
-        Destroy(this.gameObject);
+        PhotonNetwork.Destroy(this.gameObject);
     }
 
     IEnumerator SetScale(Vector3 before, Vector3 after, float settime)

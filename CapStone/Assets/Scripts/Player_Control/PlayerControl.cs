@@ -88,6 +88,14 @@ public class PlayerControl : MonoBehaviourPun
                         {
                             hit.collider.GetComponent<DoorManager>().ChangeState();
                         }    
+                    } 
+                    if (hit.collider.CompareTag("Item"))
+                    {
+                        if (photonView.IsMine)
+                        {
+                            Debug.Log("아이템 충돌");
+                            hit.collider.GetComponent<ItemManager>().DestroyItem();
+                        }    
                     }
                 }
             }

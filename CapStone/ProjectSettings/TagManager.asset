@@ -6,6 +6,7 @@ TagManager:
   tags:
   - audui
   - Door
+  - Item
   layers:
   - Default
   - TransparentFX
