@@ -1,11 +1,28 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IngameDebuger : MonoBehaviour{
+public class IngameDebuger : MonoBehaviour
+{
+
+    public static IngameDebuger instance= null;
     
     string myLog;
     Queue myLogQueue = new Queue ();
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
 
     void OnEnable () {
         Application.logMessageReceived += HandleLog;

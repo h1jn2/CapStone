@@ -6,7 +6,6 @@ using UnityEngine;
 public class ItemManager : MonoBehaviour
 {
     private PhotonView pv;
-    private Transform Itemscale;
     void Start()
     {
         pv = this.gameObject.GetComponent<PhotonView>();
@@ -25,7 +24,7 @@ public class ItemManager : MonoBehaviour
         {
             timer += Time.deltaTime;
             Vector3 vec = Vector3.Lerp(before, after, timer / settime);
-            Itemscale.transform.localScale = vec;
+            this.gameObject.transform.localScale = vec;
             yield return null;
         }
     }

@@ -73,3 +73,4 @@ MonoBehaviour:
   spawn_point: {fileID: 9163219128724489307, guid: bc215c77d52655d499190d1c57ef7d00, type: 3}
   obj_local: {fileID: 3428271144169993050, guid: 00559e39a37113d42b2ca967eacd7510, type: 3}
   isLoading: 0
+  managerPV: {fileID: 0}

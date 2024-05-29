@@ -223,8 +223,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient && (GameManager.instance._currentStatus == GameManager.Status._ready))
         {
-            GameManager.instance._currentStatus = GameManager.Status._playing;
-            PlayerNetwork.ppv.RPC("ChangeStatus_RPC", RpcTarget.AllBuffered, GameManager.Status._playing);  
             Spawn_item();
             Spawn_monster();
             
@@ -233,17 +231,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     #endregion
     
-    #region PunRpc
-
-    [PunRPC]
-    public void ChangeStatus_RPC(GameManager.Status sendStatus)
-    {
-        GameManager.instance._currentStatus = sendStatus;
-        Debug.Log(sendStatus);
-    }
-    
-
-    #endregion
     
     #region 코루틴
 
