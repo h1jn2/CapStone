@@ -21,9 +21,10 @@ public class Monster : MonoBehaviour
 
     private IEnumerator patrolCoroutine;
     private IEnumerator chaseCoroutine;
+    private IEnumerator attackCoroutine;
 
-    private PlayerControl playerControl;
-    private GameObject player;
+    private int playerCount;
+    private int attackCount;
 
 
 
@@ -42,15 +43,14 @@ public class Monster : MonoBehaviour
     {
         _curState = State.Patrol;
         nvAgent = gameObject.GetComponent<NavMeshAgent>();
-        player = GameObject.FindWithTag("Player");
-        //playerControl = player.GetComponent<PlayerControl>();
-        Debug.Log("init");
-        
+        playerCount = GameObject.FindGameObjectsWithTag("Player").Length;
+
         nvAgent.destination = transform.position;
         wayPoints = new[] { new Vector3(-30, this.transform.position.y, 110), new Vector3(-30, this.transform.position.y, 130) };
 
         patrolCoroutine = StartPatrol();
         chaseCoroutine = StartChase();
+        attackCoroutine = StartAttack();
 
 
     }
@@ -81,11 +81,13 @@ public class Monster : MonoBehaviour
                 }
                 if (navDistance < arrivalDist)
                 {
-                    _curState = State.Idle;
+                    _curState = State.Attack;
                     break;
                 }
                 break;
             case State.Attack:
+                StartCoroutine(attackCoroutine);
+                _curState = State.Patrol;
                 break;
             case State.Idle:
                 StopAllCoroutines();
@@ -159,6 +161,18 @@ public class Monster : MonoBehaviour
         }
     }
 
+    private IEnumerator StartAttack()
+    {
+        Debug.Log("공격 중");
+
+        if (GameManager.instance._currentStatus != GameManager.Status._end)
+        {
+            GameManager.instance._currentStatus = GameManager.Status._end;
+
+        }
+        Debug.Log(GameManager.instance._currentStatus);
+        yield return null;
+    }
 
 
     private void OnDrawGizmos()
