@@ -23,9 +23,6 @@ public class Monster : MonoBehaviour
     private IEnumerator chaseCoroutine;
     private IEnumerator attackCoroutine;
 
-    private int playerCount;
-    private int attackCount;
-
 
 
     private enum State
@@ -43,7 +40,6 @@ public class Monster : MonoBehaviour
     {
         _curState = State.Patrol;
         nvAgent = gameObject.GetComponent<NavMeshAgent>();
-        playerCount = GameObject.FindGameObjectsWithTag("Player").Length;
 
         nvAgent.destination = transform.position;
         wayPoints = new[] { new Vector3(-30, this.transform.position.y, 110), new Vector3(-30, this.transform.position.y, 130) };
@@ -87,7 +83,13 @@ public class Monster : MonoBehaviour
                 break;
             case State.Attack:
                 StartCoroutine(attackCoroutine);
-                _curState = State.Patrol;
+
+                if (!CanSeePlayer())
+                {
+                    StopCoroutine(attackCoroutine);
+                    _curState = State.Patrol;
+                    break;
+                }
                 break;
             case State.Idle:
                 StopAllCoroutines();
@@ -111,7 +113,17 @@ public class Monster : MonoBehaviour
     private bool CanSeePlayer()
     {
         if (colliders.Length > 0)
-            return true;
+        {
+            if (colliders[0].gameObject.GetComponent<PhotonView>().IsMine)
+            {
+                if (GameObject.Find("GameManager").GetComponent<GameManager>()._currentStatus == GameManager.Status._playing)
+                {
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
         else
             return false;
     }
@@ -165,12 +177,12 @@ public class Monster : MonoBehaviour
     {
         Debug.Log("공격 중");
 
-        if (GameManager.instance._currentStatus != GameManager.Status._end)
-        {
-            GameManager.instance._currentStatus = GameManager.Status._end;
+        GameObject.Find("GameManager").GetComponent<GameManager>()._currentStatus = GameManager.Status._end;
+        colliders[0].gameObject.SetActive(false);       // 플레이어 맵에 존재하면 순찰 경로로 변경이 안 돼서 일단 이렇게 해놔씀
+        nvAgent.ResetPath();
+        navDistance = nvAgent.remainingDistance;
 
-        }
-        Debug.Log(GameManager.instance._currentStatus);
+        Debug.Log(colliders[0].name + "end");
         yield return null;
     }
 
