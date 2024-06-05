@@ -7,6 +7,7 @@ using Photon.Realtime;
 public class PlayerManager : MonoBehaviourPunCallbacks
 {
     public float health = 100f;
+    public bool _isDie;
 
     public static GameObject LocalPlayerInstance;
     public GameObject playerCamera;

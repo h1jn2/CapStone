@@ -46,6 +46,8 @@ public class PlayerControl : MonoBehaviourPun
 
     private bool isInsideCabinet = false;
 
+    public PlayerRaycast raycaster;
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -57,11 +59,12 @@ public class PlayerControl : MonoBehaviourPun
 
     public void Update()
     {
-        if (punview.IsMine)
+        UpdateAnimations();
+        if (punview.IsMine && !this.GetComponent<PlayerManager>()._isDie)
         {
+            
             Control();
             Stamina();
-            UpdateAnimations();
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 if (IsPlayerNearCabinet())
@@ -77,27 +80,53 @@ public class PlayerControl : MonoBehaviourPun
             // ssg - 문 충돌이 간헐적으로 감지되지 않는 현상을 해결하기 위한 코드
             if (Input.GetKeyUp(KeyCode.E))
             {
-                // 현 위치에서 ray 쏨
-                if(Physics.Raycast(transform.position, transform.up, out RaycastHit hit, 10))
+                Debug.Log("enter E");
+                Collider collider;
+                PlayerRaycast.HitObject hitObject = raycaster.OnEnter_E(out collider);
+
+                Debug.Log(hitObject);
+                
+                if (hitObject != PlayerRaycast.HitObject.NotValid && collider != null && photonView.IsMine )
                 {
-                    if (hit.collider == null)
-                        return;
-                    if (hit.collider.CompareTag("Door"))
+                    switch (hitObject)
                     {
-                        if (photonView.IsMine)
-                        {
-                            hit.collider.GetComponent<DoorManager>().ChangeState();
-                        }    
-                    } 
-                    if (hit.collider.CompareTag("Item"))
-                    {
-                        if (photonView.IsMine)
-                        {
-                            Debug.Log("아이템 충돌");
-                            hit.collider.GetComponent<ItemManager>().DestroyItem();
-                        }    
+                        case PlayerRaycast.HitObject.Door:
+                            collider.GetComponent<DoorManager>().ChangeState();
+                            break;
+                        case PlayerRaycast.HitObject.Item:
+                            collider.GetComponent<ItemManager>().DestroyItem();
+                            break;
                     }
                 }
+                //
+                // RaycastHit hit;
+                //
+                // // 문 인식을 위해 현 위치에서 ray 쏨
+                // if(Physics.Raycast(transform.position, transform.up, out hit, 10))
+                // {
+                //     
+                //     if (hit.collider == null)
+                //         return;
+                //     
+                //     if (hit.collider.CompareTag("Door"))
+                //     {
+                //         if (photonView.IsMine)
+                //         {
+                //             
+                //             return;
+                //         }    
+                //     } 
+                //     else if (hit.collider.CompareTag("Item"))
+                //     {
+                //         if (photonView.IsMine)
+                //         {
+                //             Debug.Log("아이템 충돌");
+                //             hit.collider.GetComponent<ItemManager>().DestroyItem();
+                //             return;
+                //         }    
+                //     }
+                // }
+
             }
         }
         
@@ -105,7 +134,7 @@ public class PlayerControl : MonoBehaviourPun
 
     private void LateUpdate()
     {
-        if (punview.IsMine)
+        if (punview.IsMine && !this.GetComponent<PlayerManager>()._isDie)
         {
             PlayerCamera.transform.position = head.transform.position;
 
@@ -163,6 +192,7 @@ public class PlayerControl : MonoBehaviourPun
     {
         animator.SetBool("isMoving", isMoving);
         animator.SetBool("isRunning", isRunning);
+        animator.SetBool("isDead", this.GetComponent<PlayerManager>()._isDie);
     }
 
     private void Stamina()
@@ -215,11 +245,6 @@ public class PlayerControl : MonoBehaviourPun
                 }
             }
         }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        //ChangeDoorState(other);
     }
   
 }

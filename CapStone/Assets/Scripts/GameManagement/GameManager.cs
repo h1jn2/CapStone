@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     
     public Status _currentStatus;
     public int PlayerCnt;
+    public int ItemCnt;
 
     void Start()
     {
@@ -30,8 +32,7 @@ public class GameManager : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        _currentStatus = Status._none;
-        PlayerCnt = 0;
+        InitGame();
 
 
     }
@@ -44,6 +45,8 @@ public class GameManager : MonoBehaviour
 
     void InitGame()
     {
-        
+        _currentStatus = Status._none;
+        PlayerCnt = 0;
+        ItemCnt = 5;
     }
 }

@@ -15,7 +15,7 @@ public class PlayerNetwork : MonoBehaviourPun
     {
         pv = this.gameObject.GetComponent<PhotonView>();
     }
-    #region Photon RPC
+    
 
     public void clicked_stagestart()
     {
@@ -27,7 +27,12 @@ public class PlayerNetwork : MonoBehaviourPun
         }
         
     }
-    
+
+    public void clicked_damege()
+    {
+        pv.RPC("OnDameged_RPC", RpcTarget.AllBuffered, 100f, pv.ViewID);
+    }
+    #region Photon RPC
     [PunRPC]
     public void ChangeStatus_RPC(GameManager.Status sendStatus)
     {
@@ -35,12 +40,21 @@ public class PlayerNetwork : MonoBehaviourPun
         GameManager.instance.PlayerCnt = PhotonNetwork.CurrentRoom.PlayerCount;
         Debug.Log(sendStatus);
     }
-
-    #endregion
-    
     //데미지 동기화 함수
-    void RpcOnDamaged()
+    [PunRPC]
+    public void OnDameged_RPC(float Damege, int viewID)
     {
-        
+        if (pv.ViewID == viewID)
+        {
+            this.GetComponent<PlayerManager>().health -= Damege;
+            Debug.Log(this.GetComponent<PlayerManager>().health);
+            if (this.GetComponent<PlayerManager>().health <= 0)
+            {
+                this.GetComponent<PlayerManager>()._isDie = true;
+                Debug.Log("플레이어 죽음");
+                Debug.Log(this.GetComponent<PlayerManager>()._isDie);
+            }
+        }
     }
+    #endregion
 }
