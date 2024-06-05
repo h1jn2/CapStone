@@ -9604,6 +9604,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentStatus: 0
+  PlayerCnt: 0
 --- !u!1 &1864291287
 GameObject:
   m_ObjectHideFlags: 0
@@ -11239,7 +11240,6 @@ GameObject:
   - component: {fileID: 2145027923}
   - component: {fileID: 2145027922}
   - component: {fileID: 2145027925}
-  - component: {fileID: 2145027926}
   m_Layer: 5
   m_Name: Button (to game)
   m_TagString: Untagged
@@ -11380,22 +11380,6 @@ MonoBehaviour:
   hoverColorR: 0.8
   hoverColorG: 0.8
   hoverColorB: 0.8
---- !u!114 &2145027926
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2145027920}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d55af0fc9ebcf014ba67a1cadfa1196a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  imageToShow: {fileID: 1231643477}
-  sceneToLoad: TEST
-  delayBeforeSceneLoad: 0.5
-  fadeDuration: 0.1
 --- !u!1001 &1039565449315583111
 PrefabInstance:
   m_ObjectHideFlags: 0

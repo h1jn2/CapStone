@@ -112,6 +112,10 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         Debug.Log(PhotonNetwork.LevelLoadingProgress);
         //PhotonNetwork.LoadLevel("School");
         SceneLoingsync = SceneManager.LoadSceneAsync("School");
+        //if (SceneLoingsync.isDone)
+        //{
+        //    SceneLoingsync.allowSceneActivation = true;
+        //}
     }
 
     private void Spawn_item()
@@ -178,12 +182,14 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         }
 
         GameManager.instance._currentStatus = GameManager.Status._ready;
+        Debug.Log("현재인원 : " + PhotonNetwork.CurrentRoom.PlayerCount);
 
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log("새인원 진입");
+        
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)

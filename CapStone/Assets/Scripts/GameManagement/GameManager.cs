@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     }
     
     public Status _currentStatus;
+    public int PlayerCnt;
 
     void Start()
     {
@@ -30,12 +31,18 @@ public class GameManager : MonoBehaviour
         }
 
         _currentStatus = Status._none;
+        PlayerCnt = 0;
 
 
     }
 
     // Update is called once per frame
     void Update()
+    {
+        
+    }
+
+    void InitGame()
     {
         
     }

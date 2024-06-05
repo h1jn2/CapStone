@@ -20,7 +20,7 @@ public class PlayerNetwork : MonoBehaviourPun
     public void clicked_stagestart()
     {
         PhotonView photonView = PhotonView.Get(this);
-        if (PhotonNetwork.IsMasterClient && GameManager.instance._currentStatus == GameManager.Status._ready && photonView.IsMine)
+        if (PhotonNetwork.IsMasterClient && GameManager.instance._currentStatus == GameManager.Status._ready)
         {
             photonView.RPC("ChangeStatus_RPC", RpcTarget.All, GameManager.Status._playing);
             Debug.Log("실행");
@@ -32,6 +32,7 @@ public class PlayerNetwork : MonoBehaviourPun
     public void ChangeStatus_RPC(GameManager.Status sendStatus)
     {
         GameManager.instance._currentStatus = sendStatus;
+        GameManager.instance.PlayerCnt = PhotonNetwork.CurrentRoom.PlayerCount;
         Debug.Log(sendStatus);
     }
 
