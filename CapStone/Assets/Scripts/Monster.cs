@@ -55,6 +55,11 @@ public class Monster : MonoBehaviour
     {
         colliders = Physics.OverlapSphere(transform.position, radius, layer);
 
+        if (colliders.Length != 0)
+        {
+            short_enemy = colliders[0];
+        }
+
         switch (_curState)
         {
             case State.Patrol:
@@ -90,6 +95,11 @@ public class Monster : MonoBehaviour
                     _curState = State.Patrol;
                     break;
                 }
+                if (GameManager.instance.AlivePlayerCnt == 0)
+                {
+                    _curState = State.Idle;
+                    break;
+                }
                 break;
             case State.Idle:
                 StopAllCoroutines();
@@ -112,15 +122,11 @@ public class Monster : MonoBehaviour
 
     private bool CanSeePlayer()
     {
-        if (colliders.Length > 0)
+        if (colliders.Length > 0 && short_enemy != null)
         {
-            if (colliders[0].gameObject.GetComponent<PhotonView>().IsMine)
+            if (!short_enemy.GetComponent<PlayerManager>()._isDie)
             {
-                if (GameObject.Find("GameManager").GetComponent<GameManager>()._currentStatus == GameManager.Status._playing)
-                {
-                    return true;
-                }
-                return false;
+                return true;
             }
             return false;
         }
@@ -177,12 +183,11 @@ public class Monster : MonoBehaviour
     {
         Debug.Log("공격 중");
         short_enemy.GetComponent<PlayerManager>()._isDie = true;
+        GameManager.instance.AlivePlayerCnt--;
         //GameObject.Find("GameManager").GetComponent<GameManager>()._currentStatus = GameManager.Status._end; //=> 현재 한명이라도 공격당할시 모든 클라이언트가 정지함
-        short_enemy.gameObject.SetActive(false);       // 플레이어 맵에 존재하면 순찰 경로로 변경이 안 돼서 일단 이렇게 해놔씀
+        short_enemy.gameObject.GetComponent<CharacterController>().enabled = false ;       // 플레이어 맵에 존재하면 순찰 경로로 변경이 안 돼서 일단 이렇게 해놔씀
         nvAgent.ResetPath();
         navDistance = nvAgent.remainingDistance;
-
-        Debug.Log(colliders[0].name + "end");
         yield return null;
     }
 
