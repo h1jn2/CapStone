@@ -175,12 +175,12 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             PhotonNetwork.CurrentRoom.SetCustomProperties(new Hashtable(){{"RoomState", "Waiting"}});
             LoadArea();
             OnStartCreatePlayer();
+            
         }
         if (!PhotonNetwork.IsMasterClient)
         {
             m_CreatePlayer(LocalDate);
         }
-
         GameManager.instance._currentStatus = GameManager.Status._ready;
         Debug.Log("현재인원 : " + PhotonNetwork.CurrentRoom.PlayerCount);
 
@@ -189,7 +189,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log("새인원 진입");
-        
+
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)

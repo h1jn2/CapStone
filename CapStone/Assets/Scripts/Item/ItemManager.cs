@@ -13,11 +13,18 @@ public class ItemManager : MonoBehaviour
 
     public void DestroyItem()
     {
+        pv.RPC("OnEquieItem_RPC", RpcTarget.All);
         Debug.Log("아이템파밍");
         SetScale(Vector3.one, Vector3.zero, 1f);
         PhotonNetwork.Destroy(this.gameObject);
     }
 
+    [PunRPC]
+    public void OnEquieItem_RPC()
+    {
+        GameManager.instance.ItemCnt--;
+    }
+    
     IEnumerator SetScale(Vector3 before, Vector3 after, float settime)
     {
         float timer = 0;
