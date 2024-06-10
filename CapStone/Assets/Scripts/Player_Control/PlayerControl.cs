@@ -98,34 +98,6 @@ public class PlayerControl : MonoBehaviourPun
                             break;
                     }
                 }
-                //
-                // RaycastHit hit;
-                //
-                // // 문 인식을 위해 현 위치에서 ray 쏨
-                // if(Physics.Raycast(transform.position, transform.up, out hit, 10))
-                // {
-                //     
-                //     if (hit.collider == null)
-                //         return;
-                //     
-                //     if (hit.collider.CompareTag("Door"))
-                //     {
-                //         if (photonView.IsMine)
-                //         {
-                //             
-                //             return;
-                //         }    
-                //     } 
-                //     else if (hit.collider.CompareTag("Item"))
-                //     {
-                //         if (photonView.IsMine)
-                //         {
-                //             Debug.Log("아이템 충돌");
-                //             hit.collider.GetComponent<ItemManager>().DestroyItem();
-                //             return;
-                //         }    
-                //     }
-                // }
 
             }
         }

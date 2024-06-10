@@ -42,6 +42,7 @@ MonoBehaviour:
   - OnChangeStatus
   - RespawnSpaceship
   - OnDameged_RPC
+  - OnEquieItem_RPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

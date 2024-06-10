@@ -176,9 +176,9 @@ public class Monster : MonoBehaviour
     private IEnumerator StartAttack()
     {
         Debug.Log("공격 중");
-
-        GameObject.Find("GameManager").GetComponent<GameManager>()._currentStatus = GameManager.Status._end;
-        colliders[0].gameObject.SetActive(false);       // 플레이어 맵에 존재하면 순찰 경로로 변경이 안 돼서 일단 이렇게 해놔씀
+        short_enemy.GetComponent<PlayerManager>()._isDie = true;
+        //GameObject.Find("GameManager").GetComponent<GameManager>()._currentStatus = GameManager.Status._end; //=> 현재 한명이라도 공격당할시 모든 클라이언트가 정지함
+        short_enemy.gameObject.SetActive(false);       // 플레이어 맵에 존재하면 순찰 경로로 변경이 안 돼서 일단 이렇게 해놔씀
         nvAgent.ResetPath();
         navDistance = nvAgent.remainingDistance;
 
