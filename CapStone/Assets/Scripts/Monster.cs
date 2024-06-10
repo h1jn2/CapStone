@@ -71,6 +71,11 @@ public class Monster : MonoBehaviour
                     _curState = State.Chase;
                     break;
                 }
+                if (GameManager.instance.AlivePlayerCnt == 0)
+                {
+                    _curState = State.Idle;
+                    break;
+                }
                 break;
             case State.Chase:
                 StartCoroutine(chaseCoroutine);
@@ -93,11 +98,6 @@ public class Monster : MonoBehaviour
                 {
                     StopCoroutine(attackCoroutine);
                     _curState = State.Patrol;
-                    break;
-                }
-                if (GameManager.instance.AlivePlayerCnt == 0)
-                {
-                    _curState = State.Idle;
                     break;
                 }
                 break;
@@ -185,7 +185,8 @@ public class Monster : MonoBehaviour
         short_enemy.GetComponent<PlayerManager>()._isDie = true;
         GameManager.instance.AlivePlayerCnt--;
         //GameObject.Find("GameManager").GetComponent<GameManager>()._currentStatus = GameManager.Status._end; //=> 현재 한명이라도 공격당할시 모든 클라이언트가 정지함
-        short_enemy.gameObject.GetComponent<CharacterController>().enabled = false ;       // 플레이어 맵에 존재하면 순찰 경로로 변경이 안 돼서 일단 이렇게 해놔씀
+        short_enemy.gameObject.GetComponent<CharacterController>().enabled = false;       // 플레이어 맵에 존재하면 순찰 경로로 변경이 안 돼서 일단 이렇게 해놔씀
+        short_enemy = null;
         nvAgent.ResetPath();
         navDistance = nvAgent.remainingDistance;
         yield return null;
