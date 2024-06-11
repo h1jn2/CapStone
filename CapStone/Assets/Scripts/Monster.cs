@@ -36,19 +36,22 @@ public class Monster : MonoBehaviour
     [SerializeField]
     private State _curState;
 
-    private void Start()
+    private void Awake()
     {
-        _curState = State.Patrol;
         nvAgent = gameObject.GetComponent<NavMeshAgent>();
 
         nvAgent.destination = transform.position;
         wayPoints = new[] { new Vector3(-30, this.transform.position.y, 110), new Vector3(-30, this.transform.position.y, 130) };
+    }
+
+    private void Start()
+    {
+        _curState = State.Patrol;
+        
 
         patrolCoroutine = StartPatrol();
         chaseCoroutine = StartChase();
         attackCoroutine = StartAttack();
-
-
     }
 
     private void Update()
