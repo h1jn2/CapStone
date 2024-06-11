@@ -6,34 +6,48 @@ using UnityEngine;
 public class ItemManager : MonoBehaviour
 {
     private PhotonView pv;
+    private float time = 0f;
+    private bool isScaling = false;
+
     void Start()
     {
         pv = this.gameObject.GetComponent<PhotonView>();
     }
 
+    void Update()
+    {
+        if (isScaling)
+        {
+            time += Time.deltaTime;
+        }
+    }
+
     public void DestroyItem()
     {
-        pv.RPC("OnEquieItem_RPC", RpcTarget.All);
         Debug.Log("아이템파밍");
-        SetScale(Vector3.one, Vector3.zero, 1f);
+        StartCoroutine(DestroyAfterScaling());
+    }
+
+    private IEnumerator DestroyAfterScaling()
+    {
+        yield return StartCoroutine(SetScale(Vector3.one, Vector3.zero, 1f));
         PhotonNetwork.Destroy(this.gameObject);
     }
 
-    [PunRPC]
-    public void OnEquieItem_RPC()
+    private IEnumerator SetScale(Vector3 before, Vector3 after, float settime)
     {
-        GameManager.instance.ItemCnt--;
-    }
-    
-    IEnumerator SetScale(Vector3 before, Vector3 after, float settime)
-    {
-        float timer = 0;
-        while (timer < settime)
+        time = 0f;  // 타이머 초기화
+        isScaling = true;  // 크기 조정 시작
+
+        while (time < settime)
         {
-            timer += Time.deltaTime;
-            Vector3 vec = Vector3.Lerp(before, after, timer / settime);
+            Vector3 vec = Vector3.Lerp(before, after, time / settime);
             this.gameObject.transform.localScale = vec;
             yield return null;
         }
+
+        // 크기 조정 완료
+        this.gameObject.transform.localScale = after;
+        isScaling = false;
     }
 }
