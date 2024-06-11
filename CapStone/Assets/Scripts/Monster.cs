@@ -131,10 +131,14 @@ public class Monster : MonoBehaviour
             {
                 return true;
             }
+            short_enemy = null;
             return false;
         }
         else
+        {
+            short_enemy = null;
             return false;
+        }
     }
 
     private IEnumerator StartPatrol()
