@@ -85,11 +85,13 @@ public class Monster : MonoBehaviour
 
                 if (!CanSeePlayer())
                 {
+                    StopCoroutine(chaseCoroutine);
                     _curState = State.Patrol;
                     break;
                 }
                 if (navDistance < arrivalDist)
                 {
+                    StopCoroutine(chaseCoroutine);
                     _curState = State.Attack;
                     break;
                 }
@@ -144,6 +146,7 @@ public class Monster : MonoBehaviour
     private IEnumerator StartPatrol()
     {
         Debug.Log("순찰 중");
+        nvAgent.ResetPath();
 
         while (true)
         {
@@ -162,6 +165,7 @@ public class Monster : MonoBehaviour
     private IEnumerator StartChase()
     {
         Debug.Log("플레이어 추격");
+        nvAgent.ResetPath();
 
         while (true)
         {
