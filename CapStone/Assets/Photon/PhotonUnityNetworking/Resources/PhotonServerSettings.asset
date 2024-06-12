@@ -17,7 +17,7 @@ MonoBehaviour:
     AppIdFusion: 
     AppIdChat: 
     AppIdVoice: 
-    AppVersion: 0.0.02
+    AppVersion: 0.0.03
     UseNameServer: 1
     FixedRegion: kr
     Server: 
@@ -43,6 +43,7 @@ MonoBehaviour:
   - RespawnSpaceship
   - OnDameged_RPC
   - OnEquieItem_RPC
+  - DestroyItem_RPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

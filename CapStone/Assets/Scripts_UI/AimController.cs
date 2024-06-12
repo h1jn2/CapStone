@@ -1,41 +1,43 @@
 using UnityEngine;
+using Cinemachine;
 
 public class AimController : MonoBehaviour
 {
-    public Camera mainCamera; // Ä«¸Þ¶ó GameObject
-    public GameObject aimImage; // ÀÌ¹ÌÁö GameObject
-    public float raycastDistance = 100f; // ·¹ÀÌÄ³½ºÆ® °Å¸®
-    public float activationDistance = 7f; // ÀÌ¹ÌÁö È°¼ºÈ­ °Å¸®
+    //public Cinemachine mainCamera;
+    public Camera mainCamera; // Ä«ï¿½Þ¶ï¿½ GameObject
+    public GameObject aimImage; // ï¿½Ì¹ï¿½ï¿½ï¿½ GameObject
+    public float raycastDistance = 100f; // ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½Æ® ï¿½Å¸ï¿½
+    public float activationDistance = 7f; // ï¿½Ì¹ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­ ï¿½Å¸ï¿½
 
     void Update()
     {
         RaycastHit hit;
-        Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)); // Ä«¸Þ¶óÀÇ Áß¾Ó¿¡¼­ ·¹ÀÌ »ý¼º
+        Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)); // Ä«ï¿½Þ¶ï¿½ï¿½ï¿½ ï¿½ß¾Ó¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
         if (Physics.Raycast(ray, out hit, raycastDistance))
         {
-            if (hit.collider.CompareTag("cabinet") || hit.collider.CompareTag("item") || hit.collider.CompareTag("door")) // Ä«¸Þ¶ó°¡ ¸Ê¿¡ ÀÖ´Â 3D ¿ÀºêÁ§Æ®¸¦ ÃÄ´Ùº¸°í ÀÖ´ÂÁö È®ÀÎ //tag : door, item, cabinetÃß°¡ 04.23
+            if (hit.collider.CompareTag("cabinet") || hit.collider.CompareTag("item") || hit.collider.CompareTag("door")) // Ä«ï¿½Þ¶ï¿½ ï¿½Ê¿ï¿½ ï¿½Ö´ï¿½ 3D ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ä´Ùºï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ //tag : door, item, cabinetï¿½ß°ï¿½ 04.23
             {
-                // ¿ÀºêÁ§Æ®¿Í ÇÃ·¹ÀÌ¾î °£ÀÇ °Å¸® °è»ê
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½
                 float distance = Vector3.Distance(hit.collider.transform.position, mainCamera.transform.position);
 
-                if (distance <= activationDistance) // ÇÃ·¹ÀÌ¾î¿Í ¿ÀºêÁ§Æ® °£ÀÇ °Å¸®°¡ activationDistance ÀÌ³»ÀÏ ¶§
+                if (distance <= activationDistance) // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ï¿½ï¿½ activationDistance ï¿½Ì³ï¿½ï¿½ï¿½ ï¿½ï¿½
                 {
-                    aimImage.SetActive(true); // ÀÌ¹ÌÁö È°¼ºÈ­
+                    aimImage.SetActive(true); // ï¿½Ì¹ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
                 }
                 else
                 {
-                    aimImage.SetActive(false); // ÇÃ·¹ÀÌ¾î¿Í ¿ÀºêÁ§Æ® °£ÀÇ °Å¸®°¡ activationDistanceº¸´Ù Å¬ ¶§ ÀÌ¹ÌÁö ºñÈ°¼ºÈ­
+                    aimImage.SetActive(false); // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ï¿½ï¿½ activationDistanceï¿½ï¿½ï¿½ï¿½ Å¬ ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
                 }
             }
             else
             {
-                aimImage.SetActive(false); // ´Ù¸¥ ¿ÀºêÁ§Æ®¸¦ ÃÄ´Ùº¸°í ÀÖ´Ù¸é ÀÌ¹ÌÁö ºñÈ°¼ºÈ­
+                aimImage.SetActive(false); // ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ä´Ùºï¿½ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
             }
         }
         else
         {
-            aimImage.SetActive(false); // ¾Æ¹«°Íµµ ÃÄ´Ùº¸Áö ¾ÊÀ» ¶§ ÀÌ¹ÌÁö ºñÈ°¼ºÈ­
+            aimImage.SetActive(false); // ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½Ä´Ùºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
         }
     }
 }

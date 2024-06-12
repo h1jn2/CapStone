@@ -22,7 +22,8 @@ public class ItemManager : MonoBehaviour
         }
     }
 
-    public void DestroyItem()
+    [PunRPC]
+    public void DestroyItem_RPC()
     {
         Debug.Log("아이템파밍");
         StartCoroutine(DestroyAfterScaling());
@@ -36,8 +37,8 @@ public class ItemManager : MonoBehaviour
 
     private IEnumerator SetScale(Vector3 before, Vector3 after, float settime)
     {
-        time = 0f;  // 타이머 초기화
-        isScaling = true;  // 크기 조정 시작
+        time = 0f; // 타이머 초기화
+        isScaling = true; // 크기 조정 시작
 
         while (time < settime)
         {
@@ -45,7 +46,6 @@ public class ItemManager : MonoBehaviour
             this.gameObject.transform.localScale = vec;
             yield return null;
         }
-
         // 크기 조정 완료
         this.gameObject.transform.localScale = after;
         isScaling = false;

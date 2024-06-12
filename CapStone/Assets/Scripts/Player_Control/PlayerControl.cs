@@ -94,7 +94,9 @@ public class PlayerControl : MonoBehaviourPun
                             collider.GetComponent<DoorManager>().ChangeState();
                             break;
                         case PlayerRaycast.HitObject.Item:
-                            collider.GetComponent<ItemManager>().DestroyItem();
+                            PhotonView cpv = collider.GetComponent<PhotonView>();
+                            cpv.RPC("DestroyItem_RPC",RpcTarget.All);
+                            
                             break;
                     }
                 }
@@ -114,8 +116,7 @@ public class PlayerControl : MonoBehaviourPun
             mouseY += Input.GetAxis("Mouse Y") * mouseSpeed;
 
             mouseY = Mathf.Clamp(mouseY, -60f, 60f);
-
-            head.transform.localRotation = Quaternion.Euler(-mouseX, 0, mouseY);
+            head.transform.localRotation = Quaternion.Euler((float)(-mouseX/6), 0, mouseY);
             this.transform.localRotation = Quaternion.Euler(0, mouseX, 0);    
         }
     }
