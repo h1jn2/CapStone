@@ -108,17 +108,19 @@ public class PlayerControl : MonoBehaviourPun
 
     private void LateUpdate()
     {
-        if (punview.IsMine && !this.GetComponent<PlayerManager>()._isDie)
         {
             PlayerCamera.transform.position = head.transform.position;
 
             mouseX += Input.GetAxis("Mouse X") * mouseSpeed;
             mouseY += Input.GetAxis("Mouse Y") * mouseSpeed;
 
-            mouseY = Mathf.Clamp(mouseY, -60f, 60f);
-            head.transform.localRotation = Quaternion.Euler((float)(-mouseX/6), 0, mouseY);
-            this.transform.localRotation = Quaternion.Euler(0, mouseX, 0);    
+            mouseY = Mathf.Clamp(mouseY, -35f, 30f);
+
+            PlayerCamera.transform.localRotation = Quaternion.Euler(-mouseY, 0, 0);
+            head.transform.localRotation = Quaternion.Euler(0, 0, mouseY);
+            this.transform.localRotation = Quaternion.Euler(0, mouseX, 0);
         }
+
     }
     
     private void Control()

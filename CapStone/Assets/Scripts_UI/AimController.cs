@@ -16,7 +16,7 @@ public class AimController : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, raycastDistance))
         {
-            if (hit.collider.CompareTag("cabinet") || hit.collider.CompareTag("item") || hit.collider.CompareTag("door")) // ī�޶� �ʿ� �ִ� 3D ������Ʈ�� �Ĵٺ��� �ִ��� Ȯ�� //tag : door, item, cabinet�߰� 04.23
+            if (hit.collider.CompareTag("Cabinet") || hit.collider.CompareTag("Item") || hit.collider.CompareTag("Door")) // ī�޶� �ʿ� �ִ� 3D ������Ʈ�� �Ĵٺ��� �ִ��� Ȯ�� //tag : door, item, cabinet�߰� 04.23
             {
                 // ������Ʈ�� �÷��̾� ���� �Ÿ� ���
                 float distance = Vector3.Distance(hit.collider.transform.position, mainCamera.transform.position);
