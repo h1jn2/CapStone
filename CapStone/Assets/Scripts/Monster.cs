@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Monster : MonoBehaviour
+public class Monster : MonoBehaviourPun
 {
     public float radius = 0f;
     public LayerMask layer;
@@ -23,6 +23,8 @@ public class Monster : MonoBehaviour
     private IEnumerator chaseCoroutine;
     private IEnumerator attackCoroutine;
 
+    private PhotonView monsterPv;
+
 
 
     private enum State
@@ -38,6 +40,8 @@ public class Monster : MonoBehaviour
 
     private void Awake()
     {
+        monsterPv = this.gameObject.GetPhotonView();
+        
         nvAgent = gameObject.GetComponent<NavMeshAgent>();
 
         nvAgent.destination = transform.position;
@@ -194,7 +198,9 @@ public class Monster : MonoBehaviour
     {
         Debug.Log("공격 중");
         short_enemy.GetComponent<PlayerManager>()._isDie = true;
-        GameManager.instance.AlivePlayerCnt--;
+        //GameManager.instance.AlivePlayerCnt--; //공격시 생존인원  변수 감소
+        monsterPv.RPC("OnDemegePlayer_RPC",RpcTarget.All);
+        GameManager.instance.check_clear();
         //GameObject.Find("GameManager").GetComponent<GameManager>()._currentStatus = GameManager.Status._end; //=> 현재 한명이라도 공격당할시 모든 클라이언트가 정지함
         short_enemy.gameObject.GetComponent<CharacterController>().enabled = false;       // 플레이어 맵에 존재하면 순찰 경로로 변경이 안 돼서 일단 이렇게 해놔씀
         short_enemy = null;
@@ -208,5 +214,18 @@ public class Monster : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, radius);
+    }
+    
+    ////////////////////////////
+    //게임클리어조건을 위해 게임매니저 함수 동기화 RPC => 공격시 생존인원 카운트
+    ////////////////////////////
+
+    [PunRPC]
+    public void OnDemegePlayer_RPC()
+    {
+        if (monsterPv.IsMine)
+        {
+            GameManager.instance.AlivePlayerCnt--;
+        }
     }
 }

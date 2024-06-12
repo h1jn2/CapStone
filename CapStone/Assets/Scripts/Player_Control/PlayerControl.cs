@@ -108,6 +108,7 @@ public class PlayerControl : MonoBehaviourPun
 
     private void LateUpdate()
     {
+        if (punview.IsMine)
         {
             PlayerCamera.transform.position = head.transform.position;
 
@@ -120,8 +121,8 @@ public class PlayerControl : MonoBehaviourPun
             head.transform.localRotation = Quaternion.Euler(0, 0, mouseY);
             this.transform.localRotation = Quaternion.Euler(0, mouseX, 0);
         }
-
     }
+
     
     private void Control()
     {

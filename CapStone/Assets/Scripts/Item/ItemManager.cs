@@ -26,13 +26,15 @@ public class ItemManager : MonoBehaviour
     public void DestroyItem_RPC()
     {
         Debug.Log("아이템파밍");
+        GameManager.instance.ItemCnt--;
+        GameManager.instance.check_clear();
         StartCoroutine(DestroyAfterScaling());
     }
 
     private IEnumerator DestroyAfterScaling()
     {
         yield return StartCoroutine(SetScale(Vector3.one, Vector3.zero, 1f));
-        PhotonNetwork.Destroy(this.gameObject);
+        if(pv.IsMine)PhotonNetwork.Destroy(this.gameObject);
     }
 
     private IEnumerator SetScale(Vector3 before, Vector3 after, float settime)

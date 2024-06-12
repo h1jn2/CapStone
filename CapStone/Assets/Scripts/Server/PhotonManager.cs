@@ -83,6 +83,12 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         roomOptions.MaxPlayers = 4; // 최대 플레이어 수 설정
         PhotonNetwork.CreateRoom("Capstone", roomOptions, TypedLobby.Default); // 방 생성
     }
+
+    public void LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+        GameManager.instance._currentStatus = GameManager.Status._login;
+    }
     
     // 방 입장
     private void JoinRoom()

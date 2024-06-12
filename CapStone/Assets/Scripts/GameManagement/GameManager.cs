@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEditor;
 using UnityEngine;
 
@@ -50,5 +51,24 @@ public class GameManager : MonoBehaviour
         PlayerCnt = 0;
         AlivePlayerCnt = 0;
         ItemCnt = 5;
+    }
+
+    public void check_clear()
+    {
+        if (GameManager.instance._currentStatus == Status._playing)
+        {
+            if (GameManager.instance.AlivePlayerCnt >= 0 && GameManager.instance.ItemCnt == 0)
+            {
+                GameManager.instance._currentStatus = Status._end;
+                PhotonManager.instance.LeaveRoom();//임시 테스트코드
+                //클리어화면 active
+                //나올 내용 설정
+            }
+            else if (GameManager.instance.AlivePlayerCnt <= 0)
+            {
+                GameManager.instance._currentStatus = Status._end;
+                PhotonManager.instance.LeaveRoom();//임시 테스트 코드
+            }
+        }
     }
 }
