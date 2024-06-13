@@ -200,9 +200,9 @@ public class Monster : MonoBehaviourPun
         monsterPv.RPC("OnDemegePlayer_RPC",RpcTarget.All);
         GameManager.instance.check_clear();
         //GameObject.Find("GameManager").GetComponent<GameManager>()._currentStatus = GameManager.Status._end; //=> 현재 한명이라도 공격당할시 모든 클라이언트가 정지함
+        navDistance = Vector3.Distance(this.transform.position, short_enemy.transform.position);
         short_enemy.gameObject.GetComponent<CharacterController>().enabled = false;       // 플레이어 맵에 존재하면 순찰 경로로 변경이 안 돼서 일단 이렇게 해놔씀
         short_enemy = null;
-        navDistance = Vector3.Distance(this.transform.position, short_enemy.transform.position);
         yield return null;
     }
 
