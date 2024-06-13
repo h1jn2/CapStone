@@ -41,17 +41,13 @@ public class Monster : MonoBehaviourPun
     private void Awake()
     {
         monsterPv = this.gameObject.GetPhotonView();
-        
         nvAgent = gameObject.GetComponent<NavMeshAgent>();
-
-        nvAgent.destination = transform.position;
         wayPoints = new[] { new Vector3(-30, this.transform.position.y, 110), new Vector3(-30, this.transform.position.y, 130) };
     }
 
     private void Start()
     {
         _curState = State.Patrol;
-        
 
         patrolCoroutine = StartPatrol();
         chaseCoroutine = StartChase();
@@ -61,6 +57,7 @@ public class Monster : MonoBehaviourPun
     private void Update()
     {
         colliders = Physics.OverlapSphere(transform.position, radius, layer);
+
 
         if (colliders.Length != 0)
         {
@@ -150,7 +147,6 @@ public class Monster : MonoBehaviourPun
     private IEnumerator StartPatrol()
     {
         Debug.Log("순찰 중");
-        nvAgent.ResetPath();
 
         while (true)
         {
@@ -161,7 +157,7 @@ public class Monster : MonoBehaviourPun
             }
 
             nvAgent.SetDestination(targetWayPoint);
-            navDistance = nvAgent.remainingDistance;
+            navDistance = Vector3.Distance(this.transform.position, targetWayPoint);
             yield return StartCoroutine(patrolCoroutine);
         }
     }
@@ -169,7 +165,6 @@ public class Monster : MonoBehaviourPun
     private IEnumerator StartChase()
     {
         Debug.Log("플레이어 추격");
-        nvAgent.ResetPath();
 
         while (true)
         {
@@ -187,8 +182,11 @@ public class Monster : MonoBehaviourPun
                         short_enemy = col;
                     }
                 }
+
                 nvAgent.SetDestination(short_enemy.transform.position);
-                navDistance = nvAgent.remainingDistance;
+                navDistance = Vector3.Distance(this.transform.position, short_enemy.transform.position);
+                Debug.Log(short_enemy + ", " + navDistance);
+
             }
             yield return null;
         }
@@ -204,8 +202,7 @@ public class Monster : MonoBehaviourPun
         //GameObject.Find("GameManager").GetComponent<GameManager>()._currentStatus = GameManager.Status._end; //=> 현재 한명이라도 공격당할시 모든 클라이언트가 정지함
         short_enemy.gameObject.GetComponent<CharacterController>().enabled = false;       // 플레이어 맵에 존재하면 순찰 경로로 변경이 안 돼서 일단 이렇게 해놔씀
         short_enemy = null;
-        nvAgent.ResetPath();
-        navDistance = nvAgent.remainingDistance;
+        navDistance = Vector3.Distance(this.transform.position, short_enemy.transform.position);
         yield return null;
     }
 
