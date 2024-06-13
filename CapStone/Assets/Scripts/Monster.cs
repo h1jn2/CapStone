@@ -63,7 +63,8 @@ public class Monster : MonoBehaviourPun
         {
             short_enemy = colliders[0];
         }
-
+        
+        Debug.Log(_curState);
         switch (_curState)
         {
             case State.Patrol:
@@ -185,7 +186,7 @@ public class Monster : MonoBehaviourPun
 
                 nvAgent.SetDestination(short_enemy.transform.position);
                 navDistance = Vector3.Distance(this.transform.position, short_enemy.transform.position);
-                Debug.Log(short_enemy + ", " + navDistance);
+                //Debug.Log(short_enemy + ", " + navDistance);
 
             }
             yield return null;
@@ -196,8 +197,8 @@ public class Monster : MonoBehaviourPun
     {
         Debug.Log("공격 중");
         short_enemy.GetComponent<PlayerManager>()._isDie = true;
-        //GameManager.instance.AlivePlayerCnt--; //공격시 생존인원  변수 감소
-        monsterPv.RPC("OnDemegePlayer_RPC",RpcTarget.All);
+        GameManager.instance.AlivePlayerCnt--; //공격시 생존인원  변수 감소
+        //monsterPv.RPC("OnDemegePlayer_RPC",RpcTarget.All);
         GameManager.instance.check_clear();
         //GameObject.Find("GameManager").GetComponent<GameManager>()._currentStatus = GameManager.Status._end; //=> 현재 한명이라도 공격당할시 모든 클라이언트가 정지함
         navDistance = Vector3.Distance(this.transform.position, short_enemy.transform.position);
@@ -222,7 +223,9 @@ public class Monster : MonoBehaviourPun
     {
         if (monsterPv.IsMine)
         {
+            Debug.Log("데미지동기화");
             GameManager.instance.AlivePlayerCnt--;
         }
+            
     }
 }

@@ -77,11 +77,11 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     }
 
     // 방 생성
-    private void CreateRoom()
+    private void CreateRoom(string RoomName)
     {
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.MaxPlayers = 4; // 최대 플레이어 수 설정
-        PhotonNetwork.CreateRoom("Capstone", roomOptions, TypedLobby.Default); // 방 생성
+        PhotonNetwork.CreateRoom(RoomName, roomOptions, TypedLobby.Default); // 방 생성
     }
 
     public void LeaveRoom()
@@ -91,11 +91,11 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     }
     
     // 방 입장
-    private void JoinRoom()
+    private void JoinRoom(string RoomName)
     {
         RoomOptions roomOption = new RoomOptions();
         roomOption.MaxPlayers = 4; // 최대 플레이어 수 설정
-        PhotonNetwork.JoinOrCreateRoom("Capstone", roomOption, TypedLobby.Default); // 방 입장 또는 생성
+        PhotonNetwork.JoinOrCreateRoom(RoomName, roomOption, TypedLobby.Default); // 방 입장 또는 생성
     }
 
     // 스테이지에 플레이어 생성
@@ -219,14 +219,25 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinLobby(); // 로비 접속
     }
 
+    public void btn_CreateOrJoin(string RoomName)
+    {
+        if (UIMgr._isCreate)
+        {
+            CreateRoom(RoomName);
+        }
+        else
+        {
+            JoinRoom(RoomName);
+        }
+    }
     public void btn_click_createRoom()
     {
-        CreateRoom(); // 방 생성
+        CreateRoom("room"); // 방 생성
     }
 
     public void btn_click_joinroom()
     {
-        JoinRoom(); // 방 접속 또는 생성
+        JoinRoom("room"); // 방 접속 또는 생성
     }
 
     public void btn_click_StageStart()

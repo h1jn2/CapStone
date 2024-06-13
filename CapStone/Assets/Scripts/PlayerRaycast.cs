@@ -13,6 +13,7 @@ public class PlayerRaycast : MonoBehaviour
     }
     //최적화를 위해 const로 문자열 선언
     private const string str_Door = "Door";
+    private const string str_DoubleDoor = "DoubleDoor";
     private const string str_Item = "Item";
 
     //캐비넷 검출을 위한 예비 함수
@@ -37,7 +38,11 @@ public class PlayerRaycast : MonoBehaviour
             if (hit.collider.CompareTag(str_Door))
             {
                 return HitObject.Door; 
-            } 
+            }
+            if (hit.collider.CompareTag(str_DoubleDoor))
+            {
+                return HitObject.Door; 
+            }
             else if (hit.collider.CompareTag(str_Item))
             {
                 return HitObject.Item;

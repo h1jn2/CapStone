@@ -9,7 +9,7 @@ public class LoginManager : MonoBehaviour
     public static LoginManager instance = null;
     
     private const string DB_TABLE_USER_LOGIN = "user";
-    public static bool isLogin;
+    public static bool isLogin = false;
     
     void Awake()
     {
@@ -23,7 +23,7 @@ public class LoginManager : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        isLogin = false;
+        
         Debug.LogError("실행성공");
     }
 

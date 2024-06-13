@@ -12,10 +12,22 @@ public class UIMgr : MonoBehaviour
     [SerializeField] private CanvasGroup panelLobby;
     [SerializeField] private CanvasGroup panelLogin;
 
+    public static bool _isCreate;
+
 
     public void Awake()
     {
-        single = this;   
+        Debug.Log(LoginManager.isLogin);
+        single = this;
+        if (!LoginManager.isLogin)
+        {
+            panelLogin.gameObject.SetActive(true);
+        }
+        else
+        {
+            panelLogin.gameObject.SetActive(false);
+            panelTitle.gameObject.SetActive(true);
+        }
     }
 
     public void OpenSetting()

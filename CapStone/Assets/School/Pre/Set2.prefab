@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5014028914526468357}
   - component: {fileID: 2080817123570601605}
   m_Layer: 0
-  m_Name: S_corridor_
+  m_Name: lastDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,11 +113,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 6295140083979564933}
   - {fileID: 7994086205663938639}
-  - {fileID: 2819510166458857376}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &2251704031517642584
+--- !u!1001 &8017416557487574909
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -125,17 +125,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1073765774021250022}
     m_Modifications:
+    - target: {fileID: 200422910518706830, guid: cce3e53f4fbe67642a945a3f5768f5bc, type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[0].SynchronizeType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1792574208364759974, guid: cce3e53f4fbe67642a945a3f5768f5bc, type: 3}
       propertyPath: m_Name
-      value: DoubleDoor
-      objectReference: {fileID: 0}
-    - target: {fileID: 1792574208364759974, guid: cce3e53f4fbe67642a945a3f5768f5bc, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 2147710642595589311, guid: cce3e53f4fbe67642a945a3f5768f5bc, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: DoubleDoor (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4044022923077187832, guid: cce3e53f4fbe67642a945a3f5768f5bc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -177,10 +173,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5041780827817379333, guid: cce3e53f4fbe67642a945a3f5768f5bc, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
     - target: {fileID: 6766049654124344839, guid: cce3e53f4fbe67642a945a3f5768f5bc, type: 3}
       propertyPath: sceneViewId
       value: 0
@@ -190,8 +182,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cce3e53f4fbe67642a945a3f5768f5bc, type: 3}
---- !u!4 &2819510166458857376 stripped
+--- !u!4 &6295140083979564933 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4044022923077187832, guid: cce3e53f4fbe67642a945a3f5768f5bc, type: 3}
-  m_PrefabInstance: {fileID: 2251704031517642584}
+  m_PrefabInstance: {fileID: 8017416557487574909}
   m_PrefabAsset: {fileID: 0}

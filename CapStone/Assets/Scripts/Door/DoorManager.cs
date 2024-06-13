@@ -27,7 +27,8 @@ public class DoorManager : MonoBehaviourPunCallbacks
     }
     void AnimationUpdate()
     {
-        animator.SetBool("isOpen", isOpen);
+        if(this.gameObject.CompareTag("Door")) animator.SetBool("isOpen", isOpen); 
+        if(this.gameObject.CompareTag("DoubleDoor"))animator.SetBool("isDoubleOpen",isOpen);
     }
 
     [PunRPC]
