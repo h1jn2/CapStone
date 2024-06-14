@@ -42,7 +42,8 @@ public class Monster : MonoBehaviourPun
     {
         monsterPv = this.gameObject.GetPhotonView();
         nvAgent = gameObject.GetComponent<NavMeshAgent>();
-        wayPoints = new[] { new Vector3(-30, this.transform.position.y, 110), new Vector3(-30, this.transform.position.y, 130) };
+        wayPoints = new[] { new Vector3(-32.5f, this.transform.position.y, 110), new Vector3(-32.5f, this.transform.position.y, 120) };
+        targetWayPoint = wayPoints[0];
     }
 
     private void Start()
@@ -63,8 +64,7 @@ public class Monster : MonoBehaviourPun
         {
             short_enemy = colliders[0];
         }
-        
-        Debug.Log(_curState);
+
         switch (_curState)
         {
             case State.Patrol:
@@ -72,7 +72,6 @@ public class Monster : MonoBehaviourPun
 
                 if (CanSeePlayer())
                 {
-                    StopCoroutine(patrolCoroutine);
                     _curState = State.Chase;
                     break;
                 }
@@ -87,13 +86,11 @@ public class Monster : MonoBehaviourPun
 
                 if (!CanSeePlayer())
                 {
-                    StopCoroutine(chaseCoroutine);
                     _curState = State.Patrol;
                     break;
                 }
                 if (navDistance < arrivalDist)
                 {
-                    StopCoroutine(chaseCoroutine);
                     _curState = State.Attack;
                     break;
                 }
@@ -103,7 +100,6 @@ public class Monster : MonoBehaviourPun
 
                 if (!CanSeePlayer())
                 {
-                    StopCoroutine(attackCoroutine);
                     _curState = State.Patrol;
                     break;
                 }
@@ -148,25 +144,27 @@ public class Monster : MonoBehaviourPun
     private IEnumerator StartPatrol()
     {
         Debug.Log("순찰 중");
+        nvAgent.SetDestination(wayPoints[Random.Range(0, 2)]);
 
         while (true)
         {
+            if (short_enemy != null)
+            {
+                yield return new WaitUntil(() => short_enemy == null);
+            }
             if (navDistance < arrivalDist)
             {
                 targetWayPoint = wayPoints[Random.Range(0, 2)];
-                yield return null;
             }
-
             nvAgent.SetDestination(targetWayPoint);
             navDistance = Vector3.Distance(this.transform.position, targetWayPoint);
-            yield return StartCoroutine(patrolCoroutine);
+            yield return null;
         }
     }
 
     private IEnumerator StartChase()
     {
         Debug.Log("플레이어 추격");
-
         while (true)
         {
             if (colliders.Length != 0)
@@ -186,10 +184,14 @@ public class Monster : MonoBehaviourPun
 
                 nvAgent.SetDestination(short_enemy.transform.position);
                 navDistance = Vector3.Distance(this.transform.position, short_enemy.transform.position);
-                //Debug.Log(short_enemy + ", " + navDistance);
+                yield return null;
 
             }
-            yield return null;
+            else
+            {
+                yield return new WaitUntil(() => short_enemy != null);
+            }
+
         }
     }
 
@@ -213,7 +215,7 @@ public class Monster : MonoBehaviourPun
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, radius);
     }
-    
+
     ////////////////////////////
     //게임클리어조건을 위해 게임매니저 함수 동기화 RPC => 공격시 생존인원 카운트
     ////////////////////////////
@@ -226,6 +228,6 @@ public class Monster : MonoBehaviourPun
             Debug.Log("데미지동기화");
             GameManager.instance.AlivePlayerCnt--;
         }
-            
+
     }
 }
