@@ -221,14 +221,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public void btn_CreateOrJoin(string RoomName)
     {
-        if (UIMgr._isCreate)
-        {
-            CreateRoom(RoomName);
-        }
-        else
-        {
             JoinRoom(RoomName);
-        }
+        
     }
     public void btn_click_createRoom()
     {

@@ -8,6 +8,7 @@ public class PlayerRaycast : MonoBehaviour
     {
         NotValid,
         Door,
+        DoubleDoor,
         Item,
         
     }
@@ -41,7 +42,7 @@ public class PlayerRaycast : MonoBehaviour
             }
             if (hit.collider.CompareTag(str_DoubleDoor))
             {
-                return HitObject.Door; 
+                return HitObject.DoubleDoor; 
             }
             else if (hit.collider.CompareTag(str_Item))
             {

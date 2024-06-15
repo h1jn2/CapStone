@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 6766049654124344839}
   - component: {fileID: 4195592636257484697}
   - component: {fileID: 200422910518706830}
-  - component: {fileID: 5418151252005788112}
   - component: {fileID: 4611904620244184566}
+  - component: {fileID: -6519856448970537217}
   m_Layer: 0
   m_Name: DoubleDoor
   m_TagString: DoubleDoor
@@ -121,19 +121,6 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
---- !u!114 &5418151252005788112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1792574208364759974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35769d374d0f037419c217e0c3cb0b35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isOpen: 0
 --- !u!65 &4611904620244184566
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -155,6 +142,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 181.54091, y: 193.23442, z: 82.34125}
   m_Center: {x: -3.9308548, y: -31.586464, z: 1.6179047}
+--- !u!114 &-6519856448970537217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1792574208364759974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53ca988e55a45f04ba5ea2a323c964ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOpen: 0
 --- !u!1 &2147710642595589311
 GameObject:
   m_ObjectHideFlags: 0

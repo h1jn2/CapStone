@@ -1,6 +1,8 @@
+using Photon.Pun.Demo.PunBasics;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIMgr : MonoBehaviour
 {
@@ -11,23 +13,35 @@ public class UIMgr : MonoBehaviour
     [SerializeField] private CanvasGroup panelTitle;
     [SerializeField] private CanvasGroup panelLobby;
     [SerializeField] private CanvasGroup panelLogin;
+    [SerializeField] private CanvasGroup panelLoading;
+    [SerializeField] private CanvasGroup objLoadingBottom;
+    [SerializeField] private CanvasGroup panelRoom;
 
-    public static bool _isCreate;
+    [SerializeField] private CanvasGroup CreateCode;
+    [SerializeField] private CanvasGroup ToRoom;
 
+    [SerializeField] private Button closeButtonCreateCode;
+    [SerializeField] private Button closeButtonToRoom;
 
     public void Awake()
     {
-        Debug.Log(LoginManager.isLogin);
         single = this;
-        if (!LoginManager.isLogin)
-        {
-            panelLogin.gameObject.SetActive(true);
-        }
-        else
-        {
-            panelLogin.gameObject.SetActive(false);
-            panelTitle.gameObject.SetActive(true);
-        }
+
+        // ��ư �̺�Ʈ ����
+        closeButtonCreateCode.onClick.AddListener(CloseCreateCodePopup);
+        closeButtonToRoom.onClick.AddListener(CloseToRoomPopup);
+    }
+
+    public void OpenLoading()
+    {
+        FadeManager.In(panelLoading, 2);
+        //FadeManager.InOneTime(objLoadingBottom, wait: 1);
+        FadeManager.Out(panelQuit);
+        FadeManager.Out(panelRoom);
+        FadeManager.Out(panelTitle);
+        FadeManager.Out(panelLobby);
+        FadeManager.Out(panelLogin);
+        FadeManager.Out(panelSetting);
     }
 
     public void OpenSetting()
@@ -48,7 +62,7 @@ public class UIMgr : MonoBehaviour
         FadeManager.Out(panelLogin);
     }
 
-    public void OpenTitle() 
+    public void OpenTitle()
     {
         FadeManager.Out(panelQuit);
         FadeManager.In(panelTitle);
@@ -64,5 +78,31 @@ public class UIMgr : MonoBehaviour
         FadeManager.Out(panelSetting);
         FadeManager.Out(panelTitle);
         FadeManager.Out(panelLogin);
+    }
+
+    public void OpenCreateCodePopup()
+    {
+        FadeManager.In(CreateCode);
+    }
+
+    public void CloseCreateCodePopup()
+    {
+        FadeManager.Out(CreateCode);
+    }
+
+    public void OpenToRoomPopup()
+    {
+        FadeManager.In(ToRoom);
+    }
+
+    public void CloseToRoomPopup()
+    {
+        FadeManager.Out(ToRoom);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+        Debug.Log("��������");
     }
 }

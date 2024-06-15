@@ -93,6 +93,9 @@ public class PlayerControl : MonoBehaviourPun
                         case PlayerRaycast.HitObject.Door:
                             collider.GetComponent<DoorManager>().ChangeState();
                             break;
+                        case PlayerRaycast.HitObject.DoubleDoor:
+                            collider.GetComponent<DoubleDoorManager>().ChangeState();
+                            break;
                         case PlayerRaycast.HitObject.Item:
                             PhotonView cpv = collider.GetComponent<PhotonView>();
                             cpv.RPC("DestroyItem_RPC",RpcTarget.All);

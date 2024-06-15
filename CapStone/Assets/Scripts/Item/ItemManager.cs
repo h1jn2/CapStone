@@ -8,6 +8,7 @@ public class ItemManager : MonoBehaviour
     private PhotonView pv;
     private float time = 0f;
     private bool isScaling = false;
+    private ItemUi UIcontrol;
 
     void Start()
     {
@@ -27,6 +28,7 @@ public class ItemManager : MonoBehaviour
     {
         Debug.Log("아이템파밍");
         GameManager.instance.ItemCnt--;
+        ItemUi.instance.UpdateCount();
         GameManager.instance.check_clear();
         StartCoroutine(DestroyAfterScaling());
     }

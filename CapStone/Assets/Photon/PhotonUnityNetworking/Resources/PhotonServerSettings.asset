@@ -45,6 +45,7 @@ MonoBehaviour:
   - OnEquieItem_RPC
   - DestroyItem_RPC
   - OnDemegePlayer_RPC
+  - OnChangeStatusDoubleDoor
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
