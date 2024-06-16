@@ -4,19 +4,16 @@ using UnityEngine.EventSystems;
 using System.Collections;
 using UnityEditor;
 using Unity.VisualScripting;
+using System.Collections.Generic;
 
 public class FadeManager : MonoBehaviour
 {
 
     private static FadeManager single;
 
-    //private CanvasGroup currentPanel;
-    //private CanvasGroup nextPanel;
-    //private float fadeDuration = 0.5f;
-
-    //private bool isTransitioning = false;
     private Coroutine coroutineIn;
     private Coroutine coroutineOut;
+    static private Dictionary<CanvasGroup, Coroutine> dictCoroutineOneTime = new Dictionary<CanvasGroup, Coroutine>();
 
     private void Awake()
     {
@@ -27,13 +24,26 @@ public class FadeManager : MonoBehaviour
     public static void Call(CanvasGroup current, CanvasGroup next, float duration = 0.5f)
     {
         FadeManager.Out(current);
-        FadeManager.In(next);
+        FadeManager.In(next, duration); // 페이드인 시간을 전달
 
     }
 
-    public static void In(CanvasGroup target, float wait = 0.5f, float duratoin = 0.5f)
+    public static void In(CanvasGroup target, float duration = 0.5f, float wait = 0)
     {
-        single.coroutineIn = single.StartCoroutine(single.FadeIn(target, wait, duratoin));
+        single.coroutineIn = single.StartCoroutine(single.FadeIn(target, duration));
+    }
+
+    public static void InOneTime(CanvasGroup target, float duration = 0.5f, float wait = 0)
+    {
+        Coroutine coroutine = null;
+        if(dictCoroutineOneTime.TryGetValue(target, out coroutine))
+        {
+            single.StopCoroutine(coroutine);
+            dictCoroutineOneTime.Remove(target);
+        }
+
+        dictCoroutineOneTime.Add(target, single.StartCoroutine(single.FadeIn(target, duration, wait)));
+
     }
 
     public static void Out(CanvasGroup target, float duration = 0.5f)
@@ -53,7 +63,7 @@ public class FadeManager : MonoBehaviour
 
         while (currentTime < duration)
         {
-            currentTime += Time.deltaTime;
+            currentTime += Time.unscaledDeltaTime;
             target.alpha = Mathf.Lerp(startAlpha, endAlpha, currentTime / duration);
             yield return null;
         }
@@ -61,10 +71,10 @@ public class FadeManager : MonoBehaviour
         target.gameObject.SetActive(false);
     }
 
-    private IEnumerator FadeIn(CanvasGroup target, float wait = 0.5f, float duration = 0.5f)
+    private IEnumerator FadeIn(CanvasGroup target, float duration = 0.5f, float wait = 0)
     {
         target.gameObject.SetActive(false);
-        yield return new WaitForSeconds(wait);
+        yield return new WaitForSecondsRealtime(wait); // 기다리는 시간을 조절하려면 WaitForSeconds 대신에 yield return null을 사용
 
         target.gameObject.SetActive(true);
         target.alpha = 0f;
@@ -78,7 +88,7 @@ public class FadeManager : MonoBehaviour
 
         while (currentTime < duration)
         {
-            currentTime += Time.deltaTime;
+            currentTime += Time.unscaledDeltaTime;
             target.alpha = Mathf.Lerp(startAlpha, endAlpha, currentTime / duration);
             yield return null;
         }

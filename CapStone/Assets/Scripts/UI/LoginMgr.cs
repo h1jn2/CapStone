@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.Collections;
+using Photon.Pun;
 
 public class LoginMgr : MonoBehaviour
 {
@@ -40,7 +41,8 @@ public class LoginMgr : MonoBehaviour
             {
                 Debug.Log("로그인 성공!");
                 // 여기에 로그인 성공 후의 작업 추가
-                UIMgr.single.OpenTitle();    
+                UIMgr.single.OpenTitle();
+                PhotonNetwork.NickName = inputId;
                 GameManager.instance._currentStatus = GameManager.Status._login;
             }
             else

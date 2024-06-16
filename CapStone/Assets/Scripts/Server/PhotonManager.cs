@@ -219,6 +219,20 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinLobby(); // 로비 접속
     }
 
+    public void btn_click_Create()
+    {
+        
+    }
+
+    public void btn_click_Join()
+    {
+        
+    }
+
+    public void checkRoomName(string input)
+    {
+        
+    }
     public void btn_CreateOrJoin(string RoomName)
     {
             JoinRoom(RoomName);
