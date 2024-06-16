@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviourPun
 {
-    public GameObject cabinet;
-
     [SerializeField]
     private float mouseSpeed = 8f;
     [SerializeField]
@@ -39,12 +37,9 @@ public class PlayerControl : MonoBehaviourPun
     private bool isMoving = false;
     private bool isRunning = false;
     private bool canSprint = true;
-    private bool isHiding = false;
 
     private Animator animator;
     private PhotonView punview;
-
-    private bool isInsideCabinet = false;
 
     public PlayerRaycast raycaster;
 
@@ -62,21 +57,10 @@ public class PlayerControl : MonoBehaviourPun
         UpdateAnimations();
         if (punview.IsMine && !this.GetComponent<PlayerManager>()._isDie)
         {
-            
+
             Control();
             Stamina();
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                if (IsPlayerNearCabinet())
-                {
-                    ToggleHide();
-                }
-                else if (isInsideCabinet)
-                {
-                    ToggleHide();
-                }
-            }
-            
+
             // ssg - 문 충돌이 간헐적으로 감지되지 않는 현상을 해결하기 위한 코드
             if (Input.GetKeyUp(KeyCode.E))
             {
@@ -85,8 +69,8 @@ public class PlayerControl : MonoBehaviourPun
                 PlayerRaycast.HitObject hitObject = raycaster.OnEnter_E(out collider);
 
                 Debug.Log(hitObject);
-                
-                if (hitObject != PlayerRaycast.HitObject.NotValid && collider != null && photonView.IsMine )
+
+                if (hitObject != PlayerRaycast.HitObject.NotValid && collider != null && photonView.IsMine)
                 {
                     switch (hitObject)
                     {
@@ -98,15 +82,14 @@ public class PlayerControl : MonoBehaviourPun
                             break;
                         case PlayerRaycast.HitObject.Item:
                             PhotonView cpv = collider.GetComponent<PhotonView>();
-                            cpv.RPC("DestroyItem_RPC",RpcTarget.All);
-                            
+                            cpv.RPC("DestroyItem_RPC", RpcTarget.All);
+
                             break;
                     }
                 }
-
             }
         }
-        
+
     }
 
     private void LateUpdate()
@@ -126,7 +109,7 @@ public class PlayerControl : MonoBehaviourPun
         }
     }
 
-    
+
     private void Control()
     {
         float currentSpeed = canSprint && Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : moveSpeed;
@@ -145,6 +128,9 @@ public class PlayerControl : MonoBehaviourPun
 
             if (moveDirection != Vector3.zero)
             {
+                moveDirection.y = 0f;
+                moveDirection.Normalize();
+
                 Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
@@ -190,28 +176,6 @@ public class PlayerControl : MonoBehaviourPun
         }
     }
 
-    private bool IsPlayerNearCabinet()
-    {
-        float distance = Vector3.Distance(transform.position, cabinet.transform.position);
-        return distance < 3f;
-    }
-
-    private void ToggleHide()
-    {
-        if (isHiding)
-        {
-            transform.position = cabinet.transform.position + new Vector3(0f, 1f, 0f);
-            isInsideCabinet = false;
-        }
-        else
-        {
-            transform.position = cabinet.transform.position;
-            isInsideCabinet = true;
-        }
-
-        isHiding = !isHiding;
-    }
-
     private void ChangeDoorState(Collider other)
     {
         if (Input.GetKeyUp(KeyCode.E))
@@ -225,5 +189,5 @@ public class PlayerControl : MonoBehaviourPun
             }
         }
     }
-  
+
 }
