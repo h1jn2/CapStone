@@ -1,19 +1,30 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using TMPro;
 using UnityEngine.SceneManagement;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using Image = UnityEngine.UI.Image;
 using Random = UnityEngine.Random;
 
 public class PhotonManager : MonoBehaviourPunCallbacks
 {
+    
+    /// <summary>
+    /// 각종 아이템 및 프리팹들 생성할 위치 
+    /// </summary>
     public List<GameObject> list_Prefabs; // 프리팹 리스트
     public List<Transform> list_ItemSpawnPoints; // 아이템 스폰 포인트 리스트
     public List<Transform> list_MosterSpawnPoints; // 몬스터 스폰 포인트 리스트
     public List<Transform> list_PlayerSpawnPoints; // 플레이어 스폰 포인트 리스트
+    
+    /// <summary>
+    /// 게임시작 및 생성에 관련된 객체
+    /// </summary>
     
     public UserData LocalDate; // 로컬 유저 데이터
     public Transform spawn_point; // 스폰 포인트
@@ -21,6 +32,16 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public static PhotonManager instance; // 싱글톤 인스턴스
     public bool isLoading; // 로딩 상태
     public static AsyncOperation SceneLoingsync; // 비동기 씬 로드 객체
+
+    /// <summary>
+    /// 내부적으로 사용할 변수 및 객체
+    /// </summary>
+    public List<RoomInfo> RoomInfos;
+
+    public TMP_InputField InputCreateRoomName;
+    public TMP_InputField InputJoinRoomName;
+    public Image CreateWarning;
+    public Image JoinWarning;
 
     // 게임 실행 중 포톤매니저는 하나만 존재하도록 싱글톤으로 설정
     private void Awake()
@@ -41,6 +62,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
                 Destroy(this.gameObject); // 이미 인스턴스가 존재하면 새로운 인스턴스를 파괴
             }
         }
+
+        RoomInfos = null;
     }
 
     // Start 코루틴
@@ -159,17 +182,46 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         Debug.LogError("몬스터 스폰위치: " + spawn);
         PhotonNetwork.Instantiate(list_Prefabs[3].name, list_MosterSpawnPoints[spawn].position, Quaternion.identity); // 몬스터 프리팹 생성
     }
-    
+
+    public bool CheckRoomName(string input)
+    {
+        Debug.Log(RoomInfos.Count);
+        bool is_check= false;
+        if (RoomInfos.Count == 0)
+        {
+            is_check = true;
+        }
+        else
+        {
+            for (int i = 0; i < RoomInfos.Count; i++)
+            {
+                if (RoomInfos[i].Name != input)
+                {
+                    is_check = true;
+                }
+            }
+        }
+        return is_check;
+    }
     #region ServerCallBacks
 
     public override void OnConnectedToMaster()
     {
         Debug.Log("포톤 마스터 서버 접속 완료");
+        PhotonNetwork.JoinLobby();
     }
 
     public override void OnJoinedLobby()
     {
         Debug.Log("포톤 로비 접속 완료");
+    }
+    public override void OnRoomListUpdate(List<RoomInfo> roomList)
+    {
+        // 룸 리스트 콜백은 로비에 접속했을때 자동으로 호출된다.
+        // 로비에서만 호출할 수 있음...
+        Debug.Log($"룸 리스트 업데이트 ::::::: 현재 방 갯수 : {roomList.Count}");
+        RoomInfos = roomList.ToList();
+        Debug.Log($"룸 리스트 업데이트 ::::::: 현재 방 갯수 : {RoomInfos.Count}");
     }
 
     public override void OnJoinedRoom()
@@ -208,8 +260,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         Debug.Log(cause);
     }
-    //public void
-
+    
     #endregion
 
     #region ButtonMethods
@@ -221,17 +272,48 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public void btn_click_Create()
     {
-        
+        string RoomName = InputCreateRoomName.text;
+        if (RoomInfos == null)
+        {
+            Debug.Log("방생성");
+            CreateRoom(RoomName);
+        }
+        else
+        {
+            if (CheckRoomName(RoomName))
+            {
+                Debug.Log("방생성");
+                CreateRoom(RoomName);
+            }
+            else
+            {
+                Debug.Log("방생성불가");
+                CreateWarning.gameObject.SetActive(true);
+            }
+        }
     }
 
     public void btn_click_Join()
     {
-        
-    }
-
-    public void checkRoomName(string input)
-    {
-        
+        string RoomName = InputJoinRoomName.text;
+        if (RoomInfos == null)
+        {
+            Debug.Log("방참가불가");
+            CreateWarning.gameObject.SetActive(true);
+        }
+        else
+        {
+            if (!CheckRoomName(RoomName))
+            {
+                Debug.Log("방참가");
+                JoinRoom(RoomName);
+            }
+            else
+            {
+                Debug.Log("방생성불가");
+                CreateWarning.gameObject.SetActive(true);
+            }
+        }
     }
     public void btn_CreateOrJoin(string RoomName)
     {
