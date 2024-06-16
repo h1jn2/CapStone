@@ -42,6 +42,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public TMP_InputField InputJoinRoomName;
     public Image CreateWarning;
     public Image JoinWarning;
+    public static bool is_CreateWarning;
+    public static bool is_JoinWarning;
 
     // 게임 실행 중 포톤매니저는 하나만 존재하도록 싱글톤으로 설정
     private void Awake()
@@ -273,47 +275,69 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public void btn_click_Create()
     {
         string RoomName = InputCreateRoomName.text;
-        if (RoomInfos == null)
+        bool is_warning = false;
+        if (is_warning)
         {
-            Debug.Log("방생성");
-            CreateRoom(RoomName);
+            CreateWarning.gameObject.SetActive(false);
+            is_warning = false;
         }
         else
         {
-            if (CheckRoomName(RoomName))
+            if (RoomInfos == null)
             {
                 Debug.Log("방생성");
                 CreateRoom(RoomName);
             }
             else
             {
-                Debug.Log("방생성불가");
-                CreateWarning.gameObject.SetActive(true);
+                if (CheckRoomName(RoomName))
+                {
+                    Debug.Log("방생성");
+                    CreateRoom(RoomName);
+                }
+                else
+                {
+                    Debug.Log("방생성불가");
+                    CreateWarning.gameObject.SetActive(true);
+                }
             }
         }
+        
     }
 
     public void btn_click_Join()
     {
         string RoomName = InputJoinRoomName.text;
-        if (RoomInfos == null)
+        bool is_warning = false;
+        if (is_warning)
         {
-            Debug.Log("방참가불가");
-            CreateWarning.gameObject.SetActive(true);
+            JoinWarning.gameObject.SetActive(false);
+            is_warning = false;
         }
         else
         {
-            if (!CheckRoomName(RoomName))
+            if (RoomInfos == null)
             {
-                Debug.Log("방참가");
-                JoinRoom(RoomName);
+                Debug.Log("방참가불가");
+                CreateWarning.gameObject.SetActive(true);
+                is_warning = true;
             }
             else
             {
-                Debug.Log("방생성불가");
-                CreateWarning.gameObject.SetActive(true);
-            }
+                if (!CheckRoomName(RoomName))
+                {
+                    Debug.Log("방참가");
+                    JoinRoom(RoomName);
+                }
+                else
+                {
+                    Debug.Log("방생성불가");
+                    JoinWarning.gameObject.SetActive(true);
+                    is_warning = true;
+                }
+            }    
         }
+        
     }
     public void btn_CreateOrJoin(string RoomName)
     {
