@@ -780,7 +780,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78ac4ce2c6f0e824eafd9ed8233bbc3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cabinet: {fileID: 1957746251376156384, guid: 398f27440c801474083bdc9121deb997, type: 3}
   mouseSpeed: 3
   rotationSpeed: 3
   moveSpeed: 5

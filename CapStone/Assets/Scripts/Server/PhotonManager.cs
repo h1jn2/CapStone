@@ -21,6 +21,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public List<Transform> list_ItemSpawnPoints; // 아이템 스폰 포인트 리스트
     public List<Transform> list_MosterSpawnPoints; // 몬스터 스폰 포인트 리스트
     public List<Transform> list_PlayerSpawnPoints; // 플레이어 스폰 포인트 리스트
+    public int Spawntype;
     
     /// <summary>
     /// 게임시작 및 생성에 관련된 객체
@@ -38,10 +39,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     /// </summary>
     public List<RoomInfo> RoomInfos;
 
-    public TMP_InputField InputCreateRoomName;
-    public TMP_InputField InputJoinRoomName;
-    public Image CreateWarning;
-    public Image JoinWarning;
+    
     public static bool is_CreateWarning;
     public static bool is_JoinWarning;
 
@@ -66,6 +64,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         }
 
         RoomInfos = null;
+        Spawntype = 0;
     }
 
     // Start 코루틴
@@ -102,14 +101,14 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     }
 
     // 방 생성
-    private void CreateRoom(string RoomName)
+    public void CreateRoom(string RoomName)
     {
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.MaxPlayers = 4; // 최대 플레이어 수 설정
         PhotonNetwork.CreateRoom(RoomName, roomOptions, TypedLobby.Default); // 방 생성
     }
     // 방 입장
-    private void JoinRoom(string RoomName)
+    public void JoinRoom(string RoomName)
     {
         RoomOptions roomOption = new RoomOptions();
         roomOption.MaxPlayers = 4; // 최대 플레이어 수 설정
@@ -121,11 +120,11 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         if (m_data.gender == 0)
         {
-            obj_local = PhotonNetwork.Instantiate(list_Prefabs[0].name, spawn_point.position, Quaternion.identity); // 남성 플레이어 프리팹 생성
+            obj_local = PhotonNetwork.Instantiate(list_Prefabs[Spawntype].name, spawn_point.position, Quaternion.identity); // 남성 플레이어 프리팹 생성
         }
         else if (m_data.gender == 1)
         {
-            obj_local = PhotonNetwork.Instantiate(list_Prefabs[0].name, spawn_point.position, Quaternion.identity); // 여성 플레이어 프리팹 생성
+            obj_local = PhotonNetwork.Instantiate(list_Prefabs[Spawntype].name, spawn_point.position, Quaternion.identity); // 여성 플레이어 프리팹 생성
         }
     }
 
@@ -288,75 +287,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.JoinLobby(); // 로비 접속
     }
-
-    public void btn_click_Create()
-    {
-        string RoomName = InputCreateRoomName.text;
-        if (is_CreateWarning)
-        {
-            CreateWarning.gameObject.SetActive(false);
-            is_CreateWarning = false;
-        }
-        else
-        {
-            if (RoomInfos == null)
-            {
-                Debug.Log("방생성");
-                CreateRoom(RoomName);
-                is_CreateWarning = false;
-            }
-            else
-            {
-                if (CheckRoomNameCreate(RoomName))
-                {
-                    Debug.Log("방생성");
-                    CreateRoom(RoomName);
-                    is_CreateWarning = false;
-                }
-                else
-                {
-                    Debug.Log("방생성불가");
-                    CreateWarning.gameObject.SetActive(true);
-                    is_CreateWarning = true;
-                }
-            }
-        }
-        
-    }
-
-    public void btn_click_Join()
-    {
-        string RoomName = InputJoinRoomName.text;
-        if (is_JoinWarning)
-        {
-            JoinWarning.gameObject.SetActive(false);
-            is_JoinWarning = false;
-        }
-        else
-        {
-            if (RoomInfos == null)
-            {
-                Debug.Log("방참가불가");
-                CreateWarning.gameObject.SetActive(true);
-                is_JoinWarning = true;
-            }
-            else
-            {
-                if (CheckRoomNameJoin(RoomName))
-                {
-                    Debug.Log("방참가");
-                    JoinRoom(RoomName);
-                }
-                else
-                {
-                    Debug.Log("방생성불가");
-                    JoinWarning.gameObject.SetActive(true);
-                    is_JoinWarning = true;
-                }
-            }    
-        }
-        
-    }
     public void btn_CreateOrJoin(string RoomName)
     {
             JoinRoom(RoomName);
@@ -371,6 +301,24 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             Spawn_monster(); // 몬스터 스폰
         }
     }
+
+    public void btn_woman1()
+    {
+        PhotonManager.instance.Spawntype = 0;
+    }
+    public void btn_woman2()
+    {
+        PhotonManager.instance.Spawntype = 1;
+    }
+    public void btn_man1()
+    {
+        PhotonManager.instance.Spawntype = 4;
+    }
+    public void btn_man2()
+    {
+        PhotonManager.instance.Spawntype = 5;
+    }
+    
 
     private Coroutine _coroutineDisconnectRoom = null;
 

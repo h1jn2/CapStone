@@ -16,6 +16,7 @@ public class UIMgr : MonoBehaviour
     [SerializeField] private CanvasGroup panelLoading;
     [SerializeField] private CanvasGroup objLoadingBottom;
     [SerializeField] private CanvasGroup panelRoom;
+    [SerializeField] private CanvasGroup playerselect;
 
     [SerializeField] private CanvasGroup CreateCode;
     [SerializeField] private CanvasGroup ToRoom;
@@ -75,15 +76,18 @@ public class UIMgr : MonoBehaviour
         FadeManager.Out(panelSetting);
         FadeManager.Out(panelLobby);
         FadeManager.Out(panelLogin);
+        FadeManager.Out(playerselect);
     }
 
     public void OpenLobby()
     {
         FadeManager.Out(panelQuit);
         FadeManager.In(panelLobby);
+        FadeManager.In(playerselect);
         FadeManager.Out(panelSetting);
         FadeManager.Out(panelTitle);
         FadeManager.Out(panelLogin);
+        
     }
 
     public void OpenCreateCodePopup()
@@ -104,6 +108,11 @@ public class UIMgr : MonoBehaviour
     public void CloseToRoomPopup()
     {
         FadeManager.Out(ToRoom);
+    }
+
+    public void CloseToPlayerSelect()
+    {
+        FadeManager.Out(playerselect);
     }
 
     public void QuitGame()

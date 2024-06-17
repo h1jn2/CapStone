@@ -1471,7 +1471,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1256339577480476284
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2026,12 +2026,12 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UIMgr, Assembly-CSharp
-        m_MethodName: 
+        m_TargetAssemblyTypeName: PhotonManager, Assembly-CSharp
+        m_MethodName: btn_click_Mainstart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3113,7 +3113,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8402119183724620005}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PhotonManager, Assembly-CSharp
+        m_MethodName: btn_click_Create
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1242691537328351189
 GameObject:
   m_ObjectHideFlags: 0
@@ -4697,8 +4709,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uB85C\uADF8\uC778"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 89e190bd7417bdf4d9d5f458e09adb04, type: 2}
-  m_sharedMaterial: {fileID: 1184246987921390195, guid: 89e190bd7417bdf4d9d5f458e09adb04, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 142a33c3f91183347887d5eabe7ca895, type: 2}
+  m_sharedMaterial: {fileID: -3831894749457989778, guid: 142a33c3f91183347887d5eabe7ca895, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5371,7 +5383,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7043907038873559725
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7595,7 +7607,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6424300605979467868
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7952,7 +7964,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -7969,8 +7981,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -8357,7 +8369,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1546571909603454969
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10132,7 +10144,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8335236517094396773}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PhotonManager, Assembly-CSharp
+        m_MethodName: btn_click_Join
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3683360697832483684
 GameObject:
   m_ObjectHideFlags: 0
@@ -10199,7 +10223,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Enter text...
+  m_text: "\uCF54\uB4DC \uC785\uB825"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 142a33c3f91183347887d5eabe7ca895, type: 2}
   m_sharedMaterial: {fileID: -3831894749457989778, guid: 142a33c3f91183347887d5eabe7ca895, type: 2}
@@ -10226,13 +10250,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 3
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -10996,7 +11020,7 @@ MonoBehaviour:
   m_text: 'PW : '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 142a33c3f91183347887d5eabe7ca895, type: 2}
-  m_sharedMaterial: {fileID: 1184246987921390195, guid: 89e190bd7417bdf4d9d5f458e09adb04, type: 2}
+  m_sharedMaterial: {fileID: -3831894749457989778, guid: 142a33c3f91183347887d5eabe7ca895, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -20423,7 +20447,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -20440,8 +20464,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -21010,7 +21034,7 @@ MonoBehaviour:
   m_text: 'ID :'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 142a33c3f91183347887d5eabe7ca895, type: 2}
-  m_sharedMaterial: {fileID: 1184246987921390195, guid: 89e190bd7417bdf4d9d5f458e09adb04, type: 2}
+  m_sharedMaterial: {fileID: -3831894749457989778, guid: 142a33c3f91183347887d5eabe7ca895, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -21486,7 +21510,7 @@ MonoBehaviour:
   m_text: "\uC78A\uD600\uC9C4 \uB3D9\uC544\uB9AC"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 142a33c3f91183347887d5eabe7ca895, type: 2}
-  m_sharedMaterial: {fileID: -2625628218523802794, guid: c9275885c84d13045b322827c72a4fb3, type: 2}
+  m_sharedMaterial: {fileID: -3831894749457989778, guid: 142a33c3f91183347887d5eabe7ca895, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -23884,7 +23908,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Enter text...
+  m_text: "\uCF54\uB4DC \uC785\uB825"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 142a33c3f91183347887d5eabe7ca895, type: 2}
   m_sharedMaterial: {fileID: -3831894749457989778, guid: 142a33c3f91183347887d5eabe7ca895, type: 2}
@@ -23911,13 +23935,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 3
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
