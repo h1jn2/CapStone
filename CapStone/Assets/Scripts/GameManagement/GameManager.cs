@@ -7,6 +7,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
+    //public GameClear1 clearManager;
     public enum Status
     {
         _none,
@@ -60,14 +61,16 @@ public class GameManager : MonoBehaviour
             if (GameManager.instance.AlivePlayerCnt >= 0 && GameManager.instance.ItemCnt == 0)
             {
                 GameManager.instance._currentStatus = Status._end;
-                PhotonManager.instance.LeaveRoom();//임시 테스트코드
+                GameClear1.instance.OnGameClear();
+                Debug.Log("1");
                 //클리어화면 active
                 //나올 내용 설정
             }
             else if (GameManager.instance.AlivePlayerCnt <= 0)
             {
                 GameManager.instance._currentStatus = Status._end;
-                PhotonManager.instance.LeaveRoom();//임시 테스트 코드
+                GameClear1.instance.OnGameLose();
+                //PhotonManager.instance.LeaveRoom();//임시 테스트 코드
             }
         }
     }

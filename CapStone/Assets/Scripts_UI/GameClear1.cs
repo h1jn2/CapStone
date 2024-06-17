@@ -1,42 +1,55 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
 public class GameClear1 : MonoBehaviour
 {
-    public GameObject clearImage; // Å¬¸®¾î ÀÌ¹ÌÁö¸¦ ÇÒ´ç
-    public GameObject loseImage;  // ÆĞ¹è ÀÌ¹ÌÁö¸¦ ÇÒ´ç
-    public float fadeDuration = 1.0f; // ÆäÀÌµåÀÎ Áö¼Ó ½Ã°£
-    public Camera mainCamera; // °ÔÀÓ ¸ŞÀÎ Ä«¸Ş¶ó
-    public Button testClearButton; // Å×½ºÆ® Å¬¸®¾î ¹öÆ°
-    public Button testLoseButton;  // Å×½ºÆ® ÆĞ¹è ¹öÆ°
+    public static GameClear1 instance = null;
+    public GameObject clearImage; // Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò´ï¿½
+    public GameObject loseImage;  // ï¿½Ğ¹ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò´ï¿½
+    public float fadeDuration = 1.0f; // ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+    public Camera mainCamera; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½Ş¶ï¿½
+    public Button testClearButton; // ï¿½×½ï¿½Æ® Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
+    public Button testLoseButton;  // ï¿½×½ï¿½Æ® ï¿½Ğ¹ï¿½ ï¿½ï¿½Æ°
 
     private CanvasGroup clearCanvasGroup;
     private CanvasGroup loseCanvasGroup;
+    
 
     void Start()
     {
-        // clearImage¿¡¼­ CanvasGroupÀ» °¡Á®¿È. ¾øÀ¸¸é Ãß°¡.
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this);
+        }
+        if (instance != this)
+        {
+            Destroy(this.gameObject); // ì´ë¯¸ ì¸ìŠ¤í„´ìŠ¤ê°€ ì¡´ì¬í•˜ë©´ ìƒˆë¡œìš´ ì¸ìŠ¤í„´ìŠ¤ë¥¼ íŒŒê´´
+        }
+        
+        // clearImageï¿½ï¿½ï¿½ï¿½ CanvasGroupï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½.
         clearCanvasGroup = clearImage.GetComponent<CanvasGroup>();
         if (clearCanvasGroup == null)
         {
             clearCanvasGroup = clearImage.AddComponent<CanvasGroup>();
         }
 
-        // loseImage¿¡¼­ CanvasGroupÀ» °¡Á®¿È. ¾øÀ¸¸é Ãß°¡.
+        // loseImageï¿½ï¿½ï¿½ï¿½ CanvasGroupï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½.
         loseCanvasGroup = loseImage.GetComponent<CanvasGroup>();
         if (loseCanvasGroup == null)
         {
             loseCanvasGroup = loseImage.AddComponent<CanvasGroup>();
         }
 
-        // ½ÃÀÛ ½Ã ÀÌ¹ÌÁö¸¦ Åõ¸íÇÏ°Ô ¼³Á¤
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½
         clearCanvasGroup.alpha = 0f;
         clearImage.SetActive(false);
         loseCanvasGroup.alpha = 0f;
         loseImage.SetActive(false);
 
-        // Å×½ºÆ® ¹öÆ°¿¡ Å¬¸¯ ¸®½º³Ê Ãß°¡
+        // ï¿½×½ï¿½Æ® ï¿½ï¿½Æ°ï¿½ï¿½ Å¬ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
         if (testClearButton != null)
         {
             testClearButton.onClick.AddListener(OnGameClear);
@@ -49,20 +62,20 @@ public class GameClear1 : MonoBehaviour
 
     public void OnGameClear()
     {
-        // °ÔÀÓ ÀÏ½Ã Á¤Áö
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½ï¿½
         Time.timeScale = 0f;
 
-        // Å¬¸®¾î ÀÌ¹ÌÁö¸¦ È°¼ºÈ­ÇÏ°í ÆäÀÌµåÀÎ ÄÚ·çÆ¾ ½ÃÀÛ
+        // Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½Ú·ï¿½Æ¾ ï¿½ï¿½ï¿½ï¿½
         clearImage.SetActive(true);
         StartCoroutine(FadeInAndZoomCamera(clearCanvasGroup));
     }
 
     public void OnGameLose()
     {
-        // °ÔÀÓ ÀÏ½Ã Á¤Áö
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½ï¿½
         Time.timeScale = 0f;
 
-        // ÆĞ¹è ÀÌ¹ÌÁö¸¦ È°¼ºÈ­ÇÏ°í ÆäÀÌµåÀÎ ÄÚ·çÆ¾ ½ÃÀÛ
+        // ï¿½Ğ¹ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½Ú·ï¿½Æ¾ ï¿½ï¿½ï¿½ï¿½
         loseImage.SetActive(true);
         StartCoroutine(FadeInAndZoomCamera(loseCanvasGroup));
     }
@@ -71,22 +84,22 @@ public class GameClear1 : MonoBehaviour
     {
         float elapsedTime = 0f;
         float initialCameraSize = mainCamera.orthographicSize;
-        float targetCameraSize = initialCameraSize * 1.5f; // ¿øÇÏ´Â È®´ë ¹èÀ²·Î Á¶Á¤
+        float targetCameraSize = initialCameraSize * 1.5f; // ï¿½ï¿½ï¿½Ï´ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
         while (elapsedTime < fadeDuration)
         {
-            elapsedTime += Time.unscaledDeltaTime; // °ÔÀÓÀÌ ÀÏ½Ã Á¤ÁöµÈ µ¿¾È¿¡µµ ½Ã°£ÀÌ Èå¸£µµ·Ï Time.unscaledDeltaTime »ç¿ë
+            elapsedTime += Time.unscaledDeltaTime; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½È¿ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½å¸£ï¿½ï¿½ï¿½ï¿½ Time.unscaledDeltaTime ï¿½ï¿½ï¿½
             canvasGroup.alpha = Mathf.Clamp01(elapsedTime / fadeDuration);
 
-            // Ä«¸Ş¶ó È®´ë
+            // Ä«ï¿½Ş¶ï¿½ È®ï¿½ï¿½
             float t = elapsedTime / fadeDuration;
             mainCamera.orthographicSize = Mathf.Lerp(initialCameraSize, targetCameraSize, t);
 
             yield return null;
         }
 
-        // ÆäÀÌµåÀÎÀÌ ¿Ï·áµÇ¸é ¿ÏÀüÈ÷ ºÒÅõ¸íÇÏ°Ô ¼³Á¤
+        // ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½
         canvasGroup.alpha = 1f;
-        mainCamera.orthographicSize = targetCameraSize; // ÃÖÁ¾ È®´ë°ª ¼³Á¤
+        mainCamera.orthographicSize = targetCameraSize; // ï¿½ï¿½ï¿½ï¿½ È®ï¿½ë°ª ï¿½ï¿½ï¿½ï¿½
     }
 }

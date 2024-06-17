@@ -108,13 +108,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         roomOptions.MaxPlayers = 4; // 최대 플레이어 수 설정
         PhotonNetwork.CreateRoom(RoomName, roomOptions, TypedLobby.Default); // 방 생성
     }
-
-    public void LeaveRoom()
-    {
-        PhotonNetwork.LeaveRoom();
-        GameManager.instance._currentStatus = GameManager.Status._login;
-    }
-    
     // 방 입장
     private void JoinRoom(string RoomName)
     {
@@ -254,8 +247,10 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public override void OnLeftRoom()
     {
+        Debug.Log("콜백");
         GameManager.instance._currentStatus = GameManager.Status._login; // 게임 상태 설정
-        SceneManager.LoadScene("0.MainScene"); // 메인 씬 로드
+        Debug.Log("종료");
+        SceneManager.LoadScene("0.MainScene"); // 메인 씬 로드    
     }
 
     public override void OnDisconnected(DisconnectCause cause)
@@ -275,11 +270,10 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public void btn_click_Create()
     {
         string RoomName = InputCreateRoomName.text;
-        bool is_warning = false;
-        if (is_warning)
+        if (is_CreateWarning)
         {
             CreateWarning.gameObject.SetActive(false);
-            is_warning = false;
+            is_CreateWarning = false;
         }
         else
         {
@@ -287,6 +281,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             {
                 Debug.Log("방생성");
                 CreateRoom(RoomName);
+                is_CreateWarning = false;
             }
             else
             {
@@ -294,11 +289,13 @@ public class PhotonManager : MonoBehaviourPunCallbacks
                 {
                     Debug.Log("방생성");
                     CreateRoom(RoomName);
+                    is_CreateWarning = false;
                 }
                 else
                 {
                     Debug.Log("방생성불가");
                     CreateWarning.gameObject.SetActive(true);
+                    is_CreateWarning = true;
                 }
             }
         }
@@ -308,11 +305,10 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public void btn_click_Join()
     {
         string RoomName = InputJoinRoomName.text;
-        bool is_warning = false;
-        if (is_warning)
+        if (is_JoinWarning)
         {
             JoinWarning.gameObject.SetActive(false);
-            is_warning = false;
+            is_JoinWarning = false;
         }
         else
         {
@@ -320,7 +316,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             {
                 Debug.Log("방참가불가");
                 CreateWarning.gameObject.SetActive(true);
-                is_warning = true;
+                is_JoinWarning = true;
             }
             else
             {
@@ -333,7 +329,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
                 {
                     Debug.Log("방생성불가");
                     JoinWarning.gameObject.SetActive(true);
-                    is_warning = true;
+                    is_JoinWarning = true;
                 }
             }    
         }
@@ -344,15 +340,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             JoinRoom(RoomName);
         
     }
-    public void btn_click_createRoom()
-    {
-        CreateRoom("room"); // 방 생성
-    }
-
-    public void btn_click_joinroom()
-    {
-        JoinRoom("room"); // 방 접속 또는 생성
-    }
 
     public void btn_click_StageStart()
     {
@@ -361,6 +348,13 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             Spawn_item(); // 아이템 스폰
             Spawn_monster(); // 몬스터 스폰
         }
+    }
+
+    public void btn_click_leave()
+    {
+        Debug.Log("종료");
+        PhotonNetwork.LeaveRoom();
+        //GameManager.instance._currentStatus = GameManager.Status._login;
     }
 
     #endregion
