@@ -26,22 +26,19 @@ public class PlayerControl : MonoBehaviourPun
     private GameObject head;
     [SerializeField]
     private GameObject PlayerCamera;
-
     private float mouseX;
     private float mouseY;
-
     private float gravity;
     private CharacterController controller;
     private Vector3 move;
-
     private bool isMoving = false;
     private bool isRunning = false;
     private bool canSprint = true;
-
     private Animator animator;
     private PhotonView punview;
 
     public PlayerRaycast raycaster;
+    private CabinetManager cabinetManager;
 
     private void Awake()
     {
@@ -50,6 +47,7 @@ public class PlayerControl : MonoBehaviourPun
         gravity = 10f;
         animator = GetComponent<Animator>();
         punview = GetComponent<PhotonView>();
+        cabinetManager = FindObjectOfType<CabinetManager>();
     }
 
     public void Update()
@@ -57,16 +55,15 @@ public class PlayerControl : MonoBehaviourPun
         UpdateAnimations();
         if (punview.IsMine && !this.GetComponent<PlayerManager>()._isDie)
         {
-
             Control();
             Stamina();
 
             // ssg - 문 충돌이 간헐적으로 감지되지 않는 현상을 해결하기 위한 코드
-            if (Input.GetKeyUp(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.F))
             {
-                Debug.Log("enter E");
+                Debug.Log("enter F");
                 Collider collider;
-                PlayerRaycast.HitObject hitObject = raycaster.OnEnter_E(out collider);
+                PlayerRaycast.HitObject hitObject = raycaster.OnEnter_F(out collider);
 
                 Debug.Log(hitObject);
 
@@ -80,19 +77,27 @@ public class PlayerControl : MonoBehaviourPun
                         case PlayerRaycast.HitObject.DoubleDoor:
                             collider.GetComponent<DoubleDoorManager>().ChangeState();
                             break;
+                        case PlayerRaycast.HitObject.Cabinet:
+                            collider.GetComponent<CabinetManager>().ToggleHide();
+                            break;
                         case PlayerRaycast.HitObject.Item:
                             PhotonView cpv = collider.GetComponent<PhotonView>();
                             cpv.RPC("DestroyItem_RPC", RpcTarget.All);
-
                             break;
                     }
                 }
             }
         }
-
+    }
+    private void LateUpdate()
+    {
+        if (punview.IsMine)
+        {
+            CameraControl();
+        }
     }
 
-    private void LateUpdate()
+    private void CameraControl()
     {
         if (punview.IsMine)
         {
@@ -108,7 +113,6 @@ public class PlayerControl : MonoBehaviourPun
             this.transform.localRotation = Quaternion.Euler(0, mouseX, 0);
         }
     }
-
 
     private void Control()
     {
@@ -175,6 +179,16 @@ public class PlayerControl : MonoBehaviourPun
             canSprint = true;
         }
     }
+    public void ControlCameraInCabinet()
+    {
+        mouseX += Input.GetAxis("Mouse X") * mouseSpeed;
+        mouseY += Input.GetAxis("Mouse Y") * mouseSpeed;
+
+        mouseX = Mathf.Clamp(mouseX, -35f, 35f);
+        mouseY = Mathf.Clamp(mouseY, -35f, 35f);
+
+        PlayerCamera.transform.localRotation = Quaternion.Euler(-mouseY, mouseX, 0);
+    }
 
     private void ChangeDoorState(Collider other)
     {
@@ -189,5 +203,4 @@ public class PlayerControl : MonoBehaviourPun
             }
         }
     }
-
 }
