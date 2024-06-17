@@ -60,10 +60,18 @@ public class GameClear1 : MonoBehaviour
         }
     }
 
+    public void OnDefeat()
+    {
+        if (PhotonManager.instance == null)
+            return;
+        PhotonManager.instance.DisconnectRoom();
+    }
+
     public void OnGameClear()
     {
         // ���� �Ͻ� ����
-        Time.timeScale = 0f;
+        // 해당 코드 활성화시 포톤 leaveRoom 실행 안됨!!!!!!!!!!!!
+        //Time.timeScale = 0f;
 
         // Ŭ���� �̹����� Ȱ��ȭ�ϰ� ���̵��� �ڷ�ƾ ����
         clearImage.SetActive(true);
@@ -73,7 +81,8 @@ public class GameClear1 : MonoBehaviour
     public void OnGameLose()
     {
         // ���� �Ͻ� ����
-        Time.timeScale = 0f;
+        // 해당 코드 활성화시 포톤 leaveRoom 실행 안됨!!!!!!!!!!!!
+        //Time.timeScale = 0f;
 
         // �й� �̹����� Ȱ��ȭ�ϰ� ���̵��� �ڷ�ƾ ����
         loseImage.SetActive(true);

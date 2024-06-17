@@ -12051,18 +12051,18 @@ PrefabInstance:
     - target: {fileID: 1196082218629876256, guid: acc3be64d24d0034780f7899a06ca005, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 6411499479041663116, guid: f8979292732874f4092830608485f11e, type: 3}
+      objectReference: {fileID: 55196111}
     - target: {fileID: 1196082218629876256, guid: acc3be64d24d0034780f7899a06ca005, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1196082218629876256, guid: acc3be64d24d0034780f7899a06ca005, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: btn_click_leave
+      value: OnDefeat
       objectReference: {fileID: 0}
     - target: {fileID: 1196082218629876256, guid: acc3be64d24d0034780f7899a06ca005, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PhotonManager, Assembly-CSharp
+      value: GameClear1, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1196082218629876256, guid: acc3be64d24d0034780f7899a06ca005, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -12099,18 +12099,18 @@ PrefabInstance:
     - target: {fileID: 8783519712368779913, guid: acc3be64d24d0034780f7899a06ca005, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 6411499479041663116, guid: f8979292732874f4092830608485f11e, type: 3}
+      objectReference: {fileID: 55196111}
     - target: {fileID: 8783519712368779913, guid: acc3be64d24d0034780f7899a06ca005, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8783519712368779913, guid: acc3be64d24d0034780f7899a06ca005, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: btn_click_leave
+      value: OnDefeat
       objectReference: {fileID: 0}
     - target: {fileID: 8783519712368779913, guid: acc3be64d24d0034780f7899a06ca005, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PhotonManager, Assembly-CSharp
+      value: GameClear1, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8783519712368779913, guid: acc3be64d24d0034780f7899a06ca005, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName

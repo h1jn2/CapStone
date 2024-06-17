@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
 
     public void check_clear()
     {
+        Debug.Log("log");
         if (GameManager.instance._currentStatus == Status._playing)
         {
             if (GameManager.instance.AlivePlayerCnt >= 0 && GameManager.instance.ItemCnt == 0)

@@ -30,6 +30,12 @@ public class UIMgr : MonoBehaviour
         // ��ư �̺�Ʈ ����
         closeButtonCreateCode.onClick.AddListener(CloseCreateCodePopup);
         closeButtonToRoom.onClick.AddListener(CloseToRoomPopup);
+
+        if (LoginManager.isLogin)
+        {
+            panelLogin.gameObject.SetActive(false);
+            panelTitle.gameObject.SetActive(true);
+        }
     }
 
     public void OpenLoading()
