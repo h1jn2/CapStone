@@ -178,7 +178,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         PhotonNetwork.Instantiate(list_Prefabs[3].name, list_MosterSpawnPoints[spawn].position, Quaternion.identity); // 몬스터 프리팹 생성
     }
 
-    public bool CheckRoomName(string input)
+    public bool CheckRoomNameCreate(string input)
     {
         Debug.Log(RoomInfos.Count);
         bool is_check= false;
@@ -191,6 +191,26 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             for (int i = 0; i < RoomInfos.Count; i++)
             {
                 if (RoomInfos[i].Name != input)
+                {
+                    is_check = true;
+                }
+            }
+        }
+        return is_check;
+    }
+    public bool CheckRoomNameJoin(string input)
+    {
+        Debug.Log(RoomInfos.Count);
+        bool is_check= false;
+        if (RoomInfos.Count == 0)
+        {
+            is_check = false;
+        }
+        else
+        {
+            for (int i = 0; i < RoomInfos.Count; i++)
+            {
+                if (RoomInfos[i].Name == input)
                 {
                     is_check = true;
                 }
@@ -290,7 +310,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             }
             else
             {
-                if (CheckRoomName(RoomName))
+                if (CheckRoomNameCreate(RoomName))
                 {
                     Debug.Log("방생성");
                     CreateRoom(RoomName);
@@ -325,7 +345,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             }
             else
             {
-                if (!CheckRoomName(RoomName))
+                if (CheckRoomNameJoin(RoomName))
                 {
                     Debug.Log("방참가");
                     JoinRoom(RoomName);
