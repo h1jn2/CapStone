@@ -253,6 +253,11 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         SceneManager.LoadScene("0.MainScene"); // 메인 씬 로드    
     }
 
+    public override void OnErrorInfo(ErrorInfo errorInfo)
+    {
+        Debug.Log(errorInfo);
+    }
+
     public override void OnDisconnected(DisconnectCause cause)
     {
         Debug.Log(cause);
@@ -353,8 +358,17 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public void btn_click_leave()
     {
         Debug.Log("종료");
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.DestroyPlayerObjects(PhotonNetwork.LocalPlayer);
+        }
         PhotonNetwork.LeaveRoom();
-        //GameManager.instance._currentStatus = GameManager.Status._login;
+
+        GameManager.instance._currentStatus = GameManager.Status._login;
+        //SceneManager.LoadScene("0.MainScene");
+        
+        
+        
     }
 
     #endregion

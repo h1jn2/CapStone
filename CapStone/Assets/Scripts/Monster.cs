@@ -127,7 +127,7 @@ public class Monster : MonoBehaviourPun
         switch (_curState)
         {
             case State.Patrol:
-                currentCoroutine = StartCoroutine(patrolCoroutine);
+                currentCoroutine = StartCoroutine(StartPatrol());
                 break;
             case State.Chase:
                 currentCoroutine = StartCoroutine(chaseCoroutine);
@@ -159,10 +159,10 @@ public class Monster : MonoBehaviourPun
     private IEnumerator StartPatrol()
     {
         Debug.Log("순찰 중");
-
+        nvAgent.SetDestination(wayPoints[Random.Range(0, 2)]);
         while (_curState == State.Patrol)
         {
-            nvAgent.SetDestination(wayPoints[Random.Range(0, 2)]);
+            
 
             if (short_enemy != null)
             {

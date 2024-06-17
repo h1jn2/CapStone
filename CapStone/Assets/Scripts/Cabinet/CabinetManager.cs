@@ -1,47 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
-<<<<<<< HEAD
-using Photon.Realtime;
-using UnityEngine.UIElements;
-using Unity.VisualScripting;
-=======
 using UnityEngine;
->>>>>>> 296b99d407ab5d591da587765fffcc01d69a6a5b
 
 public class CabinetManager : MonoBehaviourPunCallbacks
 {
     public GameObject cabinet;
     public GameObject spawnPoint;
     public GameObject CabinetCamera;
-<<<<<<< HEAD
-
-    private CharacterController playerController;
-    private PhotonView punview;
-    private PlayerControl playerControl;
-
-    private bool isInsideCabinet = false;
-=======
     private CharacterController playerController;
     private PhotonView punview;
     private PlayerControl playerControl;
     private Animator playerAnimator;
     private GameObject player;
->>>>>>> 296b99d407ab5d591da587765fffcc01d69a6a5b
     private bool isHiding = false;
     private bool isInsideCabinet = false;
-    private static Dictionary<GameObject, bool> cabinetOccupancy = new Dictionary<GameObject, bool>();
+    private static Dictionary<int, bool> cabinetOccupancy = new Dictionary<int, bool>();
 
     private void Awake()
     {
         punview = GetComponent<PhotonView>();
-<<<<<<< HEAD
-        playerController = player.GetComponent<CharacterController>();
-        playerControl = player.GetComponent<PlayerControl>();
-=======
-        if (!cabinetOccupancy.ContainsKey(cabinet))
+        int cabinetID = cabinet.GetInstanceID();
+        if (!cabinetOccupancy.ContainsKey(cabinetID))
         {
-            cabinetOccupancy[cabinet] = false;
+            cabinetOccupancy[cabinetID] = false;
         }
     }
 
@@ -61,11 +43,11 @@ public class CabinetManager : MonoBehaviourPunCallbacks
                 playerController = player.GetComponent<CharacterController>();
                 playerControl = player.GetComponent<PlayerControl>();
                 playerAnimator = player.GetComponent<Animator>();
+                Debug.Log("Player found and components initialized");
             }
 
             yield return new WaitForSeconds(0.5f);
         }
->>>>>>> 296b99d407ab5d591da587765fffcc01d69a6a5b
     }
 
     private void Update()
@@ -74,13 +56,20 @@ public class CabinetManager : MonoBehaviourPunCallbacks
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
-                if (IsPlayerNearCabinet() && !cabinetOccupancy[cabinet])
+                int cabinetID = cabinet.GetInstanceID();
+                if (IsPlayerNearCabinet() && !cabinetOccupancy[cabinetID])
                 {
-                    punview.RPC("ToggleHideRPC", RpcTarget.AllBuffered);
+                    Debug.Log("Attempting to enter cabinet");
+                    ToggleHide();
                 }
                 else if (isInsideCabinet)
                 {
-                    punview.RPC("ToggleHideRPC", RpcTarget.AllBuffered);
+                    Debug.Log("Attempting to exit cabinet");
+                    ToggleHide();
+                }
+                else
+                {
+                    Debug.Log("Cabinet is already occupied");
                 }
             }
         }
@@ -93,40 +82,53 @@ public class CabinetManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void ToggleHideRPC()
+    public void ToggleHideRPC(int viewID, int cabinetID)
     {
-        if (player == null) return;
+        Debug.Log($"Received RPC: ToggleHideRPC for player {viewID} and cabinet {cabinetID}");
 
-        if (isHiding)
+        if (player == null)
         {
-            player.transform.position = spawnPoint.transform.position;
-            CabinetCamera.SetActive(false);
-<<<<<<< HEAD
-            isInsideCabinet = false;
-            playerControl.enabled = true;
-=======
-            playerController.enabled = true;
-            playerControl.enabled = true;
-            playerAnimator.SetBool("isMoving", false);
-            playerAnimator.SetBool("isRunning", false);
-            cabinetOccupancy[cabinet] = false;
->>>>>>> 296b99d407ab5d591da587765fffcc01d69a6a5b
+            Debug.Log("Player is null");
         }
         else
         {
+            Debug.Log($"Player viewID: {player.GetComponent<PhotonView>().ViewID}, Received viewID: {viewID}");
+        }
+
+        if (player == null || player.GetComponent<PhotonView>().ViewID != viewID)
+        {
+            Debug.Log("Player is null or viewID does not match");
+            return;
+        }
+
+        if (isHiding)
+        {
+            // Player exiting the cabinet
+            Debug.Log("Player exiting the cabinet");
+            player.transform.position = spawnPoint.transform.position;
+            CabinetCamera.SetActive(false);
+            playerController.enabled = true;
+            playerControl.enabled = true;
+            playerAnimator.SetBool("isMoving", true); // Start moving animation when exiting
+            cabinetOccupancy[cabinetID] = false;
+        }
+        else
+        {
+            // Player entering the cabinet
+            if (cabinetOccupancy[cabinetID])
+            {
+                Debug.Log("Cabinet is already occupied");
+                return;
+            }
+
+            Debug.Log("Player entering the cabinet");
             player.transform.position = cabinet.transform.position;
             player.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
             CabinetCamera.SetActive(true);
-<<<<<<< HEAD
-            isInsideCabinet = true;
-            playerControl.enabled = false;
-=======
             playerController.enabled = false;
             playerControl.enabled = false;
-            playerAnimator.SetBool("isMoving", false);
-            playerAnimator.SetBool("isRunning", false);
-            cabinetOccupancy[cabinet] = true;
->>>>>>> 296b99d407ab5d591da587765fffcc01d69a6a5b
+            playerAnimator.SetBool("isMoving", false); // Stop moving animation when hiding
+            cabinetOccupancy[cabinetID] = true;
         }
 
         isHiding = !isHiding;
@@ -135,6 +137,16 @@ public class CabinetManager : MonoBehaviourPunCallbacks
 
     public void ToggleHide()
     {
-        punview.RPC("ToggleHideRPC", RpcTarget.AllBuffered);
+        int cabinetID = cabinet.GetInstanceID();
+        if (player != null)
+        {
+            int playerViewID = player.GetComponent<PhotonView>().ViewID;
+            Debug.Log($"Sending RPC ToggleHideRPC for cabinet {cabinetID} and player {playerViewID}");
+            punview.RPC("ToggleHideRPC", RpcTarget.AllBuffered, playerViewID, cabinetID);
+        }
+        else
+        {
+            Debug.LogError("Player is null in ToggleHide");
+        }
     }
 }
