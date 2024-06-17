@@ -44,6 +44,7 @@ public class LoginMgr : MonoBehaviour
                 UIMgr.single.OpenTitle();
                 PhotonNetwork.NickName = inputId;
                 GameManager.instance._currentStatus = GameManager.Status._login;
+                LoginManager.isLogin = true;
             }
             else
             {

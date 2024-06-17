@@ -265,23 +265,20 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         Debug.Log("플레이어 퇴장");
     }
 
-    public override void OnLeftRoom()
-    {
-        Debug.Log("콜백");
-        GameManager.instance._currentStatus = GameManager.Status._login; // 게임 상태 설정
-        Debug.Log("종료");
-        SceneManager.LoadScene("0.MainScene"); // 메인 씬 로드    
-    }
+    
 
     public override void OnErrorInfo(ErrorInfo errorInfo)
     {
         Debug.Log(errorInfo);
     }
-
-    public override void OnDisconnected(DisconnectCause cause)
-    {
-        Debug.Log(cause);
-    }
+    //
+    // public override void OnDisconnected(DisconnectCause cause)
+    // {
+    //     Debug.Log("콜백");
+    //     GameManager.instance._currentStatus = GameManager.Status._login; // 게임 상태 설정
+    //     Debug.Log("종료");
+    //     SceneManager.LoadScene("0.MainScene"); // 메인 씬 로드    
+    // }
     
     #endregion
 
@@ -375,20 +372,40 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public void btn_click_leave()
-    {
-        Debug.Log("종료");
-        if (PhotonNetwork.IsMasterClient)
-        {
-            PhotonNetwork.DestroyPlayerObjects(PhotonNetwork.LocalPlayer);
-        }
-        PhotonNetwork.LeaveRoom();
+    private Coroutine _coroutineDisconnectRoom = null;
 
+    public void DisconnectRoom()
+    {
+        if (_coroutineDisconnectRoom != null)
+            return;
+        _coroutineDisconnectRoom = StartCoroutine(DisconnectAndLoad());
+    }
+
+    IEnumerator DisconnectAndLoad()
+    {
+        if (!PhotonNetwork.LeaveRoom())
+        {
+            Debug.LogError("Fail LeaveRom!");
+            yield break;
+        }
+            
+        while (PhotonNetwork.InRoom)
+        {
+            yield return null;
+        }
+        
+        Debug.Log("방 나감");
+        
+        while (!PhotonNetwork.InLobby)
+        {
+            Debug.Log(PhotonNetwork.NetworkingClient.State);
+            yield return null;
+        }
+        Debug.Log("로비 입장");
+        
+        _coroutineDisconnectRoom = null;
         GameManager.instance._currentStatus = GameManager.Status._login;
-        //SceneManager.LoadScene("0.MainScene");
-        
-        
-        
+        SceneManager.LoadScene("0.MainScene");
     }
 
     #endregion
