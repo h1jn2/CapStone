@@ -49,6 +49,8 @@ MonoBehaviour:
   - {fileID: 2523606729866775000, guid: 37cf611c47aa2cc4992ef221503dba0a, type: 3}
   - {fileID: 7082928136955393112, guid: a7770eaf3b1b464418fa035d1c1cf4e1, type: 3}
   - {fileID: 3451134771973121902, guid: 65cbcb321da446047a6d76f0de5dfefa, type: 3}
+  - {fileID: 5682882673138923873, guid: 12793d280e36aac49bc9c9127eaa7aa3, type: 3}
+  - {fileID: 5125776704590044968, guid: e8a5029d657b49c4d91854878a379579, type: 3}
   list_ItemSpawnPoints:
   - {fileID: 698631173296184389, guid: 05bd0d7ffcbe7194484055b9b86f6fe0, type: 3}
   - {fileID: 3284587532616564263, guid: 80cb32305d1b9824fad44196e2613cb7, type: 3}
@@ -73,4 +75,7 @@ MonoBehaviour:
   spawn_point: {fileID: 9163219128724489307, guid: bc215c77d52655d499190d1c57ef7d00, type: 3}
   obj_local: {fileID: 3428271144169993050, guid: 00559e39a37113d42b2ca967eacd7510, type: 3}
   isLoading: 0
-  managerPV: {fileID: 0}
+  InputCreateRoomName: {fileID: 0}
+  InputJoinRoomName: {fileID: 0}
+  CreateWarning: {fileID: 0}
+  JoinWarning: {fileID: 0}

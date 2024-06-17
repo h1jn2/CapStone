@@ -867,10 +867,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2072166683}
     - target: {fileID: 6411499479041663116, guid: f8979292732874f4092830608485f11e, type: 3}
-      propertyPath: InputRoomName
-      value: 
-      objectReference: {fileID: 333335560}
-    - target: {fileID: 6411499479041663116, guid: f8979292732874f4092830608485f11e, type: 3}
       propertyPath: InputJoinRoomName
       value: 
       objectReference: {fileID: 2093816539}
