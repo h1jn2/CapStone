@@ -445,7 +445,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2849924235259160675, guid: 0a5ec79822dc6ef48996ee3708455e74, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3495250830807735365, guid: 0a5ec79822dc6ef48996ee3708455e74, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -470,6 +470,18 @@ PrefabInstance:
     - target: {fileID: 4316515221714548312, guid: 0a5ec79822dc6ef48996ee3708455e74, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4723353145862228397, guid: 0a5ec79822dc6ef48996ee3708455e74, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1618734139}
+    - target: {fileID: 4723353145862228397, guid: 0a5ec79822dc6ef48996ee3708455e74, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OpenTitle
+      objectReference: {fileID: 0}
+    - target: {fileID: 4723353145862228397, guid: 0a5ec79822dc6ef48996ee3708455e74, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UIMgr, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4844949057229597236, guid: 0a5ec79822dc6ef48996ee3708455e74, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -526,6 +538,14 @@ PrefabInstance:
     - target: {fileID: 5136902773500158168, guid: 0a5ec79822dc6ef48996ee3708455e74, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5336485626055341759, guid: 0a5ec79822dc6ef48996ee3708455e74, type: 3}
+      propertyPath: m_InputType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5336485626055341759, guid: 0a5ec79822dc6ef48996ee3708455e74, type: 3}
+      propertyPath: m_ContentType
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6194832973406695445, guid: 0a5ec79822dc6ef48996ee3708455e74, type: 3}
       propertyPath: m_Pivot.x

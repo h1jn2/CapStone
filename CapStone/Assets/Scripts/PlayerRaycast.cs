@@ -46,11 +46,7 @@ public class PlayerRaycast : MonoBehaviour
             {
                 return HitObject.DoubleDoor;
             }
-            if (hit.collider.CompareTag(str_Cabinet))
-            {
-                return HitObject.Cabinet;
-            }
-            else if (hit.collider.CompareTag(str_Item))
+            if (hit.collider.CompareTag(str_Item))
             {
                 return HitObject.Item;
             }
