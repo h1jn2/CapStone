@@ -696,8 +696,8 @@ MonoBehaviour:
   deStamina: 20
   reStamina: 10
   head: {fileID: 8267124967644498938}
-  PlayerCamera: {fileID: 0}
-  raycaster: {fileID: 0}
+  PlayerCamera: {fileID: 4294380825966925583}
+  raycaster: {fileID: 7996727199917995711}
 --- !u!114 &5435802381098571396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -712,7 +712,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   _isDie: 0
-  playerCamera: {fileID: 0}
+  playerCamera: {fileID: 4294380825966925583}
 --- !u!114 &7508708574235082452
 MonoBehaviour:
   m_ObjectHideFlags: 0

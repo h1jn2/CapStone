@@ -887,7 +887,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78ac4ce2c6f0e824eafd9ed8233bbc3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cabinet: {fileID: 1957746251376156384, guid: 398f27440c801474083bdc9121deb997, type: 3}
   mouseSpeed: 3
   rotationSpeed: 3
   moveSpeed: 5
@@ -898,7 +897,7 @@ MonoBehaviour:
   reStamina: 10
   head: {fileID: 1629588833643781386}
   PlayerCamera: {fileID: 7739989459487206617}
-  raycaster: {fileID: 0}
+  raycaster: {fileID: 4297250070357416523}
 --- !u!114 &269914975052382538
 MonoBehaviour:
   m_ObjectHideFlags: 0

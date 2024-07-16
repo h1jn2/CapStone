@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -369,7 +369,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 761331575270116019, guid: 0a5ec79822dc6ef48996ee3708455e74, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: btn_woman1
+      value: btn_woman2
       objectReference: {fileID: 0}
     - target: {fileID: 761331575270116019, guid: 0a5ec79822dc6ef48996ee3708455e74, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -425,7 +425,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2667697408750931801, guid: 0a5ec79822dc6ef48996ee3708455e74, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: btn_woman2
+      value: btn_woman1
       objectReference: {fileID: 0}
     - target: {fileID: 2667697408750931801, guid: 0a5ec79822dc6ef48996ee3708455e74, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -1034,6 +1034,10 @@ PrefabInstance:
       propertyPath: InputCreateRoomName
       value: 
       objectReference: {fileID: 333335560}
+    - target: {fileID: 6411499479041663116, guid: f8979292732874f4092830608485f11e, type: 3}
+      propertyPath: list_Prefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 3428271144169993050, guid: 00559e39a37113d42b2ca967eacd7510, type: 3}
     - target: {fileID: 9107631230733152430, guid: f8979292732874f4092830608485f11e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.7139634
