@@ -174,7 +174,7 @@ public class Monster : MonoBehaviourPun
     private IEnumerator StartPatrol()
     {
         Debug.Log("순찰 중");
-        nvAgent.SetDestination(wayPoints[Random.Range(0, 2)]);
+        nvAgent.SetDestination(wayPoints[Random.Range(0, 8)]);
         while (_curState == State.Patrol)
         {
             
@@ -186,7 +186,7 @@ public class Monster : MonoBehaviourPun
 
             if (navDistance < arrivalDist)
             {
-                targetWayPoint = wayPoints[Random.Range(0, 2)];
+                targetWayPoint = wayPoints[Random.Range(0, 8)];
                 nvAgent.SetDestination(targetWayPoint);
             }
 
