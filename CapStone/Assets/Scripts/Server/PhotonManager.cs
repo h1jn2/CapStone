@@ -137,7 +137,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             return;
         }
         Debug.Log(PhotonNetwork.LevelLoadingProgress);
-        SceneLoingsync = SceneManager.LoadSceneAsync("1.School"); // 스테이지 씬 비동기 로드
+        SceneLoingsync = SceneManager.LoadSceneAsync("School"); // 스테이지 씬 비동기 로드
     }
 
     // 아이템 스폰
