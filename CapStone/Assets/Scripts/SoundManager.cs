@@ -29,6 +29,18 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public void StopSound()
+    {
+        for (int j = 0; j < soundPlayer.Length; j++)
+        {
+            if (soundPlayer[j].isPlaying)
+            {
+                soundPlayer[j].Stop();
+                return;
+            }
+        }
+    }
+
     public void PlaySound(string _soundName)
     {
         for(int i = 0; i < sounds.Length; i++)
