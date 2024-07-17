@@ -45,7 +45,10 @@ public class Monster : MonoBehaviourPun
     {
         monsterPv = this.gameObject.GetPhotonView();
         nvAgent = gameObject.GetComponent<NavMeshAgent>();
-        wayPoints = new[] { new Vector3(-32.5f, this.transform.position.y, 110), new Vector3(-32.5f, this.transform.position.y, 120) };
+        wayPoints = new[] { new Vector3(55, this.transform.position.y, 100), new Vector3(70, this.transform.position.y, 115),
+            new Vector3(70, this.transform.position.y, 67), new Vector3(76, this.transform.position.y, 119), new Vector3(19, this.transform.position.y, 105)
+        , new Vector3(19, this.transform.position.y, 100), new Vector3(-24, this.transform.position.y, 79), new Vector3(47, this.transform.position.y, 96)
+        , new Vector3(-33, this.transform.position.y, 138)};
         targetWayPoint = wayPoints[0];
     }
 
