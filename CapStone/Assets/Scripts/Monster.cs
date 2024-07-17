@@ -133,6 +133,7 @@ public class Monster : MonoBehaviourPun
                 currentCoroutine = StartCoroutine(StartPatrol());
                 anim.SetBool("isPatrol", true);
                 anim.SetBool("isChase", false);
+                SoundManager.instance.PlaySound("FootStep");
                 break;
             case State.Chase:
                 currentCoroutine = StartCoroutine(chaseCoroutine);
