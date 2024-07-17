@@ -134,17 +134,18 @@ public class Monster : MonoBehaviourPun
                 anim.SetBool("isPatrol", true);
                 anim.SetBool("isChase", false);
                 SoundManager.instance.StopSound();
-                SoundManager.instance.PlaySound("FootStep");
+                SoundManager.instance.PlaySound("FootStep", true);
                 break;
             case State.Chase:
                 currentCoroutine = StartCoroutine(chaseCoroutine);
                 anim.SetBool("isPatrol", false);
                 anim.SetBool("isChase", true);
+                SoundManager.instance.StopSound();
+                SoundManager.instance.PlaySound("FootStep", true);
                 break;
             case State.Attack:
                 currentCoroutine = StartCoroutine(attackCoroutine);
-                anim.SetBool("isPatrol", true);
-                anim.SetBool("isChase", false);
+                SoundManager.instance.PlaySound("Hunting", false);
                 break;
         }
     }
@@ -237,7 +238,7 @@ public class Monster : MonoBehaviourPun
                 GameManager.instance.check_clear();
                 short_enemy.gameObject.GetComponent<CharacterController>().enabled = false; // 플레이어 맵에 존재하면 순찰 경로로 변경이 안 돼서 일단 이렇게 해놔씀
                 short_enemy = null;
-                yield return null;
+                yield return new WaitForSeconds(5f) ;
             }
 
         }

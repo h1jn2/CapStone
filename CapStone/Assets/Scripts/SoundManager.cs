@@ -35,13 +35,16 @@ public class SoundManager : MonoBehaviour
         {
             if (soundPlayer[j].isPlaying)
             {
+                if (soundPlayer[j].clip.name.Equals("Hunting"))
+                    return;
+                
                 soundPlayer[j].Stop();
                 return;
             }
         }
     }
 
-    public void PlaySound(string _soundName)
+    public void PlaySound(string _soundName, bool isLoop)
     {
         for(int i = 0; i < sounds.Length; i++)
         {
@@ -52,6 +55,7 @@ public class SoundManager : MonoBehaviour
                     if (!soundPlayer[j].isPlaying)
                     {
                         soundPlayer[j].clip = sounds[i].clip;
+                        soundPlayer[j].loop = isLoop;
                         soundPlayer[j].Play();
                         return;
                     }
