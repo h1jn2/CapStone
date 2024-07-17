@@ -27,6 +27,9 @@ public class Monster : MonoBehaviourPun
     private IEnumerator chaseCoroutine;
     private IEnumerator attackCoroutine;
 
+    [SerializeField]
+    private Animator anim;
+
     private enum State
     {
         Patrol,
@@ -128,12 +131,18 @@ public class Monster : MonoBehaviourPun
         {
             case State.Patrol:
                 currentCoroutine = StartCoroutine(StartPatrol());
+                anim.SetBool("isPatrol", true);
+                anim.SetBool("isChase", false);
                 break;
             case State.Chase:
                 currentCoroutine = StartCoroutine(chaseCoroutine);
+                anim.SetBool("isPatrol", false);
+                anim.SetBool("isChase", true);
                 break;
             case State.Attack:
                 currentCoroutine = StartCoroutine(attackCoroutine);
+                anim.SetBool("isPatrol", true);
+                anim.SetBool("isChase", false);
                 break;
         }
     }
