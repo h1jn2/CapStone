@@ -43,18 +43,37 @@ public class WebLoginManager : MonoBehaviour
         Debug.Log("Request sent"); // 디버그 로그 추가
 
         // 응답 처리
-        if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
+        if (request.result == UnityWebRequest.Result.ConnectionError)
         {
-            Debug.LogError("Error: " + request.error);
-            LoginMgr.ShowLoginWarning("로그인 실패: 서버 오류가 발생했습니다.");
+            Debug.LogError("Connection error: " + request.error);
+            LoginMgr.ShowLoginWarning("로그인 실패: 서버 연결 오류가 발생했습니다.");
         }
-        else
+        else if (request.result == UnityWebRequest.Result.ProtocolError)
         {
-            // 응답 데이터 가져오기
+            // HTTP 오류 처리
+            Debug.LogError("HTTP Error: " + request.error); // 디버그 로그 추가
+            string responseText = request.downloadHandler.text;
+            Debug.Log("Error Response: " + responseText); // 서버로부터의 응답 내용 확인
+
+            // 400 Bad Request 처리
+            if (request.responseCode == 400)
+            {
+                // 에러 메시지 파싱
+                ErrorResponse errorResponse = JsonUtility.FromJson<ErrorResponse>(responseText);
+                Debug.LogError("로그인 실패: " + errorResponse.error);
+                LoginMgr.ShowLoginWarning("로그인 실패: " + errorResponse.error);
+            }
+            else
+            {
+                LoginMgr.ShowLoginWarning("로그인 실패: " + request.error);
+            }
+        }
+        else if (request.result == UnityWebRequest.Result.Success)
+        {
+            // JSON 파싱
             string responseText = request.downloadHandler.text;
             Debug.Log("Response: " + responseText);
 
-            // JSON 파싱
             LoginResponse loginResponse = JsonUtility.FromJson<LoginResponse>(responseText);
 
             if (!string.IsNullOrEmpty(loginResponse.token))
@@ -130,6 +149,12 @@ public class WebLoginManager : MonoBehaviour
     public class LoginResponse
     {
         public string token;
+        public string error;
+    }
+
+    [System.Serializable]
+    public class ErrorResponse
+    {
         public string error;
     }
 }
