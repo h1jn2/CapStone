@@ -1,8 +1,6 @@
-using System;
+using System.Collections;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
-using System.Collections;
 using Photon.Pun;
 
 public class LoginMgr : MonoBehaviour
@@ -10,7 +8,7 @@ public class LoginMgr : MonoBehaviour
     public TMP_InputField idInputField;
     public TMP_InputField pwInputField;
     public GameObject warningPanel; // 경고창 GameObject
-    
+    public WebLoginManager webLoginManager; // WebLoginManager 인스턴스
 
     void Update()
     {
@@ -18,7 +16,7 @@ public class LoginMgr : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             // 현재 선택된 인풋 필드에 따라 다음 인풋 필드로 포커스 이동
-            if (idInputField.isFocused)  
+            if (idInputField.isFocused)
             {
                 pwInputField.Select();
             }
@@ -34,51 +32,35 @@ public class LoginMgr : MonoBehaviour
         string inputId = idInputField.text;
         string inputPw = pwInputField.text;
 
-        // 입력된 아이디와 비밀번호가 일치하는지 확인
-        if (LoginManager.instance.CheckID(inputId))
-        {
-            if (LoginManager.instance.CheckPwd(inputId, inputPw))
-            {
-                Debug.Log("로그인 성공!");
-                // 여기에 로그인 성공 후의 작업 추가
-                UIMgr.single.OpenTitle();
-                PhotonNetwork.NickName = inputId;
-                GameManager.instance._currentStatus = GameManager.Status._login;
-                LoginManager.isLogin = true;
-            }
-            else
-            {
-                Debug.Log("로그인 실패: 비밀번호가 올바르지 않습니다.");
-
-                // 경고창 표시
-                warningPanel.SetActive(true);
-                // 3초 후에 경고창 사라지도록 코루틴 시작
-                StartCoroutine(HideWarningAfterDelay());
-
-                // 로그인 실패 시 인풋 필드 초기화
-                pwInputField.text = "";
-            }
-        }
-        else
-        {
-            Debug.Log("로그인 실패: 아이디 또는 비밀번호가 올바르지 않습니다.");
-
-            // 경고창 표시
-            warningPanel.SetActive(true);
-            // 3초 후에 경고창 사라지도록 코루틴 시작
-            StartCoroutine(HideWarningAfterDelay());
-
-            // 로그인 실패 시 인풋 필드 초기화
-            idInputField.text = "";
-            pwInputField.text = "";
-        }
+        // WebLoginManager를 사용하여 로그인 처리
+        webLoginManager.Login(inputId, inputPw);
     }
 
-    IEnumerator HideWarningAfterDelay()
+    public void ShowLoginWarning(string message)
     {
-        yield return new WaitForSeconds(1.5f); // 3초 대기
+        StartCoroutine(ShowWarningCoroutine(message));
+    }
+
+    private IEnumerator ShowWarningCoroutine(string message)
+    {
+        // 경고창 표시
+        warningPanel.SetActive(true);
+        warningPanel.GetComponentInChildren<TextMeshProUGUI>().text = message;
+
+        // 1.5초 후에 경고창 사라지도록 코루틴 시작
+        yield return new WaitForSeconds(1.5f);
 
         // 경고창 숨기기
         warningPanel.SetActive(false);
+    }
+
+    public void OnLoginSuccess(string userId)
+    {
+        Debug.Log("로그인 성공!");
+        // 여기에 로그인 성공 후의 작업 추가
+        UIMgr.single.OpenTitle();
+        PhotonNetwork.NickName = userId;
+        GameManager.instance._currentStatus = GameManager.Status._login;
+        LoginManager.isLogin = true;
     }
 }
