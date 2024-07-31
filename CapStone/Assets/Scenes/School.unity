@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3731193, g: 0.3807401, b: 0.358727, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311924, g: 0.38073963, b: 0.3587269, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4092,6 +4092,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -134
       objectReference: {fileID: 0}
+    - target: {fileID: 1168179715808886207, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1481626713707640494, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
       propertyPath: sceneViewId
       value: 18
@@ -4111,6 +4115,10 @@ PrefabInstance:
     - target: {fileID: 3324094467621251656, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
       propertyPath: m_Name
       value: classRoom_4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3354802803504297502, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5310734047545859925, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4156,6 +4164,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7064082765270155172, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7339784970378983123, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
       propertyPath: m_LocalPosition.y
       value: -134
@@ -4163,6 +4175,10 @@ PrefabInstance:
     - target: {fileID: 7450084193586863784, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
       propertyPath: sceneViewId
       value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 8700857926035261657, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11266,6 +11282,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -134
       objectReference: {fileID: 0}
+    - target: {fileID: 1168179715808886207, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1481626713707640494, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
       propertyPath: sceneViewId
       value: 11
@@ -11285,6 +11305,10 @@ PrefabInstance:
     - target: {fileID: 3324094467621251656, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
       propertyPath: m_Name
       value: classRoom_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3354802803504297502, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5310734047545859925, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
       propertyPath: m_LocalPosition.y
@@ -11330,6 +11354,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7064082765270155172, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7339784970378983123, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
       propertyPath: m_LocalPosition.y
       value: -134
@@ -11337,6 +11365,10 @@ PrefabInstance:
     - target: {fileID: 7450084193586863784, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
       propertyPath: sceneViewId
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8700857926035261657, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -26910,6 +26942,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -134
       objectReference: {fileID: 0}
+    - target: {fileID: 1168179715808886207, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1481626713707640494, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
       propertyPath: sceneViewId
       value: 40
@@ -26929,6 +26965,10 @@ PrefabInstance:
     - target: {fileID: 3324094467621251656, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
       propertyPath: m_Name
       value: classRoom_5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3354802803504297502, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5310734047545859925, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
       propertyPath: m_LocalPosition.y
@@ -26974,6 +27014,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7064082765270155172, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7339784970378983123, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
       propertyPath: m_LocalPosition.y
       value: -134
@@ -26981,6 +27025,10 @@ PrefabInstance:
     - target: {fileID: 7450084193586863784, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
       propertyPath: sceneViewId
       value: 39
+      objectReference: {fileID: 0}
+    - target: {fileID: 8700857926035261657, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -29111,6 +29159,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -134
       objectReference: {fileID: 0}
+    - target: {fileID: 1168179715808886207, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1481626713707640494, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
       propertyPath: sceneViewId
       value: 16
@@ -29130,6 +29182,10 @@ PrefabInstance:
     - target: {fileID: 3324094467621251656, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
       propertyPath: m_Name
       value: classRoom_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3354802803504297502, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5310734047545859925, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
       propertyPath: m_LocalPosition.y
@@ -29175,6 +29231,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7064082765270155172, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7339784970378983123, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
       propertyPath: m_LocalPosition.y
       value: -134
@@ -29182,6 +29242,10 @@ PrefabInstance:
     - target: {fileID: 7450084193586863784, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
       propertyPath: sceneViewId
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8700857926035261657, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -30150,6 +30214,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -134
       objectReference: {fileID: 0}
+    - target: {fileID: 1168179715808886207, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1481626713707640494, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
       propertyPath: sceneViewId
       value: 35
@@ -30169,6 +30237,10 @@ PrefabInstance:
     - target: {fileID: 3324094467621251656, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
       propertyPath: m_Name
       value: classRoom_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3354802803504297502, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5310734047545859925, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
       propertyPath: m_LocalPosition.y
@@ -30214,6 +30286,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7064082765270155172, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7339784970378983123, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
       propertyPath: m_LocalPosition.y
       value: -134
@@ -30221,6 +30297,10 @@ PrefabInstance:
     - target: {fileID: 7450084193586863784, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
       propertyPath: sceneViewId
       value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 8700857926035261657, guid: 902b47c2cf13c4170a212a8ce8b85042, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
