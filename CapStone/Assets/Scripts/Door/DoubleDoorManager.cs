@@ -21,6 +21,10 @@ public class DoubleDoorManager : MonoBehaviourPunCallbacks
     public void ChangeState()
     {
         Debug.Log("실행");
+        if (!isOpen)
+            SoundManager.instance.PlaySound("OpenDoor", false);
+        else
+            SoundManager.instance.PlaySound("CloseDoor", false);
         isOpen = !isOpen;
         pv.RPC("OnChangeStatusDoubleDoor", RpcTarget.AllBuffered, isOpen);
         AnimationUpdate();
@@ -41,7 +45,8 @@ public class DoubleDoorManager : MonoBehaviourPunCallbacks
         else
         {
             Debug.Log("문닫힘");
-        }   
+
+        }
     }
     
 }

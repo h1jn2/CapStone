@@ -60,11 +60,13 @@ public class CabinetManager : MonoBehaviourPunCallbacks
                 if (IsPlayerNearCabinet() && !cabinetOccupancy[cabinetID])
                 {
                     Debug.Log("Attempting to enter cabinet");
+                    SoundManager.instance.PlaySound("OpenCabinet", false);
                     ToggleHide();
                 }
                 else if (isInsideCabinet)
                 {
                     Debug.Log("Attempting to exit cabinet");
+                    SoundManager.instance.PlaySound("CloseCabinet", false);
                     ToggleHide();
                 }
                 else
