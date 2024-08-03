@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 using Photon.Realtime;
+using System;
+using System.Net;
 
 public class PlayerManager : MonoBehaviourPunCallbacks
 {
@@ -11,6 +13,19 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
     public static GameObject LocalPlayerInstance;
     public GameObject playerCamera;
+
+    public event Action OnPlayerdied;
+    public event Action OnPlayerRespone;
+
+    private void Awake()
+    {
+        OnPlayerdied += OnDemeged;
+    }
+
+    private void OnDestroy()
+    {
+       OnPlayerdied -= OnDemeged;
+    }
 
     private void Start()
     {
@@ -36,5 +51,25 @@ public class PlayerManager : MonoBehaviourPunCallbacks
             transform.GetChild(i).gameObject.layer = layer;
 
         }
+    }
+
+    public void OnDemeged()
+    {
+        this._isDie = true;
+        GameManager.instance.AlivePlayerCnt--; //공격시 생존인원  변수 감소
+        GameManager.instance.check_clear();
+        this.GetComponent<CharacterController>().enabled = false; // 플레이어 맵에 존재하면 순찰 경로로 변경이 안 돼서 일단 이렇게 해놔씀
+    }
+
+    public void OnRespone()
+    {
+        this._isDie = false;
+        GameManager.instance.AlivePlayerCnt++; //공격시 생존인원  변수 감소
+        GameManager.instance.check_clear();
+        this.GetComponent<CharacterController>().enabled = true; // 플레이어 맵에 존재하면 순찰 경로로 변경이 안 돼서 일단 이렇게 해놔씀
+    }
+    public void Die()
+    {
+        OnPlayerdied?.Invoke();
     }
 }

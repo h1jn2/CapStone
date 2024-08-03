@@ -63,7 +63,6 @@ public class GameManager : MonoBehaviour
             {
                 GameManager.instance._currentStatus = Status._end;
                 GameClear1.instance.OnGameClear();
-                Debug.Log("1");
                 //클리어화면 active
                 //나올 내용 설정
             }

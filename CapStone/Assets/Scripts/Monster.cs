@@ -236,10 +236,13 @@ public class Monster : MonoBehaviourPun
         {
             if (short_enemy != null)
             {
+                short_enemy.gameObject.GetComponent<PlayerManager>().Die();
+                /*
                 short_enemy.GetComponent<PlayerManager>()._isDie = true;
                 GameManager.instance.AlivePlayerCnt--; //공격시 생존인원  변수 감소
                 GameManager.instance.check_clear();
                 short_enemy.gameObject.GetComponent<CharacterController>().enabled = false; // 플레이어 맵에 존재하면 순찰 경로로 변경이 안 돼서 일단 이렇게 해놔씀
+                */
                 short_enemy = null;
                 yield return new WaitForSeconds(5f) ;
             }
@@ -254,17 +257,5 @@ public class Monster : MonoBehaviourPun
         Gizmos.DrawWireSphere(transform.position, radius);
     }
 
-    ////////////////////////////
-    //게임클리어조건을 위해 게임매니저 함수 동기화 RPC => 공격시 생존인원 카운트
-    ////////////////////////////
-
-    [PunRPC]
-    public void OnDemegePlayer_RPC()
-    {
-        if (monsterPv.IsMine)
-        {
-            Debug.Log("데미지동기화");
-            GameManager.instance.AlivePlayerCnt--;
-        }
-    }
+    
 }
