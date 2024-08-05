@@ -20,11 +20,13 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     private void Awake()
     {
         OnPlayerdied += OnDemeged;
+        OnPlayerRespone += OnRespone;
     }
 
     private void OnDestroy()
     {
        OnPlayerdied -= OnDemeged;
+       OnPlayerRespone -= OnRespone;
     }
 
     private void Start()
