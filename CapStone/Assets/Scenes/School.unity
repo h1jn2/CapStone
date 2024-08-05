@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311924, g: 0.38073963, b: 0.3587269, a: 1}
+  m_IndirectSpecularColor: {r: 0.3731193, g: 0.3807401, b: 0.358727, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -12947,9 +12947,9 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
+  near clip plane: 0.152
+  far clip plane: 300
+  field of view: 60.000004
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -12975,8 +12975,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.08089845, y: 0.8784365, z: -0.16069962, w: 0.44269678}
-  m_LocalPosition: {x: 9.995905, y: 2.259197, z: 75.86481}
+  m_LocalRotation: {x: 0.15715843, y: 0.000023307348, z: -0.00014646187, w: 0.98757344}
+  m_LocalPosition: {x: -0.003, y: 1.374, z: -1.9360001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -25291,6 +25291,69 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6709689800242634901, guid: ac023e1077df646b5910892b625dba4a, type: 3}
   m_PrefabInstance: {fileID: 1841226910}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1841619597
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1841619599}
+  - component: {fileID: 1841619598}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1841619598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841619597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f4f72119d9a84d2d90edade94d57a0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - soundName: CloseDoor
+    clip: {fileID: 8300000, guid: 0a8671a9f0c0f494da4453bdb6a15054, type: 3}
+  - soundName: CloseCabinet
+    clip: {fileID: 8300000, guid: a491e15e6d65842f1a3d09b2d58adeba, type: 3}
+  - soundName: OpenDoor
+    clip: {fileID: 8300000, guid: 5d38137444cce4c92abb8fd1d69ffd89, type: 3}
+  - soundName: OpenCabinet
+    clip: {fileID: 8300000, guid: d94cb6affa62e4f99b91d4088056314a, type: 3}
+  - soundName: Item
+    clip: {fileID: 8300000, guid: f659ad18c6cb2480787846e320be5f4c, type: 3}
+  - soundName: Hunting
+    clip: {fileID: 8300000, guid: fe7b98126d5df4f54b39f71553273016, type: 3}
+  - soundName: FootStepNPC
+    clip: {fileID: 8300000, guid: 99adf0be908464b2f967d8a34f730de0, type: 3}
+  - soundName: FootStepUser
+    clip: {fileID: 8300000, guid: a002165a604f247c79f9ef4a13e71b1f, type: 3}
+  - soundName: RunningFootStepUser
+    clip: {fileID: 8300000, guid: 19bd022d0d81f46769924638df5e6ae5, type: 3}
+--- !u!4 &1841619599
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841619597}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.002199, y: 0.99352044, z: 80.84493}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1842675658
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30131,3 +30194,4 @@ SceneRoots:
   - {fileID: 2095665348}
   - {fileID: 2000304117}
   - {fileID: 1984916168}
+  - {fileID: 1841619599}

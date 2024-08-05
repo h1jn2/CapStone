@@ -87,6 +87,12 @@ public class PlayerControl : MonoBehaviourPun
                     }
                 }
             }
+
+            //if (isMoving)
+            //{
+            //    SoundManager.instance.PlaySound("FootStepUser", true);
+            //    Debug.Log("ismoving");
+            //}
         }
     }
     private void LateUpdate()

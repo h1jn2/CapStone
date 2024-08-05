@@ -45,10 +45,9 @@ GameObject:
   - component: {fileID: -2228087003225288215}
   - component: {fileID: -4404226418224110979}
   - component: {fileID: 3776798664950598738}
-  - component: {fileID: 8791513240055283854}
   - component: {fileID: 1337298834027555588}
-  - component: {fileID: 7473596051441018949}
-  - component: {fileID: 4235114725823560581}
+  - component: {fileID: 6229928195911406765}
+  - component: {fileID: 3818921013699938636}
   m_Layer: 0
   m_Name: Cabinet
   m_TagString: Cabinet
@@ -138,6 +137,9 @@ MonoBehaviour:
   cabinet: {fileID: 1957746251376156384}
   spawnPoint: {fileID: 1611739008976281394}
   CabinetCamera: {fileID: 3706757808818241751}
+  soundPlayer:
+  - {fileID: 6229928195911406765}
+  - {fileID: 3818921013699938636}
 --- !u!114 &-4404226418224110979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,26 +179,6 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &8791513240055283854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1957746251376156384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f4f72119d9a84d2d90edade94d57a0e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sounds:
-  - soundName: OpenCabinet
-    clip: {fileID: 8300000, guid: d94cb6affa62e4f99b91d4088056314a, type: 3}
-  - soundName: CloseCabinet
-    clip: {fileID: 8300000, guid: a491e15e6d65842f1a3d09b2d58adeba, type: 3}
-  soundPlayer:
-  - {fileID: 7473596051441018949}
-  - {fileID: 4235114725823560581}
 --- !u!65 &1337298834027555588
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -218,7 +200,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.02, y: 0.019999996, z: 0.034119803}
   m_Center: {x: 0, y: 0, z: 0.0070599043}
---- !u!82 &7473596051441018949
+--- !u!82 &6229928195911406765
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -314,7 +296,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!82 &4235114725823560581
+--- !u!82 &3818921013699938636
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

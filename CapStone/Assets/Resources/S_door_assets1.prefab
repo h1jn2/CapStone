@@ -123,7 +123,6 @@ GameObject:
   - component: {fileID: -8802328441883739456}
   - component: {fileID: -4479319556122991689}
   - component: {fileID: 7259586306098607069}
-  - component: {fileID: 846203181032340666}
   - component: {fileID: 5248221001872206688}
   - component: {fileID: 8418432178004754357}
   m_Layer: 0
@@ -315,26 +314,6 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
---- !u!114 &846203181032340666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8309346471788196810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f4f72119d9a84d2d90edade94d57a0e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sounds:
-  - soundName: CloseDoor
-    clip: {fileID: 8300000, guid: 0a8671a9f0c0f494da4453bdb6a15054, type: 3}
-  - soundName: OpenDoor
-    clip: {fileID: 8300000, guid: 5d38137444cce4c92abb8fd1d69ffd89, type: 3}
-  soundPlayer:
-  - {fileID: 5248221001872206688}
-  - {fileID: 8418432178004754357}
 --- !u!82 &5248221001872206688
 AudioSource:
   m_ObjectHideFlags: 0
