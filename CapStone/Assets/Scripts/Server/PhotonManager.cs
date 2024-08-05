@@ -27,7 +27,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     /// 게임시작 및 생성에 관련된 객체
     /// </summary>
     
-    public UserData LocalDate; // 로컬 유저 데이터
+    //public UserData LocalDate; // 로컬 유저 데이터
     public Transform spawn_point; // 스폰 포인트
     public GameObject obj_local; // 로컬 플레이어 객체
     public static PhotonManager instance; // 싱글톤 인스턴스
@@ -116,13 +116,13 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     }
 
     // 스테이지에 플레이어 생성
-    private void m_CreatePlayer(UserData m_data)
+    private void m_CreatePlayer()
     {
-        if (m_data.gender == 0)
+        if (UserData.gender == 0)
         {
             obj_local = PhotonNetwork.Instantiate(list_Prefabs[Spawntype].name, spawn_point.position, Quaternion.identity); // 남성 플레이어 프리팹 생성
         }
-        else if (m_data.gender == 1)
+        else if (UserData.gender == 1)
         {
             obj_local = PhotonNetwork.Instantiate(list_Prefabs[Spawntype].name, spawn_point.position, Quaternion.identity); // 여성 플레이어 프리팹 생성
         }
@@ -248,7 +248,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         }
         if (!PhotonNetwork.IsMasterClient)
         {
-            m_CreatePlayer(LocalDate); // 로컬 플레이어 생성
+            m_CreatePlayer(); // 로컬 플레이어 생성
         }
         GameManager.instance._currentStatus = GameManager.Status._ready; // 게임 상태 설정
         Debug.Log("현재 인원: " + PhotonNetwork.CurrentRoom.PlayerCount);
@@ -387,7 +387,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             yield return null;
         }
 
-        m_CreatePlayer(LocalDate); // 플레이어 생성
+        m_CreatePlayer(); // 플레이어 생성
         Debug.Log("생성");
         _coroutineCreatePlayer = null;
     }
@@ -395,17 +395,4 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     #endregion
 }
 
-[System.Serializable]
-public class UserData
-{
-    public int gender; // 성별
-    public int type; // 타입
-    public string userid; // 유저 아이디
 
-    public UserData()
-    {
-        gender = 0;
-        type = 0;
-        userid = "";
-    }
-}
