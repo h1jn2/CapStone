@@ -253,6 +253,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOpen: 0
+  soundPlayer:
+  - {fileID: 5248221001872206688}
+  - {fileID: 8418432178004754357}
 --- !u!114 &-8802328441883739456
 MonoBehaviour:
   m_ObjectHideFlags: 0

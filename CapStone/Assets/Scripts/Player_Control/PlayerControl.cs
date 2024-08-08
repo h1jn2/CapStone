@@ -40,8 +40,24 @@ public class PlayerControl : MonoBehaviourPun
     public PlayerRaycast raycaster;
     private CabinetManager cabinetManager;
 
+    [SerializeField]
+    private AudioSource[] soundPlayer;
+    private bool isChangeState;
+
+    private enum State
+    {
+        Moving,
+        Running,
+        Dead,
+        Idle
+    }
+
+    [SerializeField]
+    private State _curState;
+
     private void Awake()
     {
+        ChangeState(State.Idle);
         controller = GetComponent<CharacterController>();
         move = Vector3.zero;
         gravity = 10f;
@@ -57,6 +73,65 @@ public class PlayerControl : MonoBehaviourPun
         {
             Control();
             Stamina();
+
+            switch (_curState)
+            {
+                case State.Moving:
+                    if (isMoving && isRunning)
+                    {
+                        ChangeState(State.Running);
+                    }
+                    if (!isMoving && !isRunning)
+                    {
+                        ChangeState(State.Idle);
+                    }
+
+                    if (this.GetComponent<PlayerManager>()._isDie)
+                    {
+                        ChangeState(State.Dead);
+                    }
+                    break;
+
+                case State.Running:
+                    if (!isRunning)
+                    {
+                        if (isMoving)
+                        {
+                            ChangeState(State.Moving);
+                        }
+                        else
+                        {
+                            ChangeState(State.Idle);
+                        }
+                    }
+                    if (this.GetComponent<PlayerManager>()._isDie)
+                    {
+                        ChangeState(State.Dead);
+                    }
+                    break;
+
+                case State.Dead:
+                    StopAllCoroutines();
+                    break;
+
+                case State.Idle:
+                    if (isMoving && !isRunning)
+                    {
+                        if (isRunning)
+                        {
+                            ChangeState(State.Running);
+                        }
+                        else
+                        {
+                            ChangeState(State.Moving);
+                        }
+                    }
+                    if (this.GetComponent<PlayerManager>()._isDie)
+                    {
+                        ChangeState(State.Dead);
+                    }
+                    break;
+            }
 
             // ssg - 문 충돌이 간헐적으로 감지되지 않는 현상을 해결하기 위한 코드
             if (Input.GetKeyDown(KeyCode.F))
@@ -87,12 +162,6 @@ public class PlayerControl : MonoBehaviourPun
                     }
                 }
             }
-
-            //if (isMoving)
-            //{
-            //    SoundManager.instance.PlaySound("FootStepUser", true);
-            //    Debug.Log("ismoving");
-            //}
         }
     }
     private void LateUpdate()
@@ -100,6 +169,29 @@ public class PlayerControl : MonoBehaviourPun
         if (punview.IsMine)
         {
             CameraControl();
+        }
+    }
+
+    private void ChangeState(State newState)
+    {
+        _curState = newState;
+
+        switch (_curState)
+        {
+            case State.Moving:
+                SoundManager.instance.StopSound(soundPlayer);
+                SoundManager.instance.PlaySound("FootStepUser", true, soundPlayer);
+                break;
+            case State.Running:
+                SoundManager.instance.StopSound(soundPlayer);
+                SoundManager.instance.PlaySound("RunningFootStepUser", true, soundPlayer);
+                break;
+            case State.Dead:
+                SoundManager.instance.StopSound(soundPlayer);
+                break;
+            case State.Idle:
+                SoundManager.instance.StopSound(soundPlayer);
+                break;
         }
     }
 
@@ -147,6 +239,7 @@ public class PlayerControl : MonoBehaviourPun
                 move = moveDirection * currentSpeed;
                 isMoving = true;
                 isRunning = canSprint && Input.GetKey(KeyCode.LeftShift);
+                
             }
             else
             {
