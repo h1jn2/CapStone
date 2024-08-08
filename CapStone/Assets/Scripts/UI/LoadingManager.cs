@@ -7,37 +7,36 @@ public class LoadingManager : MonoBehaviour
 {
     public static string nextScene;
     public static AsyncOperation sceanOp;
-    public int timer;
+    //public int timer;
     
     private void Start()
     {
-        LoadScene("School");
         StartCoroutine(LoadScene());
-        timer = 0;
         
     }
 
     public static void LoadScene(string sceneName)
     {
         nextScene = sceneName;
-        SceneManager.LoadScene(nextScene);
-        Debug.Log(nextScene);
+        SceneManager.LoadScene("Loading");
     }
 
     IEnumerator LoadScene()
     {
         yield return null;
-        timer++;
-        Debug.Log(nextScene);
-        AsyncOperation op = SceneManager.LoadSceneAsync(nextScene);
-        op.allowSceneActivation = false;
+        float timer = 0.0f;
+        sceanOp = SceneManager.LoadSceneAsync(nextScene);
+        //AsyncOperation op = SceneManager.LoadSceneAsync(nextScene);
+        sceanOp.allowSceneActivation = false;
         Debug.Log(timer);
-        while (!op.isDone && timer>=180)
+        while (!sceanOp.isDone)
         {
             yield return null;
-            if (op.isDone && timer>= 180)
+            Debug.LogError(timer);
+            timer += Time.deltaTime;
+            if (timer>= 1f)
             {
-                op.allowSceneActivation = true;
+                sceanOp.allowSceneActivation = true;
                 yield break;
             }
         }
