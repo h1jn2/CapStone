@@ -6,10 +6,13 @@ using UnityEngine.SceneManagement;
 public class LoadingManager : MonoBehaviour
 {
     public static string nextScene;
+    public static AsyncOperation sceanOp;
+    //public int timer;
     
     private void Start()
     {
         StartCoroutine(LoadScene());
+        
     }
 
     public static void LoadScene(string sceneName)
@@ -21,15 +24,19 @@ public class LoadingManager : MonoBehaviour
     IEnumerator LoadScene()
     {
         yield return null;
-
-        AsyncOperation op = SceneManager.LoadSceneAsync(nextScene);
-        op.allowSceneActivation = false;
-        while (!op.isDone)
+        float timer = 0.0f;
+        sceanOp = SceneManager.LoadSceneAsync(nextScene);
+        //AsyncOperation op = SceneManager.LoadSceneAsync(nextScene);
+        sceanOp.allowSceneActivation = false;
+        Debug.Log(timer);
+        while (!sceanOp.isDone)
         {
             yield return null;
-            if (op.isDone)
+            Debug.LogError(timer);
+            timer += Time.deltaTime;
+            if (timer>= 1f)
             {
-                op.allowSceneActivation = true;
+                sceanOp.allowSceneActivation = true;
                 yield break;
             }
         }

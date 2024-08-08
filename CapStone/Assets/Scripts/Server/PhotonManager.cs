@@ -137,7 +137,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             return;
         }
         Debug.Log(PhotonNetwork.LevelLoadingProgress);
-        SceneLoingsync = SceneManager.LoadSceneAsync("School"); // 스테이지 씬 비동기 로드
+        LoadingManager.LoadScene("School");
+        //SceneLoingsync = SceneManager.LoadSceneAsync("School"); // 스테이지 씬 비동기 로드
     }
 
     // 아이템 스폰
@@ -370,19 +371,31 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         _coroutineCreatePlayer = StartCoroutine(IEnum_CreatePlayer()); // 새로운 코루틴 시작
     }
 
+    private IEnumerator WaitLoading()
+    {
+        while (LoadingManager.sceanOp == null || !LoadingManager.sceanOp.isDone)
+        {
+            yield return null;
+        }
+    }
+
     // 플레이어 생성 코루틴
     IEnumerator IEnum_CreatePlayer()
     {
+        yield return StartCoroutine(WaitLoading());
+        
         int cnt = 0;
         Debug.Log("코루틴 시작");
-        while (SceneLoingsync.progress < 1f)
+        Debug.Log(LoadingManager.nextScene);
+        Debug.Log(LoadingManager.sceanOp);
+        while (LoadingManager.sceanOp.progress < 1f)
         {
             if (cnt > 10000)
             {
                 Debug.LogError("스폰 불가");
                 yield break; // 스폰 실패 시 종료
             }
-            Debug.Log(SceneLoingsync.progress);
+            Debug.Log(LoadingManager.sceanOp.progress);
             cnt++;
             yield return null;
         }
