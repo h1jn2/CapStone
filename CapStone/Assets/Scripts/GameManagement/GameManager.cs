@@ -69,6 +69,8 @@ public class GameManager : MonoBehaviour
         Debug.Log("log");
         if (GameManager.instance._currentStatus == Status._playing)
         {
+            OnStartGame -= SponeManager.Spawn_item;
+            OnStartGame -= SponeManager.Spawn_monster;
             if (GameManager.instance.AlivePlayerCnt >= 0 && GameManager.instance.ItemCnt == 0)
             {
                 GameManager.instance._currentStatus = Status._end;
@@ -81,8 +83,6 @@ public class GameManager : MonoBehaviour
             {
                 GameManager.instance._currentStatus = Status._end;
                 GameClear1.instance.OnGameLose();
-                OnStartGame -= SponeManager.Spawn_item;
-                OnStartGame -= SponeManager.Spawn_monster;
                 //PhotonManager.instance.LeaveRoom();//임시 테스트 코드
             }
         }
