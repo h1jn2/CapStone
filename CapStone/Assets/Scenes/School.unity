@@ -25334,7 +25334,7 @@ MonoBehaviour:
   - soundName: Hunting
     clip: {fileID: 8300000, guid: fe7b98126d5df4f54b39f71553273016, type: 3}
   - soundName: FootStepNPC
-    clip: {fileID: 8300000, guid: 99adf0be908464b2f967d8a34f730de0, type: 3}
+    clip: {fileID: 8300000, guid: b8d02bf8546cd40f297fad4d91ba807b, type: 3}
   - soundName: FootStepUser
     clip: {fileID: 8300000, guid: a002165a604f247c79f9ef4a13e71b1f, type: 3}
   - soundName: RunningFootStepUser
