@@ -14,7 +14,6 @@ public class SoundManager : MonoBehaviour
     public static SoundManager instance = null;
 
     [SerializeField] Sound[] sounds;
-    [SerializeField] AudioSource[] soundPlayer;
 
     private void Awake()
     {
@@ -28,7 +27,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void StopSound()
+    public void StopSound(AudioSource[] soundPlayer)
     {
         for (int j = 0; j < soundPlayer.Length; j++)
         {
@@ -43,7 +42,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void PlaySound(string _soundName, bool isLoop)
+    public void PlaySound(string _soundName, bool isLoop, AudioSource[] soundPlayer)
     {
         for(int i = 0; i < sounds.Length; i++)
         {

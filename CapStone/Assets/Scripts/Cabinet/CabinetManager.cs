@@ -17,6 +17,9 @@ public class CabinetManager : MonoBehaviourPunCallbacks
     private bool isInsideCabinet = false;
     private static Dictionary<int, bool> cabinetOccupancy = new Dictionary<int, bool>();
 
+    [SerializeField]
+    private AudioSource[] soundPlayer;
+
     private void Awake()
     {
         punview = GetComponent<PhotonView>();
@@ -60,13 +63,13 @@ public class CabinetManager : MonoBehaviourPunCallbacks
                 if (IsPlayerNearCabinet() && !cabinetOccupancy[cabinetID])
                 {
                     Debug.Log("Attempting to enter cabinet");
-                    SoundManager.instance.PlaySound("OpenCabinet", false);
+                    SoundManager.instance.PlaySound("OpenCabinet", false, soundPlayer);
                     ToggleHide();
                 }
                 else if (isInsideCabinet)
                 {
                     Debug.Log("Attempting to exit cabinet");
-                    SoundManager.instance.PlaySound("CloseCabinet", false);
+                    SoundManager.instance.PlaySound("CloseCabinet", false, soundPlayer);
                     ToggleHide();
                 }
                 else

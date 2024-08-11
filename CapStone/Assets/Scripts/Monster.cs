@@ -28,6 +28,9 @@ public class Monster : MonoBehaviourPun
     private IEnumerator attackCoroutine;
 
     [SerializeField]
+    private AudioSource[] soundPlayer;
+
+    [SerializeField]
     private Animator anim;
 
     private enum State
@@ -136,19 +139,19 @@ public class Monster : MonoBehaviourPun
                 currentCoroutine = StartCoroutine(StartPatrol());
                 anim.SetBool("isPatrol", true);
                 anim.SetBool("isChase", false);
-                SoundManager.instance.StopSound();
-                SoundManager.instance.PlaySound("FootStep", true);
+                SoundManager.instance.StopSound(soundPlayer);
+                SoundManager.instance.PlaySound("FootStepNPC", true, soundPlayer);
                 break;
             case State.Chase:
                 currentCoroutine = StartCoroutine(chaseCoroutine);
                 anim.SetBool("isPatrol", false);
                 anim.SetBool("isChase", true);
-                SoundManager.instance.StopSound();
-                SoundManager.instance.PlaySound("FootStep", true);
+                SoundManager.instance.StopSound(soundPlayer);
+                SoundManager.instance.PlaySound("FootStepNPC", true, soundPlayer);
                 break;
             case State.Attack:
                 currentCoroutine = StartCoroutine(attackCoroutine);
-                SoundManager.instance.PlaySound("Hunting", false);
+                SoundManager.instance.PlaySound("Hunting", false, soundPlayer);
                 break;
         }
     }

@@ -12,6 +12,9 @@ public class DoorManager : MonoBehaviourPunCallbacks
     private Animator animator;
     private PhotonView pv;
 
+    [SerializeField]
+    private AudioSource[] soundPlayer;
+
     private void Awake()
     {
         animator = this.GetComponent<Animator>();
@@ -23,9 +26,9 @@ public class DoorManager : MonoBehaviourPunCallbacks
         Debug.Log("실행");
 
         if (!isOpen)
-            SoundManager.instance.PlaySound("OpenDoor", false);
+            SoundManager.instance.PlaySound("OpenDoor", false, soundPlayer);
         else
-            SoundManager.instance.PlaySound("CloseDoor", false);
+            SoundManager.instance.PlaySound("CloseDoor", false, soundPlayer);
 
         isOpen = !isOpen;
         pv.RPC("OnChangeStatus", RpcTarget.AllBuffered, isOpen);
