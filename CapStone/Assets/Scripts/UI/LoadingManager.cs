@@ -28,11 +28,9 @@ public class LoadingManager : MonoBehaviour
         sceanOp = SceneManager.LoadSceneAsync(nextScene);
         //AsyncOperation op = SceneManager.LoadSceneAsync(nextScene);
         sceanOp.allowSceneActivation = false;
-        Debug.Log(timer);
         while (!sceanOp.isDone)
         {
             yield return null;
-            Debug.LogError(timer);
             timer += Time.deltaTime;
             if (timer>= 1f)
             {

@@ -1,18 +1,24 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
+using TMPro;
 using UnityEngine;
 
 public class LobbyManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public List<Transform> PlayerList;
+    public TMP_Text RoomName;
+    public List<GameObject> Players;  
+    
+    private void Start()
     {
-        
+        RoomName.SetText(PhotonNetwork.CurrentRoom.Name);
+        Debug.Log(PhotonNetwork.InRoom);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ExitRoom()
     {
-        
+        PhotonManager.instance.DisconnectRoom();
     }
 }

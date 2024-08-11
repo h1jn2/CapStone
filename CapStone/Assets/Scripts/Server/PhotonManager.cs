@@ -20,7 +20,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public List<GameObject> list_Prefabs; // 프리팹 리스트
     public List<Transform> list_ItemSpawnPoints; // 아이템 스폰 포인트 리스트
     public List<Transform> list_MosterSpawnPoints; // 몬스터 스폰 포인트 리스트
-    public List<Transform> list_PlayerSpawnPoints; // 플레이어 스폰 포인트 리스트
+    //public List<Transform> list_PlayerSpawnPoints; // 플레이어 스폰 포인트 리스트
     public int Spawntype;
     
     /// <summary>
@@ -32,7 +32,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public GameObject obj_local; // 로컬 플레이어 객체
     public static PhotonManager instance; // 싱글톤 인스턴스
     public bool isLoading; // 로딩 상태
-    public static AsyncOperation SceneLoingsync; // 비동기 씬 로드 객체
+    //public static AsyncOperation SceneLoingsync; // 비동기 씬 로드 객체
 
     /// <summary>
     /// 내부적으로 사용할 변수 및 객체
@@ -62,7 +62,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
                 Destroy(this.gameObject); // 이미 인스턴스가 존재하면 새로운 인스턴스를 파괴
             }
         }
-
         RoomInfos = null;
         Spawntype = 0;
     }
@@ -128,6 +127,12 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         }
     }
 
+    private void CreateLobbyList()
+    {
+        GameObject Player = PhotonNetwork.Instantiate(list_Prefabs[6].name,Vector3.zero,Quaternion.identity);
+    }
+    
+
     // 마스터 클라이언트가 방을 생성 시 스테이지 씬 로딩
     private void LoadArea()
     {
@@ -136,11 +141,20 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             Debug.Log("마스터 클라이언트가 아닙니다.");
             return;
         }
-        Debug.Log(PhotonNetwork.LevelLoadingProgress);
         LoadingManager.LoadScene("School");
         //SceneLoingsync = SceneManager.LoadSceneAsync("School"); // 스테이지 씬 비동기 로드
     }
 
+    private void JoinLobby()
+    {
+        LoadingManager.sceanOp = null;
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            return;
+        }
+        LoadingManager.LoadScene("Lobby");
+        //SceneLoingsync = SceneManager.LoadSceneAsync("Lobby"); // 스테이지 씬 비동기 로드
+    }
     // 아이템 스폰
     private void Spawn_item()
     {
@@ -180,7 +194,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public bool CheckRoomNameCreate(string input)
     {
-        Debug.Log(RoomInfos.Count);
         bool is_check= false;
         if (RoomInfos.Count == 0)
         {
@@ -241,15 +254,29 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
+        /*
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.CurrentRoom.SetCustomProperties(new Hashtable() { { "RoomState", "Waiting" } }); // 방 상태 설정
             LoadArea(); // 스테이지 씬 로딩
-            OnStartCreatePlayer(); // 플레이어 생성 시작
+            OnStartCreatePlayer("Ingame); // 플레이어 생성 시작
         }
         if (!PhotonNetwork.IsMasterClient)
         {
             m_CreatePlayer(); // 로컬 플레이어 생성
+        }
+        */
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Debug.Log("방생성중 플레이어생성시작");
+            PhotonNetwork.CurrentRoom.SetCustomProperties(new Hashtable() { { "RoomState", "Waiting" } }); // 방 상태 설정
+            JoinLobby();
+            OnStartCreatePlayer("Lobby");
+            //CreateLobbyList();
+        }
+
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            CreateLobbyList();
         }
         GameManager.instance._currentStatus = GameManager.Status._ready; // 게임 상태 설정
         Debug.Log("현재 인원: " + PhotonNetwork.CurrentRoom.PlayerCount);
@@ -265,21 +292,11 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         Debug.Log("플레이어 퇴장");
     }
 
-    
-
-    public override void OnErrorInfo(ErrorInfo errorInfo)
+    public override void OnLeftRoom()
     {
-        Debug.Log(errorInfo);
+        Debug.Log("로비나감");
     }
-    //
-    // public override void OnDisconnected(DisconnectCause cause)
-    // {
-    //     Debug.Log("콜백");
-    //     GameManager.instance._currentStatus = GameManager.Status._login; // 게임 상태 설정
-    //     Debug.Log("종료");
-    //     SceneManager.LoadScene("0.MainScene"); // 메인 씬 로드    
-    // }
-    
+
     #endregion
 
     #region ButtonMethods
@@ -291,9 +308,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public void btn_CreateOrJoin(string RoomName)
     {
             JoinRoom(RoomName);
-        
     }
-
     public void btn_click_StageStart()
     {
         if (PhotonNetwork.IsMasterClient && (GameManager.instance._currentStatus == GameManager.Status._ready))
@@ -302,7 +317,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             Spawn_monster(); // 몬스터 스폰
         }
     }
-
     public void btn_woman1()
     {
         PhotonManager.instance.Spawntype = 0;
@@ -354,7 +368,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         
         _coroutineDisconnectRoom = null;
         GameManager.instance._currentStatus = GameManager.Status._login;
-        SceneManager.LoadScene("0.MainScene");
+        LoadingManager.LoadScene("0.MainScene");
     }
 
     #endregion
@@ -363,12 +377,12 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     private Coroutine _coroutineCreatePlayer;
 
-    private void OnStartCreatePlayer()
+    private void OnStartCreatePlayer(string Sponetype)
     {
         if (_coroutineCreatePlayer != null)
             StopCoroutine(_coroutineCreatePlayer); // 기존 코루틴 중지
 
-        _coroutineCreatePlayer = StartCoroutine(IEnum_CreatePlayer()); // 새로운 코루틴 시작
+        _coroutineCreatePlayer = StartCoroutine(IEnum_CreatePlayer(Sponetype)); // 새로운 코루틴 시작
     }
 
     private IEnumerator WaitLoading()
@@ -380,14 +394,12 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     }
 
     // 플레이어 생성 코루틴
-    IEnumerator IEnum_CreatePlayer()
+    IEnumerator IEnum_CreatePlayer(string Sponetype)
     {
         yield return StartCoroutine(WaitLoading());
         
         int cnt = 0;
         Debug.Log("코루틴 시작");
-        Debug.Log(LoadingManager.nextScene);
-        Debug.Log(LoadingManager.sceanOp);
         while (LoadingManager.sceanOp.progress < 1f)
         {
             if (cnt > 10000)
@@ -400,7 +412,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             yield return null;
         }
 
-        m_CreatePlayer(); // 플레이어 생성
+        if (Sponetype == "Lobby")CreateLobbyList();
+        else if(Sponetype == "Ingame")m_CreatePlayer();
         Debug.Log("생성");
         _coroutineCreatePlayer = null;
     }

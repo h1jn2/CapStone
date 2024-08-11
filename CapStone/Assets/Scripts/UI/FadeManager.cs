@@ -16,9 +16,18 @@ public class FadeManager : MonoBehaviour
     static private Dictionary<CanvasGroup, Coroutine> dictCoroutineOneTime = new Dictionary<CanvasGroup, Coroutine>();
 
     private void Awake()
-    {
-        DontDestroyOnLoad(this);
-        single = this;
+    {if (single == null)
+        {
+            single = this;
+            DontDestroyOnLoad(this);    
+        }
+        else
+        {
+            if (single != this)
+            {
+                Destroy(this.gameObject); // 이미 인스턴스가 존재하면 새로운 인스턴스를 파괴
+            }
+        }
     }
 
     public static void Call(CanvasGroup current, CanvasGroup next, float duration = 0.5f)
