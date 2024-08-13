@@ -21,21 +21,15 @@ public class LobbyManager : MonoBehaviour
     {
         PhotonManager.instance.DisconnectRoom();
     }
+    
 
-<<<<<<< HEAD
-    public void GameStart()
-=======
     public void GameStrat()
->>>>>>> Refactoring
+
     {
         if (PhotonNetwork.IsMasterClient)
         {
             LoadingManager.sceanOp = null;
-<<<<<<< HEAD
-            PhotonManager.instance.Ingame();    
-=======
             PhotonManager.instance.Ingame();
->>>>>>> Refactoring
         }
     }
 }
