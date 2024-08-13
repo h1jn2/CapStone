@@ -31,7 +31,6 @@ public class LoadingManager : MonoBehaviour
         yield return null;
         float timer = 0.0f;
         sceanOp = SceneManager.LoadSceneAsync(nextScene);
-        //AsyncOperation op = SceneManager.LoadSceneAsync(nextScene);
         sceanOp.allowSceneActivation = false;
         while (!sceanOp.isDone)
         {
