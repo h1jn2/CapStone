@@ -353,17 +353,11 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             LoadArea(); // 스테이지 씬 로딩
-<<<<<<< HEAD
             OnStartCreatePlayer("Ingame"); // 플레이어 생성 시작
         }
-        if (!PhotonNetwork.IsMasterClient)
-        {
-            m_CreatePlayer(); // 로컬 플레이어 생성
-        }
     }
-=======
-        }
-    }
+    
+    
     #endregion
 
     #region PlayerTag
@@ -391,7 +385,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     }
     
 
->>>>>>> Refactoring
     #endregion
     
     #region Coroutines
