@@ -19,6 +19,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
+        PhotonManager.instance.SetTag("loadPlayer",true);
         OnPlayerdied += OnDemeged;
         OnPlayerRespone += OnRespone;
     }
