@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
@@ -113,23 +114,10 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         roomOption.MaxPlayers = 4; // 최대 플레이어 수 설정
         PhotonNetwork.JoinOrCreateRoom(RoomName, roomOption, TypedLobby.Default); // 방 입장 또는 생성
     }
-
-    // 스테이지에 플레이어 생성
-    private void m_CreatePlayer()
-    {
-        if (UserData.gender == 0)
-        {
-            obj_local = PhotonNetwork.Instantiate(list_Prefabs[Spawntype].name, spawn_point.position, Quaternion.identity); // 남성 플레이어 프리팹 생성
-        }
-        else if (UserData.gender == 1)
-        {
-            obj_local = PhotonNetwork.Instantiate(list_Prefabs[Spawntype].name, spawn_point.position, Quaternion.identity); // 여성 플레이어 프리팹 생성
-        }
-    }
-
     private void CreateLobbyList()
     {
         GameObject Player = PhotonNetwork.Instantiate(list_Prefabs[6].name,Vector3.zero,Quaternion.identity);
+        LoadingManager.nextScene = "School";
     }
     
 
@@ -254,17 +242,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        /*
-        if (PhotonNetwork.IsMasterClient)
-        {
-            LoadArea(); // 스테이지 씬 로딩
-            OnStartCreatePlayer("Ingame); // 플레이어 생성 시작
-        }
-        if (!PhotonNetwork.IsMasterClient)
-        {
-            m_CreatePlayer(); // 로컬 플레이어 생성
-        }
-        */
         if (PhotonNetwork.IsMasterClient)
         {
             Debug.Log("방생성중 플레이어생성시작");
@@ -319,19 +296,19 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     }
     public void btn_woman1()
     {
-        PhotonManager.instance.Spawntype = 0;
+        UserData.type = 0;
     }
     public void btn_woman2()
     {
-        PhotonManager.instance.Spawntype = 1;
+        UserData.type = 1;
     }
     public void btn_man1()
     {
-        PhotonManager.instance.Spawntype = 4;
+        UserData.type = 4;
     }
     public void btn_man2()
     {
-        PhotonManager.instance.Spawntype = 5;
+        UserData.type = 5;
     }
     
 
@@ -370,6 +347,43 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         GameManager.instance._currentStatus = GameManager.Status._login;
         LoadingManager.LoadScene("0.MainScene");
     }
+
+    public void Ingame()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            LoadArea(); // 스테이지 씬 로딩
+            OnStartCreatePlayer("Ingame"); // 플레이어 생성 시작
+        }
+    }
+    
+    
+    #endregion
+
+    #region PlayerTag
+
+    public void SetTag(string key, object value, Player player = null)
+    {
+        if (player == null) player = PhotonNetwork.LocalPlayer;
+        player.SetCustomProperties(new Hashtable{{key, value}});
+    }
+
+    public object GetTag(Player player, string key)
+    {
+        if (player == null) player = PhotonNetwork.LocalPlayer;
+        return player.CustomProperties[key].ToString();
+    }
+    
+
+    public bool AllhasTag(string key)
+    {
+        for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
+        {
+            if (PhotonNetwork.PlayerList[i].CustomProperties[key] == null) return false;
+        }
+        return true;
+    }
+    
 
     #endregion
     
@@ -413,7 +427,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         }
 
         if (Sponetype == "Lobby")CreateLobbyList();
-        else if(Sponetype == "Ingame")m_CreatePlayer();
         Debug.Log("생성");
         _coroutineCreatePlayer = null;
     }
