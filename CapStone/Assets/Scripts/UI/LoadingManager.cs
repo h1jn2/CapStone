@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,6 +8,8 @@ public class LoadingManager : MonoBehaviour
 {
     public static string nextScene;
     public static AsyncOperation sceanOp;
+
+    public static bool isLoad;
     //public int timer;
     
     private void Start()
@@ -17,12 +20,14 @@ public class LoadingManager : MonoBehaviour
 
     public static void LoadScene(string sceneName)
     {
+        sceanOp = null;
         nextScene = sceneName;
         SceneManager.LoadScene("Loading");
     }
 
     IEnumerator LoadScene()
     {
+        isLoad = false;
         yield return null;
         float timer = 0.0f;
         sceanOp = SceneManager.LoadSceneAsync(nextScene);
@@ -35,6 +40,7 @@ public class LoadingManager : MonoBehaviour
             if (timer>= 1f)
             {
                 sceanOp.allowSceneActivation = true;
+                isLoad = true;
                 yield break;
             }
         }
