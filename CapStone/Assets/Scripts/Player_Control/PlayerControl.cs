@@ -157,6 +157,7 @@ public class PlayerControl : MonoBehaviourPun
                             break;
                         case PlayerRaycast.HitObject.Item:
                             PhotonView cpv = collider.GetComponent<PhotonView>();
+                            SoundManager.instance.PlaySound("Item", false, soundPlayer);
                             cpv.RPC("DestroyItem_RPC", RpcTarget.All);
                             break;
                     }

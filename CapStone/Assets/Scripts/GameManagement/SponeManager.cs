@@ -68,14 +68,12 @@ public class SponeManager : MonoBehaviour
             return;
         }
         LoadingManager.LoadScene("School");
-        //SceneLoingsync = SceneManager.LoadSceneAsync("School"); // 스테이지 씬 비동기 로드
     }
     public void Ingame()
     {
         if (PhotonNetwork.IsMasterClient)
         {
             LoadArea(); // 스테이지 씬 로딩
-            //OnStartCreatePlayer("Ingame"); // 플레이어 생성 시작
         }
     }
     private void CreateLobbyList()

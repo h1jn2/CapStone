@@ -14,17 +14,13 @@ public class LobbyManager : MonoBehaviour
     private void Start()
     {
         RoomName.SetText(PhotonNetwork.CurrentRoom.Name);
-        Debug.Log(PhotonNetwork.InRoom);
     }
 
     public void ExitRoom()
     {
         PhotonManager.instance.DisconnectRoom();
     }
-    
-
     public void GameStrat()
-
     {
         if (PhotonNetwork.IsMasterClient)
         {

@@ -47,7 +47,7 @@ MonoBehaviour:
   list_Prefabs:
   - {fileID: 3428271144169993050, guid: 00559e39a37113d42b2ca967eacd7510, type: 3}
   - {fileID: 2523606729866775000, guid: 37cf611c47aa2cc4992ef221503dba0a, type: 3}
-  - {fileID: 7082928136955393112, guid: a7770eaf3b1b464418fa035d1c1cf4e1, type: 3}
+  - {fileID: 2786384664436147065, guid: eb58bdaee1038483095aaeadd0ad48b7, type: 3}
   - {fileID: 8743030979372106575, guid: 725ea55e1ac8a40f18914e4e5ce6d45c, type: 3}
   - {fileID: 5682882673138923873, guid: 12793d280e36aac49bc9c9127eaa7aa3, type: 3}
   - {fileID: 5125776704590044968, guid: e8a5029d657b49c4d91854878a379579, type: 3}
@@ -67,12 +67,7 @@ MonoBehaviour:
   - {fileID: 8050344541650595969, guid: b72fa97b43d7fe7499ea3b687800f720, type: 3}
   - {fileID: 2198346846820627548, guid: 715f1608f9ad0864d95c1cf713422f44, type: 3}
   - {fileID: 3162710091005610728, guid: 95cdc66162cf9d74aa2b67741e27f351, type: 3}
-  list_PlayerSpawnPoints: []
   Spawntype: 0
-  LocalDate:
-    gender: 0
-    type: 0
-    userid: asd
   spawn_point: {fileID: 9163219128724489307, guid: bc215c77d52655d499190d1c57ef7d00, type: 3}
   obj_local: {fileID: 3428271144169993050, guid: 00559e39a37113d42b2ca967eacd7510, type: 3}
   isLoading: 0
