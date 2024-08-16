@@ -372,7 +372,12 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         if (player == null) player = PhotonNetwork.LocalPlayer;
         return player.CustomProperties[key].ToString();
     }
-    
+
+    public bool MasterGetTag(string key)
+    {
+        if (PhotonNetwork.MasterClient.CustomProperties[key] == null) return false;
+        else return true;
+    }
 
     public bool AllhasTag(string key)
     {

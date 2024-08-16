@@ -25,6 +25,7 @@ public class LobbyManager : MonoBehaviour
         if (PhotonNetwork.IsMasterClient)
         {
             LoadingManager.sceanOp = null;
+            PhotonNetwork.DestroyAll();
             PhotonManager.instance.Ingame();
         }
     }

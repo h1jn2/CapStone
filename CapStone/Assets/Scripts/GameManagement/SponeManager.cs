@@ -20,10 +20,18 @@ public class SponeManager : MonoBehaviour
         PhotonManager.instance.SetTag("loadScene",true);
         while (!PhotonManager.instance.AllhasTag("loadScene")) yield return null;
 
+        if(PhotonNetwork.IsMasterClient)
         PhotonNetwork.Instantiate(PhotonManager.instance.list_Prefabs[UserData.type].name,
             PhotonManager.instance.spawn_point.position, Quaternion.identity);
-
+        while (!PhotonManager.instance.MasterGetTag("loadPlayer")) yield return null;
+        
+        if(!PhotonNetwork.IsMasterClient)PhotonNetwork.Instantiate(PhotonManager.instance.list_Prefabs[UserData.type].name,
+            PhotonManager.instance.spawn_point.position, Quaternion.identity);
+        
         while (!PhotonManager.instance.AllhasTag("loadPlayer")) yield return null;
+        
+        //ChangeStatus_RPC(GameManager.Status._playing);
+        //if(PhotonNetwork.IsMasterClient)GameManager.instance.StartGame();
     }
     public static void Spawn_item()
     {
@@ -76,19 +84,12 @@ public class SponeManager : MonoBehaviour
             LoadArea(); // 스테이지 씬 로딩
         }
     }
-    private void CreateLobbyList()
+    public void ChangeStatus_RPC(GameManager.Status sendStatus)
     {
-        GameObject Player = PhotonNetwork.Instantiate(PhotonManager.instance.list_Prefabs[6].name,Vector3.zero,Quaternion.identity);
-        LoadingManager.nextScene = "School";
-    }
-    private Coroutine _coroutineCreatePlayer;
-
-    private void OnStartCreatePlayer(string Sponetype)
-    {
-        if (_coroutineCreatePlayer != null)
-            StopCoroutine(_coroutineCreatePlayer); // 기존 코루틴 중지
-
-        _coroutineCreatePlayer = StartCoroutine(IEnum_CreatePlayer(Sponetype)); // 새로운 코루틴 시작
+        GameManager.instance._currentStatus = sendStatus;
+        GameManager.instance.PlayerCnt = PhotonNetwork.CurrentRoom.PlayerCount;
+        GameManager.instance.AlivePlayerCnt = GameManager.instance.PlayerCnt;
+        Debug.Log(sendStatus);
     }
 
     private IEnumerator WaitLoading()
@@ -98,30 +99,7 @@ public class SponeManager : MonoBehaviour
             yield return null;
         }
     }
-
-    // 플레이어 생성 코루틴
-    IEnumerator IEnum_CreatePlayer(string Sponetype)
-    {
-        yield return StartCoroutine(WaitLoading());
-        
-        int cnt = 0;
-        Debug.Log("코루틴 시작");
-        while (LoadingManager.sceanOp.progress < 1f)
-        {
-            if (cnt > 10000)
-            {
-                Debug.LogError("스폰 불가");
-                yield break; // 스폰 실패 시 종료
-            }
-            Debug.Log(LoadingManager.sceanOp.progress);
-            cnt++;
-            yield return null;
-        }
-
-        if (Sponetype == "Lobby")CreateLobbyList();
-        Debug.Log("생성");
-        _coroutineCreatePlayer = null;
-    }
+    
 }
 
 
