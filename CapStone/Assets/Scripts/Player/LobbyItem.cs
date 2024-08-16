@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
@@ -72,5 +73,10 @@ public class LobbyItem : MonoBehaviour
         listSize.sizeDelta = new Vector2(1000, 150);
         listSize.anchoredPosition = new Vector2(0, 0);
         LobbyManager.Players.Add(this.gameObject);
+    }
+
+    void OnDestroy()
+    {
+        PhotonManager.instance.SetTag("InLobby", true);
     }
 }
