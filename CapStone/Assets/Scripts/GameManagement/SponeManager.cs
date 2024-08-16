@@ -17,6 +17,7 @@ public class SponeManager : MonoBehaviour
 
     IEnumerator Loading()
     {
+        while (!PhotonManager.instance.AllhasTag("InLobby")) yield return null;
         PhotonManager.instance.SetTag("loadScene",true);
         while (!PhotonManager.instance.AllhasTag("loadScene")) yield return null;
 
