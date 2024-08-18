@@ -800,6 +800,7 @@ MonoBehaviour:
   soundPlayer:
   - {fileID: 1535480161217512112}
   - {fileID: 1067021731285258320}
+  _curState: 0
 --- !u!114 &492108825496574832
 MonoBehaviour:
   m_ObjectHideFlags: 0
