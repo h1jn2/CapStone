@@ -61,7 +61,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         this._isDie = true;
         GameManager.instance.AlivePlayerCnt--; //공격시 생존인원  변수 감소
         GameManager.instance.check_clear();
-        this.GetComponent<CharacterController>().enabled = false; // 플레이어 맵에 존재하면 순찰 경로로 변경이 안 돼서 일단 이렇게 해놔씀
+        //this.GetComponent<CharacterController>().enabled = false; // 플레이어 맵에 존재하면 순찰 경로로 변경이 안 돼서 일단 이렇게 해놔씀
     }
 
     public void OnRespone()
@@ -69,7 +69,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         this._isDie = false;
         GameManager.instance.AlivePlayerCnt++; //공격시 생존인원  변수 감소
         GameManager.instance.check_clear();
-        this.GetComponent<CharacterController>().enabled = true; // 플레이어 맵에 존재하면 순찰 경로로 변경이 안 돼서 일단 이렇게 해놔씀
+        //this.GetComponent<CharacterController>().enabled = true; // 플레이어 맵에 존재하면 순찰 경로로 변경이 안 돼서 일단 이렇게 해놔씀
     }
     public void Die()
     {

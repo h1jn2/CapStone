@@ -160,6 +160,9 @@ public class PlayerControl : MonoBehaviourPun
                             SoundManager.instance.PlaySound("Item", false, soundPlayer);
                             cpv.RPC("DestroyItem_RPC", RpcTarget.All);
                             break;
+                        case PlayerRaycast.HitObject.Player:
+                            Debug.Log("ㅂㅜㅎㅗㅏㄹ");
+                            break;
                     }
                 }
             }

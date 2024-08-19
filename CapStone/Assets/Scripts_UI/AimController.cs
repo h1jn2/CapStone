@@ -6,6 +6,7 @@ public class AimController : MonoBehaviour
     public GameObject aimImage; // �̹��� GameObject
     public float raycastDistance = 100f; // ����ĳ��Ʈ �Ÿ�
     public float activationDistance = 7f; // �̹��� Ȱ��ȭ �Ÿ�
+    private PlayerManager pm;
 
     void Update()
     {
@@ -14,6 +15,10 @@ public class AimController : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, raycastDistance))
         {
+            if (hit.collider.GetComponent<PlayerManager>() != null)
+            {
+                pm = hit.collider.GetComponent<PlayerManager>();
+            }
             if (hit.collider.CompareTag("Cabinet") || hit.collider.CompareTag("Item") || hit.collider.CompareTag("Door") || hit.collider.CompareTag("DoubleDoor")) // ī�޶� �ʿ� �ִ� 3D ������Ʈ�� �Ĵٺ��� �ִ��� Ȯ�� //tag : door, item, cabinet�߰� 04.23
             {
                 // ������Ʈ�� �÷��̾� ���� �Ÿ� ���
@@ -31,6 +36,19 @@ public class AimController : MonoBehaviour
             else
             {
                 aimImage.SetActive(false); // �ٸ� ������Ʈ�� �Ĵٺ��� �ִٸ� �̹��� ��Ȱ��ȭ
+            }
+            if (hit.collider.CompareTag("Player") && pm._isDie)
+            {
+                float distance = Vector3.Distance(hit.collider.transform.position, mainCamera.transform.position);
+
+                if (distance <= activationDistance) // �÷��̾�� ������Ʈ ���� �Ÿ��� activationDistance �̳��� ��
+                {
+                    aimImage.SetActive(true); // �̹��� Ȱ��ȭ
+                }
+                else
+                {
+                    aimImage.SetActive(false); // �÷��̾�� ������Ʈ ���� �Ÿ��� activationDistance���� Ŭ �� �̹��� ��Ȱ��ȭ
+                }
             }
         }
         else

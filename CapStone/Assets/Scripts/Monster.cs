@@ -220,8 +220,11 @@ public class Monster : MonoBehaviourPun
                     }
                 }
 
-                nvAgent.SetDestination(short_enemy.transform.position);
-                navDistance = Vector3.Distance(this.transform.position, short_enemy.transform.position);
+                if (!short_enemy.GetComponent<PlayerManager>()._isDie)
+                {
+                    nvAgent.SetDestination(short_enemy.transform.position);
+                    navDistance = Vector3.Distance(this.transform.position, short_enemy.transform.position);
+                }
                 yield return null;
             }
             else
