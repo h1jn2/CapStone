@@ -175,13 +175,15 @@ public class PlayerControl : MonoBehaviourPun
                     switch (hitObject)
                     {
                         case PlayerRaycast.HitObject.Player:
-                            revivalTime += Time.deltaTime;
-                            Debug.Log(revivalTime) ;
+                            
                             if (revivalTime > 8f)
                             {
-                                Debug.Log("isdie");
                                 collider.GetComponent<PlayerManager>()._isDie = false;
 
+                            }
+                            else
+                            {
+                                revivalTime += Time.deltaTime;
                             }
                             break;
                     }

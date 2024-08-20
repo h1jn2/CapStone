@@ -127,8 +127,8 @@ public class CabinetManager : MonoBehaviourPunCallbacks
             }
 
             Debug.Log("Player entering the cabinet");
-            player.transform.position = cabinet.transform.position;
-            player.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            player.transform.position = new Vector3(cabinet.transform.position.x, cabinet.transform.position.y-0.5f, cabinet.transform.position.z);
+            player.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
             CabinetCamera.SetActive(true);
             playerController.enabled = false;
             playerControl.enabled = false;

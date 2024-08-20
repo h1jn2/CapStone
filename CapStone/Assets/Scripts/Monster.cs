@@ -187,7 +187,7 @@ public class Monster : MonoBehaviourPun
                 yield return new WaitUntil(() => short_enemy == null);
             }
 
-            if (navDistance < arrivalDist)
+            if (navDistance < arrivalDist || nvAgent.velocity == Vector3.zero)
             {
                 targetWayPoint = wayPoints[Random.Range(0, 8)];
                 nvAgent.SetDestination(targetWayPoint);
