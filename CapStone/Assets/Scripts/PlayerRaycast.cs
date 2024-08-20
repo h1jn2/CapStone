@@ -11,6 +11,7 @@ public class PlayerRaycast : MonoBehaviour
         DoubleDoor,
         Cabinet,
         Item,
+        Player,
 
     }
     //최적화를 위해 const로 문자열 선언
@@ -18,6 +19,8 @@ public class PlayerRaycast : MonoBehaviour
     private const string str_DoubleDoor = "DoubleDoor";
     private const string str_Cabinet = "Cabinet";
     private const string str_Item = "Item";
+    private const string str_Player = "Player";
+
 
     //캐비넷 검출을 위한 예비 함수
     public void OnEnter_Space()
@@ -49,6 +52,10 @@ public class PlayerRaycast : MonoBehaviour
             if (hit.collider.CompareTag(str_Item))
             {
                 return HitObject.Item;
+            }
+            if (hit.collider.CompareTag(str_Player))
+            {
+                return HitObject.Player;
             }
         }
 
