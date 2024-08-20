@@ -41,7 +41,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         {
             this.gameObject.name += "(OtherPlayer)";
             ChangeLayerRecursively(this.gameObject,0);
-            playerCamera.SetActive(false);
+            //playerCamera.SetActive(false);
         }
     }   
 
