@@ -142,42 +142,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         }
         LoadingManager.LoadScene("Lobby");
     }
-    // 아이템 스폰
-    private void Spawn_item()
-    {
-        int[] spawn = new int[5];
-        
-        for (int i = 0; i < 5; i++)
-        {
-            spawn[i] = Random.Range(0, 10); // 랜덤 스폰 인덱스 생성
-            for (int j = 0; j < i; j++)
-            {
-                if (spawn[i] == spawn[j])
-                {
-                    spawn[i] = Random.Range(0, 10); // 중복 방지
-                    Debug.LogWarning(spawn[i]);
-                    j = 0;
-                }
-            }
-            Debug.Log(spawn[i]);
-        }
-            
-        for (int i = 0; i < 5; i++)
-        {
-            int result = spawn[i];
-            Debug.LogError(result);
-            PhotonNetwork.Instantiate(list_Prefabs[2].name, list_ItemSpawnPoints[result].position, Quaternion.identity); // 아이템 프리팹 생성
-        }
-    }
-
-    // 몬스터 스폰
-    private void Spawn_monster()
-    {
-        int spawn;
-        spawn = Random.Range(0, 4); // 랜덤 스폰 인덱스 생성
-        Debug.LogError("몬스터 스폰위치: " + spawn);
-        PhotonNetwork.Instantiate(list_Prefabs[3].name, list_MosterSpawnPoints[spawn].position, Quaternion.identity); // 몬스터 프리팹 생성
-    }
 
     public bool CheckRoomNameCreate(string input)
     {
@@ -284,14 +248,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public void btn_CreateOrJoin(string RoomName)
     {
             JoinRoom(RoomName);
-    }
-    public void btn_click_StageStart()
-    {
-        if (PhotonNetwork.IsMasterClient && (GameManager.instance._currentStatus == GameManager.Status._ready))
-        {
-            Spawn_item(); // 아이템 스폰
-            Spawn_monster(); // 몬스터 스폰
-        }
     }
     public void btn_woman1()
     {

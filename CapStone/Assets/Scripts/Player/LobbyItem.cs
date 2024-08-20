@@ -11,6 +11,7 @@ public class LobbyItem : MonoBehaviour
 {
     public TMP_Text ItemNickname;
     public Image IsAdmin;
+    public Button IsKick;
     private LobbyManager LobbyManager;
     public PhotonView pv;
     private string Nickname; 
@@ -53,6 +54,15 @@ public class LobbyItem : MonoBehaviour
         else
         {
             IsAdmin.gameObject.SetActive(false);
+        }
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if(pv.IsMine)IsKick.gameObject.SetActive(false);
+        }
+        else
+        {
+            IsKick.gameObject.SetActive(false);    
         }
 
         for (int i = 0; i < 4; i++)

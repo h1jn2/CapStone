@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public int PlayerCnt;
     public int ItemCnt;
     public int AlivePlayerCnt;
+    public  List<GameObject> PlayerCameras;
 
     public static event Action OnStartGame;
 

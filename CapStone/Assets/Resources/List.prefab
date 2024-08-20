@@ -215,6 +215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemNickname: {fileID: 1237399128892776487}
   IsAdmin: {fileID: 3189420189800471756}
+  IsKick: {fileID: 2346378991354594825}
   pv: {fileID: 0}
 --- !u!114 &5821710159036135695
 MonoBehaviour:

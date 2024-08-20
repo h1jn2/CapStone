@@ -31,8 +31,8 @@ public class SponeManager : MonoBehaviour
         
         while (!PhotonManager.instance.AllhasTag("loadPlayer")) yield return null;
         
-        //ChangeStatus_RPC(GameManager.Status._playing);
-        //if(PhotonNetwork.IsMasterClient)GameManager.instance.StartGame();
+        ChangeStatus_RPC(GameManager.Status._playing);
+        if(PhotonNetwork.IsMasterClient)GameManager.instance.StartGame();
     }
     public static void Spawn_item()
     {
