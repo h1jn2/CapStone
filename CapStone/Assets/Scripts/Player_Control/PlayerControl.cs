@@ -44,7 +44,9 @@ public class PlayerControl : MonoBehaviourPun
     private AudioSource[] soundPlayer;
     private bool isChangeState;
 
-    private enum State
+    private float revivalTime;
+
+    public enum State
     {
         Moving,
         Running,
@@ -160,11 +162,34 @@ public class PlayerControl : MonoBehaviourPun
                             SoundManager.instance.PlaySound("Item", false, soundPlayer);
                             cpv.RPC("DestroyItem_RPC", RpcTarget.All);
                             break;
+                    }
+                }
+            }
+            if (Input.GetKey(KeyCode.F))
+            {
+                Collider collider;
+                PlayerRaycast.HitObject hitObject = raycaster.OnEnter_F(out collider);
+
+                if (hitObject != PlayerRaycast.HitObject.NotValid && collider != null && photonView.IsMine)
+                {
+                    switch (hitObject)
+                    {
                         case PlayerRaycast.HitObject.Player:
-                            Debug.Log("ㅂㅜㅎㅗㅏㄹ");
+                            revivalTime += Time.deltaTime;
+                            Debug.Log(revivalTime) ;
+                            if (revivalTime > 8f)
+                            {
+                                Debug.Log("isdie");
+                                collider.GetComponent<PlayerManager>()._isDie = false;
+
+                            }
                             break;
                     }
                 }
+            }
+            if (Input.GetKeyUp(KeyCode.F))
+            {
+                revivalTime = 0;
             }
         }
     }
