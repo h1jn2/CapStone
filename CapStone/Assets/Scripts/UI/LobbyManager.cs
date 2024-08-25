@@ -25,8 +25,16 @@ public class LobbyManager : MonoBehaviour
         if (PhotonNetwork.IsMasterClient)
         {
             LoadingManager.sceanOp = null;
-            PhotonNetwork.DestroyAll();
-            PhotonManager.instance.Ingame();
+            StartCoroutine(DestroyLobby());
         }
     }
+
+    IEnumerator DestroyLobby()
+    {
+        PhotonNetwork.DestroyAll();
+        while (!PhotonManager.instance.AllhasTag("InLobby")) yield return null;
+        PhotonManager.instance.Ingame();
+        PhotonNetwork.IsMessageQueueRunning = false;
+    }
+        
 }

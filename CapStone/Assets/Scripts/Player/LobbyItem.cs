@@ -88,5 +88,6 @@ public class LobbyItem : MonoBehaviour
     void OnDestroy()
     {
         PhotonManager.instance.SetTag("InLobby", true);
+        Debug.Log("로비이탈");
     }
 }

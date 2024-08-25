@@ -181,7 +181,6 @@ public class PlayerControl : MonoBehaviourPun
                             {
                                 Debug.Log("isdie");
                                 collider.GetComponent<PlayerManager>()._isDie = false;
-
                             }
                             break;
                     }
@@ -195,10 +194,7 @@ public class PlayerControl : MonoBehaviourPun
     }
     private void LateUpdate()
     {
-        if (punview.IsMine)
-        {
             CameraControl();
-        }
     }
 
     private void ChangeState(State newState)
@@ -226,7 +222,7 @@ public class PlayerControl : MonoBehaviourPun
 
     private void CameraControl()
     {
-        if (punview.IsMine)
+        if (punview.IsMine && !this.gameObject.GetComponent<PlayerManager>()._isDie)
         {
             PlayerCamera.transform.position = head.transform.position;
 
