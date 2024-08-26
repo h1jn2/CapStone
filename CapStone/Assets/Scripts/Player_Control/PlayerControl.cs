@@ -71,6 +71,10 @@ public class PlayerControl : MonoBehaviourPun
     public void Update()
     {
         UpdateAnimations();
+        if (this.GetComponent<PlayerManager>()._isDie)
+        {
+            ChangeState(State.Dead);
+        }
         if (punview.IsMine && !this.GetComponent<PlayerManager>()._isDie)
         {
             Control();
@@ -87,11 +91,6 @@ public class PlayerControl : MonoBehaviourPun
                     {
                         ChangeState(State.Idle);
                     }
-
-                    if (this.GetComponent<PlayerManager>()._isDie)
-                    {
-                        ChangeState(State.Dead);
-                    }
                     break;
 
                 case State.Running:
@@ -106,14 +105,13 @@ public class PlayerControl : MonoBehaviourPun
                             ChangeState(State.Idle);
                         }
                     }
-                    if (this.GetComponent<PlayerManager>()._isDie)
-                    {
-                        ChangeState(State.Dead);
-                    }
                     break;
 
                 case State.Dead:
-                    StopAllCoroutines();
+                    if (!GetComponent<PlayerManager>()._isDie)
+                    {
+                        ChangeState(State.Idle);
+                    }
                     break;
 
                 case State.Idle:
@@ -127,10 +125,6 @@ public class PlayerControl : MonoBehaviourPun
                         {
                             ChangeState(State.Moving);
                         }
-                    }
-                    if (this.GetComponent<PlayerManager>()._isDie)
-                    {
-                        ChangeState(State.Dead);
                     }
                     break;
             }
@@ -178,7 +172,7 @@ public class PlayerControl : MonoBehaviourPun
                             
                             if (revivalTime > 8f)
                             {
-                                collider.GetComponent<PlayerManager>()._isDie = false;
+                                collider.GetComponent<PlayerNetwork>().RevivalUpdate();
 
                             }
                             else

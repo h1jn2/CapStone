@@ -41,6 +41,11 @@ public class PlayerNetwork : MonoBehaviourPun
     {
         pv.RPC("OnDameged_RPC", RpcTarget.AllBuffered, 100f, pv.ViewID);
     }
+
+    public void RevivalUpdate()
+    {
+        pv.RPC("Revival_RPC", RpcTarget.All);
+    }
     #region Photon RPC
     [PunRPC]
     public void ChangeStatus_RPC(GameManager.Status sendStatus)
@@ -66,6 +71,15 @@ public class PlayerNetwork : MonoBehaviourPun
             }
         }
     }
-    
+
     #endregion
+
+    [PunRPC]
+    public void Revival_RPC()
+    {
+        GameManager.instance.AlivePlayerCnt++;
+        
+        GetComponent<PlayerManager>()._isDie = false;
+        
+    }
 }
