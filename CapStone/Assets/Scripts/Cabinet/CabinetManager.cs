@@ -46,9 +46,7 @@ public class CabinetManager : MonoBehaviourPunCallbacks
                 playerController = player.GetComponent<CharacterController>();
                 playerControl = player.GetComponent<PlayerControl>();
                 playerAnimator = player.GetComponent<Animator>();
-                Debug.Log("Player found and components initialized");
             }
-
             yield return new WaitForSeconds(0.5f);
         }
     }

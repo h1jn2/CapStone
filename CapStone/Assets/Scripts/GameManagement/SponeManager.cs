@@ -17,8 +17,8 @@ public class SponeManager : MonoBehaviour
 
     IEnumerator Loading()
     {
-        while (!PhotonManager.instance.AllhasTag("InLobby")) yield return null;
-        PhotonManager.instance.SetTag("loadScene",true);
+        PhotonNetwork.IsMessageQueueRunning = true;
+        if(LoadingManager.sceanOp.isDone)PhotonManager.instance.SetTag("loadScene",true);
         while (!PhotonManager.instance.AllhasTag("loadScene")) yield return null;
 
         if(PhotonNetwork.IsMasterClient)
@@ -46,7 +46,6 @@ public class SponeManager : MonoBehaviour
                 if (spawn[i] == spawn[j])
                 {
                     spawn[i] = Random.Range(0, 10); // 중복 방지
-                    Debug.LogWarning(spawn[i]);
                     j = 0;
                 }
             }
@@ -56,7 +55,6 @@ public class SponeManager : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             int result = spawn[i];
-            Debug.LogError(result);
             PhotonNetwork.Instantiate( PhotonManager.instance.list_Prefabs[2].name, PhotonManager.instance.list_ItemSpawnPoints[result].position, Quaternion.identity); // 아이템 프리팹 생성
         }
     }
@@ -66,7 +64,6 @@ public class SponeManager : MonoBehaviour
     {
         int spawn;
         spawn = Random.Range(0, 4); // 랜덤 스폰 인덱스 생성
-        Debug.LogError("몬스터 스폰위치: " + spawn);
         PhotonNetwork.Instantiate(PhotonManager.instance.list_Prefabs[3].name, PhotonManager.instance.list_MosterSpawnPoints[spawn].position, Quaternion.identity); // 몬스터 프리팹 생성
     }
     private void LoadArea()

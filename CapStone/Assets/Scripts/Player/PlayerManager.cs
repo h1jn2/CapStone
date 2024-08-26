@@ -75,4 +75,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     {
         OnPlayerdied?.Invoke();
     }
+
+    public void Respone()
+    {
+        OnPlayerRespone.Invoke();
+    }
 }
