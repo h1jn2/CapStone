@@ -13,18 +13,30 @@ public class PlayerCamera : MonoBehaviour
 
     void Start()
     {
+        pm = this.gameObject.GetComponent<PlayerManager>();
         pv = this.gameObject.GetComponent<PhotonView>();
         if (!pv.IsMine)
             playerCamera.SetActive(false);
 
         GameManager.instance.PlayerCameras.Add(playerCamera);
-        Debug.Log(GameManager.instance.PlayerCameras);
         playerindex = 0;
     }
 
     private void Update()
     {
-        
+        if (pm._isDie && pv.IsMine)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {   
+                Debug.Log("관전");
+                Debug.Log(playerindex);
+                Debug.Log(PhotonNetwork.CountOfPlayers);
+                GameManager.instance.PlayerCameras[playerindex].gameObject.SetActive(false);
+                if ((playerindex+1) == PhotonNetwork.CountOfPlayers) playerindex = 0;
+                else playerindex++;
+                GameManager.instance.PlayerCameras[playerindex].gameObject.SetActive(true);
+            }
+        }
 
     }
 
