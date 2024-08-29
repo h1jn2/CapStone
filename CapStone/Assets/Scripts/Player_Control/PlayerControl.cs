@@ -46,6 +46,7 @@ public class PlayerControl : MonoBehaviourPun
 
     private float revivalTime;
     private GameObject filled_F;
+    private bool isRevival;
 
     public enum State
     {
@@ -175,8 +176,9 @@ public class PlayerControl : MonoBehaviourPun
                         case PlayerRaycast.HitObject.Player:
                             if (collider.GetComponent<PlayerManager>()._isDie)
                                 filled_F.GetComponent<Image>().fillAmount = revivalTime / 8;
-                            if (revivalTime > 8f)
+                            if (revivalTime > 8f && !isRevival)
                             {
+                                isRevival = true;
                                 collider.GetComponent<PlayerNetwork>().RevivalUpdate();
                             }
                             else
@@ -189,6 +191,7 @@ public class PlayerControl : MonoBehaviourPun
             }
             if (Input.GetKeyUp(KeyCode.F))
             {
+                isRevival = false;
                 revivalTime = 0;
             }
         }

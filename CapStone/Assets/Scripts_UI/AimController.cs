@@ -56,7 +56,7 @@ public class AimController : MonoBehaviour
 
                 }
             }
-            else
+            else if (hit.collider.CompareTag("Player") && !pm._isDie)
             {
                 aimImage.SetActive(false); // �÷��̾�� ������Ʈ ���� �Ÿ��� activationDistance���� Ŭ �� �̹��� ��Ȱ��ȭ
                 aimFilledImage.SetActive(false);
