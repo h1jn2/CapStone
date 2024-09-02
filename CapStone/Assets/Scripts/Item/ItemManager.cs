@@ -10,6 +10,12 @@ public class ItemManager : MonoBehaviour
     void Start()
     {
         pv = this.gameObject.GetComponent<PhotonView>();
+        transform.Rotate(new Vector3(20, 0, 0));
+    }
+
+    private void Update()
+    {
+        transform.Rotate(new Vector3(0, 90, 0) * Time.deltaTime);
     }
 
     [PunRPC]

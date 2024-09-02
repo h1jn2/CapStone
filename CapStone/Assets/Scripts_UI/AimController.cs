@@ -5,7 +5,7 @@ public class AimController : MonoBehaviour
     public Camera mainCamera; // ī�޶� GameObject
     public GameObject aimImage; // �̹��� GameObject
     public GameObject aimFilledImage;
-    public float raycastDistance = 100f; // ����ĳ��Ʈ �Ÿ�
+    public float raycastDistance = 10f; // ����ĳ��Ʈ �Ÿ�
     public float activationDistance = 7f; // �̹��� Ȱ��ȭ �Ÿ�
     private PlayerManager pm;
 
