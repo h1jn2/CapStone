@@ -45,6 +45,7 @@ public class PlayerNetwork : MonoBehaviourPun
     public void RevivalUpdate()
     {
         pv.RPC("Revival_RPC", RpcTarget.All);
+        pv.RPC("ResetCamera",RpcTarget.AllBuffered);
     }
     #region Photon RPC
     [PunRPC]
@@ -82,4 +83,19 @@ public class PlayerNetwork : MonoBehaviourPun
         GetComponent<PlayerManager>()._isDie = false;
         
     }
+
+    [PunRPC]
+    public void ResetCamera()
+    {
+        if (pv.IsMine)
+        {
+            for (int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
+            {
+                GameManager.instance.PlayerCameras[i].gameObject.SetActive(false);
+            }
+
+            this.gameObject.GetComponent<PlayerCamera>().InitCamera();
+        }
+    }
+    
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311924, g: 0.38073963, b: 0.3587269, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1588,7 +1588,8 @@ PrefabInstance:
       value: Set2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8620757610531521755, guid: b65ffeaee34354f88a7213fbf8e12d90, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1073765774021250022, guid: b65ffeaee34354f88a7213fbf8e12d90, type: 3}
       insertIndex: -1
@@ -12375,6 +12376,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Set2
       objectReference: {fileID: 0}
+    - target: {fileID: 6295140083979564933, guid: b65ffeaee34354f88a7213fbf8e12d90, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 188.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -13001,7 +13006,7 @@ MonoBehaviour:
   m_UpdateMethod: 2
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
-    m_Style: 1
+    m_Style: 0
     m_Time: 2
     m_CustomCurve:
       serializedVersion: 2
@@ -17067,7 +17072,7 @@ Transform:
   m_GameObject: {fileID: 1265203590}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 48.1, y: -10.09, z: 20.599998}
+  m_LocalPosition: {x: 48.1, y: -10.11, z: 20.599998}
   m_LocalScale: {x: 140, y: 1, z: 80}
   m_ConstrainProportionsScale: 0
   m_Children: []
