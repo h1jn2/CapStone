@@ -4,6 +4,7 @@ public class AimController : MonoBehaviour
 {
     public Camera mainCamera; // ī�޶� GameObject
     public GameObject aimImage; // �̹��� GameObject
+    public GameObject aimFilledImage;
     public float raycastDistance = 100f; // ����ĳ��Ʈ �Ÿ�
     public float activationDistance = 7f; // �̹��� Ȱ��ȭ �Ÿ�
     private PlayerManager pm;
@@ -27,10 +28,12 @@ public class AimController : MonoBehaviour
                 if (distance <= activationDistance) // �÷��̾�� ������Ʈ ���� �Ÿ��� activationDistance �̳��� ��
                 {
                     aimImage.SetActive(true); // �̹��� Ȱ��ȭ
+                    aimFilledImage.SetActive(false);
                 }
                 else
                 {
                     aimImage.SetActive(false); // �÷��̾�� ������Ʈ ���� �Ÿ��� activationDistance���� Ŭ �� �̹��� ��Ȱ��ȭ
+                    aimFilledImage.SetActive(false);
                 }
             }
             else
@@ -44,16 +47,26 @@ public class AimController : MonoBehaviour
                 if (distance <= activationDistance) // �÷��̾�� ������Ʈ ���� �Ÿ��� activationDistance �̳��� ��
                 {
                     aimImage.SetActive(true); // �̹��� Ȱ��ȭ
+                    aimFilledImage.SetActive(true);
                 }
                 else
                 {
                     aimImage.SetActive(false); // �÷��̾�� ������Ʈ ���� �Ÿ��� activationDistance���� Ŭ �� �̹��� ��Ȱ��ȭ
+                    aimFilledImage.SetActive(false);
+
                 }
+            }
+            else if (hit.collider.CompareTag("Player") && !pm._isDie)
+            {
+                aimImage.SetActive(false); // �÷��̾�� ������Ʈ ���� �Ÿ��� activationDistance���� Ŭ �� �̹��� ��Ȱ��ȭ
+                aimFilledImage.SetActive(false);
+
             }
         }
         else
         {
             aimImage.SetActive(false); // �ƹ��͵� �Ĵٺ��� ���� �� �̹��� ��Ȱ��ȭ
+            aimFilledImage.SetActive(false);
         }
     }
 }

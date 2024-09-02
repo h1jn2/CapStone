@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerControl : MonoBehaviourPun
 {
@@ -42,9 +43,10 @@ public class PlayerControl : MonoBehaviourPun
 
     [SerializeField]
     private AudioSource[] soundPlayer;
-    private bool isChangeState;
 
     private float revivalTime;
+    private GameObject filled_F;
+    private bool isRevival;
 
     public enum State
     {
@@ -66,6 +68,7 @@ public class PlayerControl : MonoBehaviourPun
         animator = GetComponent<Animator>();
         punview = GetComponent<PhotonView>();
         cabinetManager = FindObjectOfType<CabinetManager>();
+
     }
 
     public void Update()
@@ -163,17 +166,20 @@ public class PlayerControl : MonoBehaviourPun
             {
                 Collider collider;
                 PlayerRaycast.HitObject hitObject = raycaster.OnEnter_F(out collider);
+                filled_F = GameObject.Find("IngameUi").transform.GetChild(0).gameObject.transform.GetChild(1).gameObject;
+                Debug.Log(filled_F);
 
                 if (hitObject != PlayerRaycast.HitObject.NotValid && collider != null && photonView.IsMine)
                 {
                     switch (hitObject)
                     {
                         case PlayerRaycast.HitObject.Player:
-                            
-                            if (revivalTime > 8f)
+                            if (collider.GetComponent<PlayerManager>()._isDie)
+                                filled_F.GetComponent<Image>().fillAmount = revivalTime / 8;
+                            if (revivalTime > 8f && !isRevival)
                             {
+                                isRevival = true;
                                 collider.GetComponent<PlayerNetwork>().RevivalUpdate();
-
                             }
                             else
                             {
@@ -185,6 +191,7 @@ public class PlayerControl : MonoBehaviourPun
             }
             if (Input.GetKeyUp(KeyCode.F))
             {
+                isRevival = false;
                 revivalTime = 0;
             }
         }
