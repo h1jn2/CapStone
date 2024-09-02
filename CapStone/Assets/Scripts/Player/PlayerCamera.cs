@@ -40,6 +40,11 @@ public class PlayerCamera : MonoBehaviour
 
     }
 
+    public void InitCamera()
+    {
+        playerCamera.gameObject.SetActive(true);
+    }
+
     public void ChangeCamera()
     {
         bool isChange=false;
