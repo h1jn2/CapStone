@@ -56,8 +56,7 @@ public class PlayerControl : MonoBehaviourPun
         Idle
     }
 
-    [SerializeField]
-    private State _curState;
+    public State _curState;
 
     private void Awake()
     {

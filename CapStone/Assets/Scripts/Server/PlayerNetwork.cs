@@ -79,7 +79,7 @@ public class PlayerNetwork : MonoBehaviourPun
     public void Revival_RPC()
     {
         GameManager.instance.AlivePlayerCnt++;
-        
+        GetComponent<PlayerControl>()._curState = PlayerControl.State.Idle;
         GetComponent<PlayerManager>()._isDie = false;
         
     }

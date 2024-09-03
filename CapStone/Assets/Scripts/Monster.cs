@@ -67,9 +67,21 @@ public class Monster : MonoBehaviourPun
     {
         colliders = Physics.OverlapSphere(transform.position, radius, layer);
 
-        if (colliders.Length != 0)
+        if (colliders.Length > 0 )
         {
+            float short_distance = Vector3.Distance(transform.position, colliders[0].transform.position);
             short_enemy = colliders[0];
+
+            foreach (Collider col in colliders)
+            {
+                float short_distance2 = Vector3.Distance(transform.position, col.transform.position);
+
+                if (short_distance > short_distance2)
+                {
+                    short_distance = short_distance2;
+                    short_enemy = col;
+                }
+            }
         }
 
         switch (_curState)
@@ -135,6 +147,10 @@ public class Monster : MonoBehaviourPun
 
         switch (_curState)
         {
+            case State.Idle:
+                anim.SetBool("isPatrol", false);
+                anim.SetBool("isChase", false);
+                break;
             case State.Patrol:
                 currentCoroutine = StartCoroutine(StartPatrol());
                 anim.SetBool("isPatrol", true);
@@ -164,7 +180,6 @@ public class Monster : MonoBehaviourPun
             {
                 return true;
             }
-            short_enemy = null;
             return false;
         }
         else
@@ -204,33 +219,16 @@ public class Monster : MonoBehaviourPun
 
         while (_curState == State.Chase)
         {
-            if (colliders.Length != 0)
-            {
-                float short_distance = Vector3.Distance(transform.position, colliders[0].transform.position);
-                short_enemy = colliders[0];
-
-                foreach (Collider col in colliders)
-                {
-                    float short_distance2 = Vector3.Distance(transform.position, col.transform.position);
-
-                    if (short_distance > short_distance2)
-                    {
-                        short_distance = short_distance2;
-                        short_enemy = col;
-                    }
-                }
-
-                if (!short_enemy.GetComponent<PlayerManager>()._isDie)
-                {
-                    nvAgent.SetDestination(short_enemy.transform.position);
-                    navDistance = Vector3.Distance(this.transform.position, short_enemy.transform.position);
-                }
-                yield return null;
-            }
-            else
+            if (colliders.Length == 0)
             {
                 yield return new WaitUntil(() => short_enemy != null);
             }
+            if (!short_enemy.GetComponent<PlayerManager>()._isDie)
+            {
+                nvAgent.SetDestination(short_enemy.transform.position);
+                navDistance = Vector3.Distance(this.transform.position, short_enemy.transform.position);
+            }
+            yield return null;
         }
     }
 
@@ -249,13 +247,13 @@ public class Monster : MonoBehaviourPun
                 GameManager.instance.check_clear();
                 short_enemy.gameObject.GetComponent<CharacterController>().enabled = false; // 플레이어 맵에 존재하면 순찰 경로로 변경이 안 돼서 일단 이렇게 해놔씀
                 */
-                short_enemy = null;
                 yield return new WaitForSeconds(5f) ;
             }
 
         }
         
     }
+
 
     private void OnDrawGizmos()
     {
