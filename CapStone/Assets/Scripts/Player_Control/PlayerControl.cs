@@ -192,6 +192,7 @@ public class PlayerControl : MonoBehaviourPun
             {
                 isRevival = false;
                 revivalTime = 0;
+                filled_F.GetComponent<Image>().fillAmount = 0;
             }
         }
     }
