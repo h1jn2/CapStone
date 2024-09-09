@@ -33,6 +33,8 @@ public class Monster : MonoBehaviourPun
     [SerializeField]
     private Animator anim;
 
+    private float time;
+
     private enum State
     {
         Patrol,
@@ -74,6 +76,8 @@ public class Monster : MonoBehaviourPun
 
             foreach (Collider col in colliders)
             {
+                if (col.GetComponent<PlayerManager>()._isDie)
+                    continue;
                 float short_distance2 = Vector3.Distance(transform.position, col.transform.position);
 
                 if (short_distance > short_distance2)
@@ -109,9 +113,11 @@ public class Monster : MonoBehaviourPun
                 break;
 
             case State.Attack:
-                if (!CanSeePlayer())
+                time += Time.deltaTime;
+                if (!CanSeePlayer() && time > 4)
                 {
                     ChangeState(State.Patrol);
+                    time = 0;
                 }
                 break;
 
@@ -150,11 +156,13 @@ public class Monster : MonoBehaviourPun
             case State.Idle:
                 anim.SetBool("isPatrol", false);
                 anim.SetBool("isChase", false);
+                anim.SetBool("isAttack", false);
                 break;
             case State.Patrol:
                 currentCoroutine = StartCoroutine(StartPatrol());
                 anim.SetBool("isPatrol", true);
                 anim.SetBool("isChase", false);
+                anim.SetBool("isAttack", false);
                 SoundManager.instance.StopSound(soundPlayer);
                 SoundManager.instance.PlaySound("FootStepNPC", true, soundPlayer);
                 break;
@@ -162,11 +170,13 @@ public class Monster : MonoBehaviourPun
                 currentCoroutine = StartCoroutine(chaseCoroutine);
                 anim.SetBool("isPatrol", false);
                 anim.SetBool("isChase", true);
+                anim.SetBool("isAttack", false);
                 SoundManager.instance.StopSound(soundPlayer);
                 SoundManager.instance.PlaySound("FootStepNPC", true, soundPlayer);
                 break;
             case State.Attack:
                 currentCoroutine = StartCoroutine(attackCoroutine);
+                anim.SetBool("isAttack", true);
                 SoundManager.instance.PlaySound("Hunting", false, soundPlayer);
                 break;
         }
