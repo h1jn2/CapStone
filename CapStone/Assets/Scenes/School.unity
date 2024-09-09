@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3731193, g: 0.3807401, b: 0.358727, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -22314,7 +22314,7 @@ GameObject:
   - component: {fileID: 1755249871}
   - component: {fileID: 1755249870}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: MainCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22401,7 +22401,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -25619,7 +25619,7 @@ PrefabInstance:
     - target: {fileID: 4534375162232426505, guid: acc3be64d24d0034780f7899a06ca005, type: 3}
       propertyPath: mainCamera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1755249872}
     - target: {fileID: 4928731186414093958, guid: acc3be64d24d0034780f7899a06ca005, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -27034,7 +27034,7 @@ MonoBehaviour:
   clearImage: {fileID: 2000304122}
   loseImage: {fileID: 2000304123}
   fadeDuration: 1
-  mainCamera: {fileID: 0}
+  mainCamera: {fileID: 1755249872}
   testClearButton: {fileID: 0}
   testLoseButton: {fileID: 0}
 --- !u!4 &2095665348
@@ -28143,6 +28143,7 @@ MeshCollider:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1755249873}
   - {fileID: 1619001280}
   - {fileID: 2012425572}
   - {fileID: 1798417132}
@@ -28179,4 +28180,3 @@ SceneRoots:
   - {fileID: 1984916168}
   - {fileID: 1841619599}
   - {fileID: 1751305156}
-  - {fileID: 1755249873}
