@@ -50,10 +50,8 @@ public class Monster : MonoBehaviourPun
     {
         monsterPv = this.gameObject.GetPhotonView();
         nvAgent = gameObject.GetComponent<NavMeshAgent>();
-        wayPoints = new[] { new Vector3(55, this.transform.position.y, 100), new Vector3(70, this.transform.position.y, 115),
-            new Vector3(70, this.transform.position.y, 67), new Vector3(76, this.transform.position.y, 119), new Vector3(19, this.transform.position.y, 105)
-        , new Vector3(19, this.transform.position.y, 100), new Vector3(-24, this.transform.position.y, 79), new Vector3(47, this.transform.position.y, 96)
-        , new Vector3(-33, this.transform.position.y, 138)};
+        wayPoints = new[] { new Vector3(70, this.transform.position.y, 115), new Vector3(19, this.transform.position.y, 105)
+        , new Vector3(19, this.transform.position.y, 100), new Vector3(47, this.transform.position.y, 96)};
         targetWayPoint = wayPoints[0];
     }
 
@@ -202,7 +200,7 @@ public class Monster : MonoBehaviourPun
     private IEnumerator StartPatrol()
     {
         Debug.Log("순찰 중");
-        nvAgent.SetDestination(wayPoints[Random.Range(0, 8)]);
+        nvAgent.SetDestination(wayPoints[Random.Range(0, 3)]);
         while (_curState == State.Patrol)
         {
             
@@ -214,7 +212,7 @@ public class Monster : MonoBehaviourPun
 
             if (navDistance < arrivalDist)
             {
-                targetWayPoint = wayPoints[Random.Range(0, 8)];
+                targetWayPoint = wayPoints[Random.Range(0, 3)];
                 nvAgent.SetDestination(targetWayPoint);
             }
 
