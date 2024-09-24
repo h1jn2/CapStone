@@ -17,6 +17,7 @@ public class CabinetManager : MonoBehaviourPunCallbacks
     private bool isInsideCabinet = false;
     private static Dictionary<int, bool> cabinetOccupancy = new Dictionary<int, bool>();
 
+
     [SerializeField]
     private AudioSource[] soundPlayer;
 
@@ -51,20 +52,14 @@ public class CabinetManager : MonoBehaviourPunCallbacks
         }
     }
 
-    private void Update()
+   private void Update()
     {
         if (punview.IsMine)
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
                 int cabinetID = cabinet.GetInstanceID();
-                if (IsPlayerNearCabinet() && !cabinetOccupancy[cabinetID])
-                {
-                    Debug.Log("Attempting to enter cabinet");
-                    SoundManager.instance.PlaySound("OpenCabinet", false, soundPlayer);
-                    ToggleHide();
-                }
-                else if (isInsideCabinet)
+                if (isInsideCabinet)
                 {
                     Debug.Log("Attempting to exit cabinet");
                     SoundManager.instance.PlaySound("CloseCabinet", false, soundPlayer);
@@ -139,6 +134,30 @@ public class CabinetManager : MonoBehaviourPunCallbacks
     }
 
     public void ToggleHide()
+    {
+        int cabinetID = cabinet.GetInstanceID();
+        if (punview.IsMine)
+        {
+            if (IsPlayerNearCabinet() && !cabinetOccupancy[cabinetID])
+            {
+                Debug.Log("Attempting to enter cabinet");
+                SoundManager.instance.PlaySound("OpenCabinet", false, soundPlayer);
+                Hide();
+            }
+            else if (isInsideCabinet)
+            {
+                Debug.Log("Attempting to exit cabinet");
+                SoundManager.instance.PlaySound("CloseCabinet", false, soundPlayer);
+                Hide();
+            }
+            else
+            {
+                Debug.Log("Cabinet is already occupied");
+            }
+        }
+        
+    }
+    private void Hide()
     {
         int cabinetID = cabinet.GetInstanceID();
         if (player != null)
