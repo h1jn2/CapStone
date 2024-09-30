@@ -12,7 +12,9 @@ public class Sound
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance = null;
-
+    private float steminaTime = 0f;
+    public bool isPlayerRun = false;
+    private AudioSource breathAudioSource;
     [SerializeField] Sound[] sounds;
 
     private void Awake()
@@ -27,6 +29,26 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (breathAudioSource != null && breathAudioSource.isPlaying)
+        {
+            if (isPlayerRun)
+            {
+                steminaTime += 0.1f * Time.deltaTime;
+                steminaTime = Mathf.Clamp(steminaTime, 0f, 1f);
+            }
+            else
+            {
+                steminaTime -= 0.1f * Time.deltaTime;
+                steminaTime = Mathf.Clamp(steminaTime, 0f, 1f);
+            }
+            breathAudioSource.volume = steminaTime;
+            Debug.Log(breathAudioSource.volume);
+        }
+        
+    }
+
     public void StopSound(AudioSource[] soundPlayer)
     {
         for (int j = 0; j < soundPlayer.Length; j++)
@@ -35,7 +57,12 @@ public class SoundManager : MonoBehaviour
             {
                 if (soundPlayer[j].clip.name.Equals("Hunting"))
                     return;
-                
+                if (soundPlayer[j].clip.name.Equals("Breath"))
+                {
+                    Debug.Log("stop");
+                    continue;
+                }
+                Debug.Log("stoop");
                 soundPlayer[j].Stop();
                 return;
             }
@@ -52,6 +79,9 @@ public class SoundManager : MonoBehaviour
                 {
                     if (!soundPlayer[j].isPlaying)
                     {
+                        if (_soundName.Equals("Breath"))
+                            breathAudioSource = soundPlayer[j];
+                        
                         soundPlayer[j].clip = sounds[i].clip;
                         soundPlayer[j].loop = isLoop;
                         soundPlayer[j].Play();

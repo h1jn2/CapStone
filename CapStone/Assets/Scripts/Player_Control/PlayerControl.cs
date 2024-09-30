@@ -212,17 +212,22 @@ public class PlayerControl : MonoBehaviourPun
         {
             case State.Moving:
                 SoundManager.instance.StopSound(soundPlayer);
+                SoundManager.instance.isPlayerRun = false;
                 SoundManager.instance.PlaySound("FootStepUser", true, soundPlayer);
                 break;
             case State.Running:
                 SoundManager.instance.StopSound(soundPlayer);
+                SoundManager.instance.isPlayerRun = true;
+                SoundManager.instance.PlaySound("Breath", true, soundPlayer);
                 SoundManager.instance.PlaySound("RunningFootStepUser", true, soundPlayer);
                 break;
             case State.Dead:
                 SoundManager.instance.StopSound(soundPlayer);
+                SoundManager.instance.isPlayerRun = false;
                 break;
             case State.Idle:
                 SoundManager.instance.StopSound(soundPlayer);
+                SoundManager.instance.isPlayerRun = false;
                 break;
         }
     }
