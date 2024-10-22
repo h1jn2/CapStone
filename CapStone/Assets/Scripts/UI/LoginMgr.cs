@@ -8,7 +8,8 @@ public class LoginMgr : MonoBehaviour
     public TMP_InputField idInputField;
     public TMP_InputField pwInputField;
     public GameObject warningPanel; // 경고창 GameObject
-    public WebLoginManager webLoginManager; // WebLoginManager 인스턴스
+    public WebSocketManager webLoginManager; // WebLoginManager 인스턴스
+    //public WebLoginManager webLoginManager; // WebLoginManager 인스턴스
 
     void Update()
     {
