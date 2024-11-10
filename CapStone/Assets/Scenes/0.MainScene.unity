@@ -438,7 +438,7 @@ PrefabInstance:
     - target: {fileID: 1148020145216205281, guid: 0a5ec79822dc6ef48996ee3708455e74, type: 3}
       propertyPath: webLoginManager
       value: 
-      objectReference: {fileID: 1155267775}
+      objectReference: {fileID: 563867619}
     - target: {fileID: 1594767091146579030, guid: 0a5ec79822dc6ef48996ee3708455e74, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -820,6 +820,51 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 105848728}
   m_SourcePrefab: {fileID: 100100000, guid: 0a5ec79822dc6ef48996ee3708455e74, type: 3}
+--- !u!1 &563867618
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 563867620}
+  - component: {fileID: 563867619}
+  m_Layer: 0
+  m_Name: WebsocketManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &563867619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 563867618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30c90f3c7e8e44a9ebf0b21f7bf06802, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LoginMgr: {fileID: 1928731781}
+--- !u!4 &563867620
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 563867618}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1360,3 +1405,4 @@ SceneRoots:
   - {fileID: 6872211803929356073}
   - {fileID: 229574059}
   - {fileID: 99236442}
+  - {fileID: 563867620}
