@@ -13,7 +13,7 @@ namespace Michsky.UI.Dark
                 canvasScaler = gameObject.GetComponent<CanvasScaler>();
         }
 
-        public void ScaleCanvas(int scale = 1080)
+        public void ScaleCanvas(int scale = 1920)
         {
             canvasScaler.referenceResolution = new Vector2(canvasScaler.referenceResolution.x, scale);
         }
