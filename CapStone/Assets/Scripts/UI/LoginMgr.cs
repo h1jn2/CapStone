@@ -1,4 +1,5 @@
 using System.Collections;
+using Michsky.UI.Dark;
 using UnityEngine;
 using TMPro;
 using Photon.Pun;
@@ -7,9 +8,10 @@ public class LoginMgr : MonoBehaviour
 {
     public TMP_InputField idInputField;
     public TMP_InputField pwInputField;
-    public GameObject warningPanel; // 경고창 GameObject
     public WebSocketManager webLoginManager; // WebLoginManager 인스턴스
-    //public WebLoginManager webLoginManager; // WebLoginManager 인스턴스
+
+    public ModalWindowManager WindowManager;
+    public MainPanelManager PanelManager;
 
     void Update()
     {
@@ -45,21 +47,24 @@ public class LoginMgr : MonoBehaviour
     private IEnumerator ShowWarningCoroutine(string message)
     {
         // 경고창 표시
-        warningPanel.SetActive(true);
-        warningPanel.GetComponentInChildren<TextMeshProUGUI>().text = message;
-
+        //warningPanel.SetActive(true);
+        //warningPanel.GetComponentInChildren<TextMeshProUGUI>().text = message;
+        WindowManager.ModalWindowIn();
         // 1.5초 후에 경고창 사라지도록 코루틴 시작
         yield return new WaitForSeconds(1.5f);
 
         // 경고창 숨기기
-        warningPanel.SetActive(false);
+        WindowManager.ModalWindowOut();
     }
 
     public void OnLoginSuccess(string userId)
     {
         Debug.Log("로그인 성공!");
+        PanelManager.OpenPanel("Home");
+        //WindowManager.ModalWindowIn();
         // 여기에 로그인 성공 후의 작업 추가
-        UIMgr.single.OpenTitle();
+        //UIMgr.single.OpenTitle();
+        
         PhotonNetwork.NickName = userId;
         GameManager.instance._currentStatus = GameManager.Status._login;
         LoginManager.isLogin = true;
