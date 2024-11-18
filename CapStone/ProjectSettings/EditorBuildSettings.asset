@@ -17,7 +17,19 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Lobby.unity
     guid: 8b479732297eb4cf19ef05f2358ce7dc
-  - enabled: 1
+  - enabled: 0
     path: Assets/Dark - Complete Horror UI/Scenes/Built-in/Main Menu (Desktop).unity
     guid: de5ae19c8302feb4cb3f2f4cf9a266d9
+  - enabled: 1
+    path: Assets/Scenes/Loading 1.unity
+    guid: 2c55cac96d6264ff0a9c40c7172fc8d2
+  - enabled: 1
+    path: Assets/Scenes/Lobby 1.unity
+    guid: 409f24fde7206495d9a639f75bf94b84
+  - enabled: 1
+    path: Assets/Scenes/Main Menu (Desktop).unity
+    guid: 7ca94e8d420d34292811bb8f9df006c7
+  - enabled: 0
+    path: Assets/Scenes/Main Menu (Desktop) 1.unity
+    guid: cebcdbcf5d9da482d91130c89e3e6a86
   m_configObjects: {}

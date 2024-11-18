@@ -10,17 +10,7 @@ public class RoomManager : MonoBehaviour
     public TMP_InputField InputJoinRoomName;
     public Image CreateWarning;
     public Image JoinWarning;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
     public void btn_click_Create()
     {
         string RoomName = InputCreateRoomName.text;
