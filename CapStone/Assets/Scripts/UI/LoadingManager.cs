@@ -22,7 +22,7 @@ public class LoadingManager : MonoBehaviour
     {
         sceanOp = null;
         nextScene = sceneName;
-        SceneManager.LoadScene("Loading");
+        SceneManager.LoadScene("Loading 1");
     }
 
     IEnumerator LoadScene()

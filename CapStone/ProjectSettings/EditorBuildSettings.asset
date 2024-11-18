@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/0.MainScene.unity
     guid: 283a342861f9dad44bca2e0aa96e3c20
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/School.unity
     guid: e09a4aba30af04443b47a6aa2306ba38
   - enabled: 0
@@ -26,10 +26,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Lobby 1.unity
     guid: 409f24fde7206495d9a639f75bf94b84
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Main Menu (Desktop).unity
     guid: 7ca94e8d420d34292811bb8f9df006c7
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Main Menu (Desktop) 1.unity
-    guid: cebcdbcf5d9da482d91130c89e3e6a86
+    guid: 0e99afe9e2f94456bba9c4be8d857b04
   m_configObjects: {}

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Michsky.UI.Dark;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,15 +9,15 @@ public class RoomManager : MonoBehaviour
 {
     public TMP_InputField InputCreateRoomName;
     public TMP_InputField InputJoinRoomName;
-    public Image CreateWarning;
-    public Image JoinWarning;
+    public ModalWindowManager CreateFail;
+    public ModalWindowManager JoinFail;
     
     public void btn_click_Create()
     {
         string RoomName = InputCreateRoomName.text;
         if (PhotonManager.is_CreateWarning)
         {
-            CreateWarning.gameObject.SetActive(false);
+            //CreateWarning.gameObject.SetActive(false);
             PhotonManager.is_CreateWarning = false;
         }
         else
@@ -38,7 +39,7 @@ public class RoomManager : MonoBehaviour
                 else
                 {
                     Debug.Log("방생성불가");
-                    CreateWarning.gameObject.SetActive(true);
+                    //CreateWarning.gameObject.SetActive(true);
                     PhotonManager.is_CreateWarning = true;
                 }
             }
@@ -50,7 +51,7 @@ public class RoomManager : MonoBehaviour
         string RoomName = InputJoinRoomName.text;
         if (PhotonManager.is_JoinWarning)
         {
-            JoinWarning.gameObject.SetActive(false);
+            //JoinWarning.gameObject.SetActive(false);
             PhotonManager.is_JoinWarning = false;
         }
         else
@@ -58,7 +59,7 @@ public class RoomManager : MonoBehaviour
             if (PhotonManager.instance.RoomInfos == null)
             {
                 Debug.Log("방참가불가");
-                CreateWarning.gameObject.SetActive(true);
+                //CreateWarning.gameObject.SetActive(true);
                 PhotonManager.is_JoinWarning = true;
             }
             else
@@ -71,7 +72,7 @@ public class RoomManager : MonoBehaviour
                 else
                 {
                     Debug.Log("방생성불가");
-                    JoinWarning.gameObject.SetActive(true);
+                    //JoinWarning.gameObject.SetActive(true);
                     PhotonManager.is_JoinWarning = true;
                 }
             }    

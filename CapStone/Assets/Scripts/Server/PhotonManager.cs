@@ -140,7 +140,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         {
             return;
         }
-        LoadingManager.LoadScene("Lobby");
+        LoadingManager.LoadScene("Lobby 1");
     }
 
     public bool CheckRoomNameCreate(string input)
